@@ -79,7 +79,7 @@ alias chanserv {cs $*;};
 alias nickserv {ns $*;};
 alias memoserv {ms $*;};
 ## Some stupid networks w/services requires messages
-alias mserv {msg memorserv $*;};
+alias mserv {msg memoserv $*;};
 alias nserv {msg nickserv $*;};
 alias cserv {msg chanserv $*;};
 
@@ -104,7 +104,7 @@ alias m {msg $*;};
 alias d {describe $*;};
 alias desc {describe $*;};
 alias j {/join $channame($0) $1-;};
-alias p {if (@) ping $*;};
+alias p {if (@) { ping $*; }{ ping $serverchan() }; };
 alias k {kick $*;};
 alias l {part $*;};
 alias host {//userhost $*;};
