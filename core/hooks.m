@@ -1,4 +1,4 @@
-# Copyright (c) 2003-2009 Amnesiac Software Project.
+# Copyright (c) 2003-2010 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 if (word(2 $loadinfo()) != [pf]) {
 	load -pf $word(1 $loadinfo());
@@ -14,18 +14,6 @@ on #-exit 000 "*" {
         xecho -v -b Signoff time :    $stime($time());
         xecho -v -b Total uptime :    $tdiff(${time() - F});
         xecho -v -b signoff: $N \($*\);
-};
-
-# This sets the group name to
-# the value set in the NETWORK= parameter passed to us in the 005 numeric.
-# (unless the user has specified a group himself)
-# Theoretically, these should be the same across the network.
-# initially obtained from the userlist script made by kitambi
-^on #-005 450 "*"
-{
-	@:cgroup = serverctl(GET -1 GROUP);
-	if ( cgroup == "<default>")
-		@serverctl(SET -1 GROUP $serverctl(GET -1 005 NETWORK));
 };
 
 ## catch the "user is away" message and only display it once. 
@@ -46,16 +34,7 @@ on ^301 "*"
 	@setitem(away_users_ts $itemno $time());
 };
 
-## notify hook.
-^on ^notify_signon * {
-	xecho -v $G SignOn by $0!$sar(g/@/@/$1-) at $Z;
-};
-
-^on ^notify_signoff * {
-	xecho -v $G SignOff by $0 at $Z;
-};
-
-## edit topic stuff from the epic5 source tree.. used for the /topic_input
+## edit topic stuff from the epic scripts.. used for /topic_input
 ## by kreca.
 alias edit_topic
 {
@@ -77,6 +56,7 @@ alias edit_topic
         stack pop on 332;
         stack pop on 333;
 };
+## end edit topic
 
 ## uptime hooks.
 on #-msg 22 * {@lrm=[$1-];@lrmn=[$0]};
@@ -92,7 +72,7 @@ alias uptime {
 	//echo Client Uptime: $tdiff2(${time() - F}) - PID: $pid(), PPID: $ppid();
 	//echo $info(c);
 	//echo Compile-time options: $info(o);
-	//echo Amnesiac release id: $a.rel;
+	//echo Amnesiac release/cvs id: $a.rel [cvs \($a.commitid\)];
 	//echo Amnesiac snap date: $a.snap;
 	//echo Last Recv Message: \($lrmn\) $lrm;
 	//echo Last Recv Notice: \($lrnn\) $lrn;
@@ -103,9 +83,42 @@ alias uptime {
 	//echo Current Servername: ${S};
 	//echo -----------------------------------------------------------------;
 };
+## end uptime functionality
 
-## umode hook
+## notify/signon cosmetics
+^on ^notify_signon * {
+	xecho -v $G SignOn by $0!$sar(g/@/@/$1-) on $strftime(%x at %X);
+};
 
+^on ^notify_signoff * {
+	xecho -v $G SignOff by $0 on $strftime(%x at %X);
+};
+## end notify/signon cosmetics
+
+## aliases/hooks for script version
+alias svf (void) {
+	if (@T)
+		msg $T $fparse(format_version_reply);
+};
+
+alias sv (void) {
+	if (@T)
+	        msg $T ircII $J \($V\) [$info(i)] $a.ver/$a.rel\
+		\($a.snap\) [cvs \($a.commitid\)];
+};
+
+alias supt (void) {
+	if (@T)
+		msg $T ircII $(J) \($V\) [$info(i)] client uptime: $tdiff2(${time() - F});
+};
+
+## version hook
+^on ^ctcp_request "% % VERSION *" {
+	^quote notice $0 :VERSION $fparse(format_version_reply) ${client_information} ;
+};
+## end version functionality
+
+## set umode on connect
 on #-connect 50 * {
 	if (!_pubnick) {
 		@_pubnick=N;
@@ -115,85 +128,23 @@ on #-connect 50 * {
 	_updatesbar;
         ^set quit_message $(J)[$info(i)] - $(a.ver) : $randread($(loadpath)reasons/quit.reasons);
 };
- 
-## server hooks.
-#connect notice.
-^on ^server_notice "% % % connect to*" {
-	abecho $fparse(format_timestamp_some $($_timess))$2-;
+
+## Deal with modes when they're not set
+^on ^324 "% % +" {
+	xecho -b Mode for channel $1 is not set;
 };
 
-^on ^server_notice "% % Processing connection*" {
-	abecho $fparse(format_timestamp_some $($_timess))$2-;
-};
+## Silence common IRC/Epic annoyances
 
-^on ^server_notice "% % Looking up your hostname*" {
-	abecho $fparse(format_timestamp_some $($_timess))$2-;
-};
- 
-^on ^server_notice "% % Checking Ident*" {
-	abecho $fparse(format_timestamp_some $($_timess))$2-;
-};
- 
-^on ^server_notice "% % Found your hostname*" {
-	abecho $fparse(format_timestamp_some $($_timess))$2-;
-};
- 
-^on ^server_notice "% % Got ident response*" {
-	abecho $fparse(format_timestamp_some $($_timess))$2-;
-};
-  
-^on ^server_notice "% % No Ident response*" {
-	abecho $fparse(format_timestamp_some $($_timess))$2-;
-};
-
-^on ^server_notice "% % Spoofing your*" {
-	abecho $fparse(format_timestamp_some $($_timess))$2-;
-};
-
-^on ^server_notice "% % You are exempt*" {
-	abecho $fparse(format_timestamp_some $($_timess))$2-;
-};
-
-^on ^server_notice "% % Your host is*" {
-	abecho $2-;
-};
-
-## disable certain servnumerics here.
 #/End of MOTD
 ^on ^376 * #;
 
 ## disable you've got mail!.
 ^on ^mail * #;
 
-## disable nonesential annoying ctcp's.
-^on ^raw_irc "% PRIVMSG % :FINGER*";
-^on ^raw_irc "% PRIVMSG % :CLIENTINFO*";
-^on ^raw_irc "% PRIVMSG % :SOUND*";
-^on ^raw_irc "% PRIVMSG % :ECHO*";
-^on ^raw_irc "% PRIVMSG % :MP3*";
-
-# Deal with modes when they're not set
-^on ^324 "% % +" {
-	xecho -b Mode for channel $1 is not set;
-};
-
-# Check for clones
-^on #-join 69 "*" {
-	if (clonecheck == 'on') {
-		@clonelist = '';
-		@userhost($1);	# Pre-seed the userhost cache
-		fe ($channel($1)) channick {
-			@nicklength = (strlen($channick) - 2);
-			@channick = right($nicklength $channick);
-			if (channick==[$0]) {
-				continue;
-			};
-			if (userhost($channick)==userhost()) {
-				@clonelist = "$channick $clonelist";
-			};
-		};
-		if (clonelist != '') {
-			xecho -b Clones of $0 detected: $clonelist;
-		};
-	};
-};
+## disable annoying ctcp's.
+^on ^ctcp_request "% % FINGER*";
+^on ^ctcp_request "% % CLIENTINFO*";
+^on ^ctcp_request "% % SOUND*";
+^on ^ctcp_request "% % ECHO*";
+^on ^ctcp_request "% % MP3*";

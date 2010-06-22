@@ -1,22 +1,24 @@
-# Copyright (c) 2003-2009 Amnesiac Software Project.
+# Copyright (c) 2003-2010 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 
-/* amnesiac by crapple, kreca and skullY
+/* amnesiac by crapple(zak), kreca and skullY
 pr0pz and thanks go to void!, xavier!, fudd, BlackJac, hop, criminal, krimson,
-violence, skullY, Alien88, kreca, adam, ryan, sirko, klepto, bioterror, psk
-curse, wicked, david and any others out there who have helped out.
+violence, skullY, Alien88, kreca, adam, ryan, sirko, klepto, david, wicked
+bioterror(mongoose), byron and any others out there who have helped out.
 */
 
 if (word(2 $loadinfo()) != [pf]) {
 	load -pf $word(1 $loadinfo());
 	return;
 };
+
 package amnesiac;
 
-if (word(0 $info(v)) != 'epic5' || V < 20080626 || info(i) < 1560) {
+if (word(0 $info(v)) != 'epic5' || V < 20100430 || info(i) < 1626) {
 	xecho -b Amnesiac has detected an old version of epic;
-	xecho -b Recommended version is epic5-1.0+;
-	return;
+	xecho -b Recommended version is epic5-1.1.1+;
+	xecho -b override check: comment check in amn.epic at own risk!;
+#	return;
 };
 
 ## dump all
@@ -46,7 +48,7 @@ for array in ($getarrays()) {
 @loadpath="$before(-1 / $word(1 $loadinfo()))/";
 
 ## supported modules
-@_modules='ncomp flood abot protect aol query away dict mjoin adcc oper relay relaysmtp remote tab tc userlist mmatrix vanilla xy nlog services urlgrab serverlist utf8';
+@_modules='ncomp abot aol query away dict mjoin oper relay relaysmtp remote tab tc userlist mmatrix vanilla nlog services urlgrab serverlist utf8 eoper elog';
 @_defaultmods='away dict relay tab';
 
 #progress bar
@@ -125,6 +127,8 @@ if (fexist($(savepath)$setsavefile)==1) {
    load $(savepath)$setsavefile;
 };
 
+# i do not see the setting in epic5 cvs for quite some time,
+# is it still in release? else we should remove this //zak
 ^set reverse_status_line off; ## We dont use this set any more
 
 ## XXX hack to make Xavier happy. If the environment variable IRCNAME is set
@@ -147,4 +151,4 @@ load $(loadpath)ans/startup.ans;
 # Im not sure why we need wait here, but we do :) //kreca
 wait;
 
-_center Amnesiac/$a.rel \($a.snap\) for $(J) \($V\) [$info(i)] loaded..;
+_center Amnesiac/$a.rel \($a.snap\) [cvs \($a.commitid\)] for $(J) \($V\) [$info(i)] loaded..;

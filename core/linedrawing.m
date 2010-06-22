@@ -1,4 +1,4 @@
-# Copyright (c) 2003-2008 Amnesiac Software Project.
+# Copyright (c) 2003-2010 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 # Thanks to hop for providing this script
 if (word(2 $loadinfo()) != [pf]) {
@@ -42,3 +42,16 @@ alias set_line_drawing (mode, void) {
 
 
 @set_line_drawing(0);
+
+## other stuff for terms
+
+alias ibm437 fixterm;
+alias fixterm {
+	xecho -r $chr(27)\(U;
+	parsekey REFRESH_SCREEN;
+};
+
+alias latin1 {
+	xecho -r $chr(27)\(B;
+	parsekey REFRESH_SCREEN;
+};

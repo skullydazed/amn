@@ -1,4 +1,4 @@
-# Copyright (c) 2003-2009 Amnesiac Software Project.
+# Copyright (c) 2003-2010 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 
 ## functions/aliases/partial sets/from scripts/builtins
@@ -13,7 +13,7 @@ subpackage compat;
 ## which was written by BlackJac, tho we try to use only what we really need
 ## parts have also been merged/rewritten to fit in with Amnesiac.
 ## Add his copyright here, to lessen the bloat in compat.m
-## Copyright (c) 2005 David B. Kratter (BlackJac@EFNet)
+## Copyright (c) 2005 (BlackJac@EFNet)
 
 alias addset (name, type, args) {
 	if (@name && type) {
@@ -71,6 +71,35 @@ alias igtype (pattern, void) {
 	};
 };
 
+alias rigmask (pattern, void) {
+	return $ignorectl(rpattern $pattern);
+};
+
+alias rigtype (...) {
+	return $ignorectl(with_type $*);
+};
+
+alias sedcrypt (encode, who, ...) {
+	if (!(:val = encryptparm(who))) {
+		return;
+	};
+	@ :key = word(1 $val);
+	if (encode == 1) {
+		return $xform(+SED $key $who $*);
+	} else if (encode == 0) {
+		return $xform(-SED $key $who $*);
+	};
+	return;
+};
+
+## Server/win handling compatability.
+alias servergroup (refnum default "$serverctl(from_server)", void) {
+	if (:group = serverctl(get $refnum group)) {
+		return $group;
+	};
+	return <default>;
+};
+
 alias servername (refnum default "$serverctl(from_server)", void) {
 	if (:name = serverctl(get $refnum itsname)) {
 		return $name;
@@ -87,6 +116,13 @@ alias servernum (refnum default "$serverctl(from_server)", void) {
 		return $num;
 	};
 	return -1;
+};
+
+alias serverourname (refnum default "$serverctl(from_server)", void) {
+	if (:ourname = serverctl(get $refnum name)) {
+		return $ourname;
+	};
+	return <none>;
 };
 
 alias servertype (refnum default "$serverctl(from_server)", void) {
@@ -165,7 +201,10 @@ alias winvisible (winnum default 0, void) {
 	return -1;
 };
 
-## misc aliases/to go with functs that common people use.
+## auto-whowas
+alias whowas (nick, number default "$num_of_whowas", void) {
+	//whowas $nick $number;                             
+};
 
 ## Auto_Rejoin
 ^on #-kick 1 '$$servernick() *' {

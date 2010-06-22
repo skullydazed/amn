@@ -1,4 +1,4 @@
-# Copyright (c) 2003-2009 Amnesiac Software Project. 
+# Copyright (c) 2003-2010 Amnesiac Software Project. 
 # See the 'COPYRIGHT' file for more information.     
 if (word(2 $loadinfo()) != [pf]) {
 	load -pf $word(1 $loadinfo());
@@ -34,7 +34,7 @@ alias switchtarget {
 ## CID stuff.
 ^bind ^[y parse_command {accept $pop(cidreq);};
 
-## home/end on some terms.
+## bind home/end on broken terms
 @ bindctl(sequence ^[[1~ set scroll_start);
 @ bindctl(sequence ^[[4~ set scroll_end);
 
@@ -63,7 +63,7 @@ alias switchtarget {
 
 @ bindctl(sequence meta1-a set ^swap_next_window);
 
-## some other kinda weird bindings for some terms/others
+## bind sequence for broken terms
 @ bindctl(sequence ^[^I set PARSE_COMMAND ^window next);
 @ bindctl(sequence ^[1 set PARSE_COMMAND ^window swap 1);
 @ bindctl(sequence ^[2 set PARSE_COMMAND ^window swap 2);
@@ -82,7 +82,7 @@ alias switchtarget {
 @ bindctl(function FORWARD_HISTORY create "history.get 1");
 @ bindctl(function SHOVE_TO_HISTORY create history.shove);
 @ bindctl(sequence ^U set erase_history);
-## history script func binds
+
 fe (N [OB [[B) hh {
         @ bindctl(sequence ^$hh set forward_history);
 };
@@ -90,3 +90,41 @@ fe (N [OB [[B) hh {
 fe (P [OA [[A) hh {
         @ bindctl(sequence ^$hh set backward_history);
 };
+## end history bind
+
+## fkey functionality
+alias fkeys {
+	//echo ----------------------------= function keys =-----------------------;
+	fe ($jot(1 12)) aa bb {
+		//echo $pad(3 " " f$aa) $([25]fke$aa)		| $pad(3 " " f$bb) $([25]fke$bb);
+	};
+	//echo;
+	//echo fkey <1-12> <command>;
+	//echo ---------------------------------------------------------------------;
+};
+
+alias fkey (key, command) {
+	if ( ! @key ) {
+		fkeys;
+	}{
+		if ( @command ) {
+			@ fke$key = command;
+			if (key < 6) {
+				@ bindctl(sequence ^[[${10+key}~ set parse_command $command);
+				@ bindctl(sequence ^[[[$chr(${64+key}) set parse_command $command);
+				@ bindctl(sequence ^[O$chr(${79+key}) set parse_command $command);
+			} else if (key < 11) {
+				@ bindctl(sequence ^[[${11+key}~ set parse_command $command);
+			}{
+				@ bindctl(sequence ^[[${12+key}~ set parse_command $command);
+			};
+		};
+		xecho -s $acban function key $key set to $(fke$key);
+	};
+};
+
+for (@aa=1, aa <= 12, @aa = aa +1 ) {
+	^fkey $aa $(fke$aa);
+};
+
+## end fkey functions.

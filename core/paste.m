@@ -1,9 +1,12 @@
-# Copyright (c) 2003-2009 Amnesiac Software Project.
+# Copyright (c) 2003-2010 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 # hops little paste script so you can paste shit without worrying about
 # commands....ctrl-p to toggle.. /set paste for some other shit.
 
-if (word(2 $loadinfo()) != [pf]) { load -pf $word(1 $loadinfo()); return; };
+if (word(2 $loadinfo()) != [pf]) {
+	load -pf $word(1 $loadinfo());
+	return;
+};
 
 # Uncomment this if you want a key binding.
 bind ^P parse_command { _pastetog; };

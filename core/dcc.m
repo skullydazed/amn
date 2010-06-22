@@ -1,4 +1,4 @@
-# Copyright (c) 2003-2009 Amnesiac Software Project.
+# Copyright (c) 2003-2010 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 if (word(2 $loadinfo()) != [pf]) {
 	load -pf $word(1 $loadinfo());
@@ -8,10 +8,8 @@ if (word(2 $loadinfo()) != [pf]) {
 subpackage dcc;
 
 ## binds.
-#@ bindctl(sequence ^[t set parse_command dcc chat $pop(dccchats))
-#@ bindctl(sequence ^[r set parse_command dcc close chat $pop(dccchats))
-^bind ^[t parse_command {dcc chat $pop(dccchats);};
-^bind ^[r parse_command {dcc close chat $pop(dccchats);};
+@ bindctl(sequence ^[t set parse_command {dcc chat $pop(dccchats)};);
+@ bindctl(sequence ^[r set parse_command {dcc close chat $pop(dccchats)};);
 @ bindctl(sequence ^T set parse_command _dcc.get);
 @ bindctl(sequence ^R set parse_command _dcc.reject);
 
@@ -22,7 +20,6 @@ alias dcx {dcc close chat $*;};
 alias dca dcc closeall;
 alias dcn {dcc close * $0;};
 alias dcr {dcc rename -chat $*;};
-alias dkill {dcn $*;};
 alias nochat {dcx $*;};
 alias chat {dcc chat $*;};
 alias send {dcc send $*;};
@@ -30,10 +27,7 @@ alias get {dcc get $*;};
 alias uldir {cd $*;};
 alias bchat {ctcp $* chat;};
 
-## config alias.
-alias autoget {dccag $*;};
-
-## hooks.
+## dcc bind hook
 on -dcc_request "% CHAT *" {
 	push dccchats $0;
 	xecho -b DCC $0 has sent a dcc chat request.;
@@ -44,7 +38,9 @@ on #-dcc_request 22 "% SEND*"  {
 	@dccnick = *0;
 	xecho -b press ctrl-T to accept file or ctrl-R to reject;
 };
+## end dcc bind
 
+## dcc auto-get toggle
 on #-dcc_request 23 "% SEND*"  {
 	@dccnick = *0;
 	@dccfile = *5;
@@ -71,6 +67,7 @@ alias config.dccag {
 	};
 };
 
+alias autoget {dccag $*;};
 alias dccag {
 	config.dccag -s $*;
 };
@@ -93,7 +90,7 @@ alias dcc_ports.nextport {
 };
 
 @dccctl(DEFAULT_PORT $$dcc_ports.nextport());
-
+## end dcc portrange
 ## dcc menu help.
 alias dcchelp {
         if (!@) {

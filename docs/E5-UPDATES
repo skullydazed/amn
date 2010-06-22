@@ -1,4 +1,254 @@
-EPIC5-1.0.1
+*** News 06/05/2010 -- New script: rejoin
+	Stores channel/key on disconnect/part/kick. I hope it's useful!
+
+	Allows you to rejoin all channels lost in a disconnect, by doing:
+	/rejoin -all OR /rejoin -server
+
+	See script for details. 
+
+EPIC5-1.1.2
+
+*** News 04/15/2010 -- New flags to $sar(), $msar(), case sensitivity
+	In EPIC4, $sar() and $msar() were case sensitive.
+	You could turn this off by using the 'i' flag.
+	In EPIC5, $sar() and $msar() are case *INSENSITIVE*
+	There has been no way to turn this off!
+	You can now turn this off with the 'c' flag.
+
+	Example:
+		$sar(g/One/Two/one One one One)   -> "Two Two Two Two"
+		$sar(cg/One/Two/one One one One/) -> "one Two one Two"
+
+*** News 04/15/2010 -- New /on, /on unknown_set
+	As a favor to howl, I've added /on unknown_set, which will be hooked
+	whenever /set is called on a set that doesn't exist.
+		$0  - The set that doesn't exist
+		$1- - The value the user wanted to set.
+	If you catch this, then the /on set that triggers for "unknown-set"
+	will not be thrown.  If you don't know what I'm talking about, then
+	you won't miss it.
+
+*** News 04/01/2010 -- Can now backslash colons in server passwords
+	Previously it was impossible to include colons in server passwords
+	because colons are delimiters in server descriptions.  Now you can 
+	backslash the colon and it will do the right thing.  Don't forget to
+	backslash your backslashes!
+
+		Real password		What you should use:
+		-------------------	---------------------
+		onetwothree		onetwothree
+		one:twothree		one\:twothree
+		one\two:three		one\\two\:three
+
+*** News 03/25/2010 -- Can now modify servers by refnum (Fix to server descs)
+	The /server command was broken in the epic5-1.1.1 release, and got 
+	some extra work for the next release.  As part of this work, you can 
+	now add change fields to a server refnum, like so:
+		/server 1:type=irc-ssl
+	Previously refering to a server refnum didn't support change fields.
+
+EPIC5-1.1.1
+
+*** News 3/19/2010 -- EPIC5-1.1.1 was released here
+
+*** News 3/19/2010 -- The last value of /WINDOW SERVER is saved per window
+	The last argument passed to /WINDOW SERVER is saved on a per-window
+	basis, via $windowctl(GET x SERVER_STRING).  I added this because
+	howl asked for it, although I don't know what he intended it for.
+
+*** News 3/19/2010 -- Modifying server descriptions on the fly
+	You may now modify server descriptions on the fly in the
+	following situations:
+		/SERVER -ADD <desc>
+		/SERVER -UPDATE <desc>
+		/SERVER <desc>
+		$serverctl(READ_FILE filename)
+		$serverctl(UPDATE refnum stuff)
+		/WINDOW SERVER <desc>
+	For example, let's say you created a server irc.foo.com, but
+	you forgot that it used SSL.  Before it was a pain to "fix" that,
+	but now you can fix it like this:
+
+		/SERVER -ADD irc.foo.com:8855
+	(oops, it uses ssl, i forgot!)
+		/SERVER irc.foo.com:type=irc-ssl
+	(aha! okie. now it will connect using ssl)
+	
+*** News 3/19/2010 -- You can log everything with /LOG SERVER ALL
+	If you create a log like:
+		/LOG NEW FILE myirc.log SERVER ALL ON
+	that will log everything.
+	Previously, you had to add each server individually by 
+	refnum, but now you can just use the magic string "ALL"
+	to refer to all servers.
+
+*** News 3/19/2010 -- Rewrite /log support
+	The /LOG command should work a lot better now.
+
+*** News 3/19/2010 -- New target to msg a window, @E<winref>
+	You can /echo to a window by /msg'ing its winref, as in:
+		/msg @E3 This message will display in window 3.
+
+*** News 3/19/2010 -- "global" now loads ambig and newnick scripts
+
+*** News 3/19/2010 -- New /XEVAL -N flag, which reverses the ^ flag
+	Normally if you run an alias or an on with ^, it will treat every 
+	command as though it were prefixed with ^.  This suppresses the 
+	output of many commands, which you may not want to do.  You can 
+	negate the effect of ^ with /XEVAL -N.  For example:
+		/on ^hook "chdir %" {
+			xeval -n {cd $1-}
+		}
+	Normally the /CD command will output an error if it could not
+	change the directory, but since ^ suppresses that error, in this
+	example, you'd never know that the cd failed.  So you can wrap 
+	commands whose error messages you want to see in /XEVAL -N.
+	Don't forget!  Always wrap your commands in {} to avoid unintended
+	back doors.
+
+*** News 3/19/2010 -- Remember, $dccctl(GET refnum WRITABLE)
+	If you combine $dccctl(FD_TO_REFNUM fd) with
+	$dccctl(GET refnum WRITABLE) you can detect when a nonblocking
+	connect has succeeded!
+
+*** News 3/19/2010 -- New $dccctl(FD_TO_REFNUM <fd>)
+	The $connect() function returns a file descriptor, which you can
+	pass to $dccctl(FD_TO_REFNUM fd) to get the $dccctl() refnum,
+	which you can use to do other stuff.
+
+*** News 3/19/2010 -- New flag to /EXEC, -CLOSEOUT
+	If you do /EXEC -CLOSEOUT it will close the stdin to the process,
+	(ie, sends an EOF) which some processes need to decide that 
+	they're supposed to do something.
+
+*** News 3/19/2010 --  New scripts I should have documented
+	These scripts have been added, but I never got around to documenting
+	them.  That's a bummer.
+		help.irc	history.rb	locale
+		tabkey.sjh	logman		cycle
+		set_color	ban		speak.irc
+
+*** News 10/29/2009 -- Valgrind assistance
+	If you want to run epic under Valgrind, you may want to pass the
+	--with-valgrind  flag to configure, which will compile in some 
+	additional assistance to help valgrind find memory leaks.  This
+	support was graciously provided by caf, as were patches for the
+	bugs he found using valgrind.
+
+*** News 07/06/2009 -- The Fish64 xform actually works now (see below)
+	The first implementation of FISH64 was not actually, to be technical,
+	compatable with FiSH.  It is a strange thing and it took me a while
+	to come up with an implementation of it that doesn't depend on how
+	bits are stored in integers.  I have actually tested it against the
+	real life FiSH implementation and it's correct now.
+
+*** News 06/17/2009 -- New $xform, "FISH64"
+	The FISH64 transform performs base64 encoding that is compatable
+	with FiSH.  Fish64 uses the same algorithm as base64, but it uses
+	a different character set.
+
+*** News 06/08/2009 -- New $xform(iconv) functionality
+	You can now refer to a pre-defined iconv encoding setup,
+	instead of specifying encoding upon every use of
+	$xform(iconv). Whereas you in the old days would do:
+
+		echo $xform(iconv utf-8/ascii $stuff)
+
+	which would take a lot of cpu time, as the client would have
+	to do a lot of stuff to open, use, and then close up, the
+	iconv stuff, you can now do as follows:
+
+		@ id = iconvctl(ADD utf-8/ascii);
+		echo $xform(iconv +$id $stuff);
+
+	You can also do:
+
+		echo $xform(iconv -$id $stuff)
+
+	to reverse.
+		Use /xdebug +unicode to debug iconv stuff!
+
+*** News 06/08/2009 -- New control function: $ICONVCTL()
+	This function works as follows:
+
+		@ id = iconvctl(ADD fromcode/tocode[//option])
+	
+	This sets $id to a permanent identifier for doing encoding 
+	from *fromcode* to *tocode*. (This may speed up encoding a 
+	bit.)
+		If the chosen encoding isn't accepted by iconv(),
+	$iconvctl() returns empty.
+	
+		@ encoding = iconvctl(GET $id)
+
+	This will return whatever you set the encoding $id to.
+
+		@ iconvctl(REMOVE $id)
+
+	This removes the $id from the table of encodings.
+
+		@ iconvctl(LIST)
+
+	This lists encodings.
+
+		@ iconvctl(SIZE)
+
+	And this returns the size of the iconv table.
+
+	Do notice that identifers are re-used after removal.	
+
+*** News 06/08/2009 -- Add USERINFO to /on hooks
+	You can now add some information to "executing hooks".
+	
+		@ hookctl(USERINFO -1 stuff)
+
+	This will set the USERINFO of the current executing hook 
+	to "stuff". To get the userinfo of the current executing hook:
+
+		echo $hookctl(USERINFO -1)
+
+	This can be used in conjunction with changing the $* of a hook,
+	to, for instance, add encoding information to a it.
+
+*** News 06/06/2009 -- Can change $* in an /on hook now
+	You can change the value of $* in an /on hook that will affect
+	/on's with higher serial numbers.  
+		@hookctl(ARGS <level> <new value of $*>)
+
+	This is expected to be useful for things like iconv translation.  
+	Please note carefully that the pattern matching of /on's against 
+	$* is done *AFTER EACH ON IS RAN* so if you change $* you might
+	affect which higher serial numbered /ons will run!
+
+	Usually <level> is -1 and usually the new value of $* would be based
+	on the current value of $*.  The change to $* takes place immediately.
+
+	Example one:
+		on #^hook -100 * {@hookctl(ARGS -1 >>>$0 $1<<< $2-)
+		on ^hook * {echo $*}
+		hook This is a test
+	  would output
+		>>>This is<<< a test
+	  because the /on hook with serial number -100 changed the old value
+	  of $*
+		"This is a test"
+	  to 
+		">>>$0 $1<<< $2-"
+	  which after expansion is:
+		">>>This is<<< a test"
+	  which is the value of $* in the /on hook with serial number 0.
+
+	Example two:
+		on #^hook -100 * {@hookctl(ARGS -1 $reverse($*))}
+		on ^hook "ape" {echo APE! APE!}
+		hook epa
+	  would output
+		"APE! APE"
+	  because the first hook changes $* from its original value
+		"epa"
+	  to $reverse(epa) or
+		"ape"
+	  which matches the second hook.
 
 *** News 04/10/2009 -- /WINDOW CHANNEL now outputs all channels in the window
 	Previously, /window channel only output the window's current channel.

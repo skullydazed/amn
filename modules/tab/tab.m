@@ -1,4 +1,4 @@
-# Copyright (c) 2003-2009 Amnesiac Software Project.
+# Copyright (c) 2003-2010 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 
 # amnesiac tab script
@@ -34,10 +34,10 @@ alias config.blankmsg {
 		switch ($1) {
 			(on) {
 				@_modsinfo.tab.blankmsg = 1;
-			}
+			};
 			(off) {
 				@_modsinfo.tab.blankmsg = 0;
-			}
+			};
 			(toggle) {
 				if (_modsinfo.tab.blankmsg == 0) {
 					@_modsinfo.tab.blankmsg = 1;
@@ -47,11 +47,15 @@ alias config.blankmsg {
 			};
 		};
 		if (_modsinfo.tab.blankmsg == 0) {
-			xecho -b tab: /msg will not be placed on a blank input line
+			xecho -b tab: /msg will not be placed on a blank input line;
 		}{
-			xecho -b tab: /msg will be placed on a blank input line
+			xecho -b tab: /msg will be placed on a blank input line;
 		};
 	};
+};
+
+alias btab {
+	config.blankmsg -s $*;
 };
 
 alias tabload {
@@ -63,7 +67,7 @@ alias tabsave {
 	@fd = open($(savepath)tab.save W);
 	@write($fd config.blankmsg -l $_modsinfo.tab.blankmsg);
 	@close($fd);
-	xecho -b Tab settings saved to $(savepath)tab.save;
+	abwecho Tab settings saved to $(savepath)tab.save;
 };
 
 # Bind our key(s)

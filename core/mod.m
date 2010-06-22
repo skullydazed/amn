@@ -1,4 +1,4 @@
-# Copyright (c) 2003-2009 Amnesiac Software Project.
+# Copyright (c) 2003-2010 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 if (word(2 $loadinfo()) != [pf]) {
 	load -pf $word(1 $loadinfo());
@@ -145,13 +145,9 @@ alias _loadmod {
 	if (fexist($(loadpath)modules/$(cmod)/config)==1) {
 		load -pf $(loadpath)modules/$(cmod)/config;
 		if (@_modsinfo[$cmod][helpcmd]) {
-#			^alias ${cmod}.help $_modsinfo[$cmod][helpcmd];
 			@:bhelp=1;
 		};
 	};
-#	if (bhelp==0) {
-#		^alias ${cmod}.help xecho -b No help exists for module $cmod;
-#	};
 	load $(loadpath)modules/$(cmod)/$(cmod).m;
 	if ( _modsinfo[$cmod][savefiles]) {
 #if the script has a loadcmd, use it

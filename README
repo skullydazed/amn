@@ -1,17 +1,21 @@
-# Copyright (c) 2003-2009 Amnesiac Software Project.
+# Copyright (c) 2003-2010 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 
 * AMNESIAC HOME PAGE:	http://amnesiac.ircii.org
   IRC Support channel: #amnesiac on EFnet @ irc.efnet.org
-		       #amnesiac on errnet @ irc.ircii.org
+		       #amnesiac on XSIRC(www.xsirc.net) @ irc.ircii.org
 
-* Amnesiac Mailing list: at this time, users who wishes to be added to the
-  mailing list, please e-mail zak@ircii.org, or kreca@ircii.org to be added
-  to the list(the primary list shows cvs changes, general discussions etc)
-  or feel free to send questions, ask to be added via
-  amnesiac@nospam.ircii.org, naturally remove the nospam. in the e-mail.
+* Amnesiac Mailing list: http://epicsol.org/mailman/listinfo/amnesiac
 
-* people who wish to see amnesiac source via cvsweb may do so here:
+* common faq's,documents etc can be accessed via from the following.
+  http://amnesiac.ircii.org/doc/amn-faq.txt (the faq)
+  http://amnesiac.ircii.org/doc/amn-fuq.txt (freq unanswered questions)
+  http://amnesiac.ircii.org/doc/NOTES (various troubleshooting info)
+  http://amnesiac.ircii.org/doc/ (to browse various documents)
+  http://amnesiac.ircii.org/bugs.html (for any unsurprising knwon bug
+  report(s) in epic5, or amnesiac)
+
+* people who wish to see amnesiac source via cvsweb may do so @
   http://cvs.epicsol.org/cgi/viewcvs.cgi/amn/
 
 * As of 2.0.x release of amnesiac, it is now considered BETA, I dont
@@ -32,7 +36,7 @@
 
 * If you find a bug in amnesiac, please join one of our support channels
   primarily on efnet, to report a bug, or drop an email to the mailing
-  list: amnesiac@<nospam>ircii.org
+  list: amnesiac@<nospam>epicsol.org if you have subscribed
   this may help speed up fixing a bug in case i am not around or vice versa.
 
 * If you want a feature in amnesiac or anything else, please let

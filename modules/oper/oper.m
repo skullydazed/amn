@@ -1,4 +1,4 @@
-# Copyright (c) 2003-2009 Amnesiac Software Project.
+# Copyright (c) 2003-2010 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 
 if (word(2 $loadinfo()) != [pf]) {
@@ -318,6 +318,18 @@ alias ospy {
 
 ^on ^server_notice "% % % % % % already present*" {
 	aecho $4$fparse(format_timestamp_some $($_timess))$5 $6 $7 from $9;
+};
+
+^on ^wallop '% % LOCOPS *' {
+        aecho $fparse(format_timestamp_some $($_timess))%WWALLOP $0%n LOCOPS - $4-;
+};
+
+^on ^wallop '% % ADMINWALL *' {
+        aecho $fparse(format_timestamp_some $($_timess))%WWALLOP $0%n ADMINWALL - $4-;
+};
+
+^on ^wallop '% % OPERWALL *' {
+        aecho $fparse(format_timestamp_some $($_timess))%WWALLOP $0%n OPERWALL - $4-;
 };
 
 ## elite format to determine diffs on kills in opervision

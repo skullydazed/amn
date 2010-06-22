@@ -1,4 +1,4 @@
-# Copyright (c) 2003-2009 Amnesiac Software Project.
+# Copyright (c) 2003-2010 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 if (word(2 $loadinfo()) != [pf]) {
 	load -pf $word(1 $loadinfo());
@@ -65,7 +65,7 @@ alias listbot {
 
 	};
 	xecho -v -- ---------------------------------------------------------------;
-}
+};
 
 alias botsave {
 	@ rename($(savepath)$bsavefile $(savepath)$bsavefile~);

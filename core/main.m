@@ -1,4 +1,4 @@
-# Copyright (c) 2003-2009 Amnesiac Software Project.
+# Copyright (c) 2003-2010 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 
 if (word(2 $loadinfo()) != [pf]) {
@@ -13,8 +13,8 @@ subpackage main;
 @a.rel_id='1';
 @a.rel="2.0.$a.rel_id";
 @a.date='20091104';
-@a.snap='20091104';
-@a.commitid='23';
+@a.snap='20100518';
+@a.commitid='49';
 
 ## color vars.
 @ cl    = "[0m";
@@ -46,7 +46,9 @@ subpackage main;
 ## default assigns
 @_ort='3';
 @_bt='3';
+@_et='3';
 @bt_='better';
+@et_='better';
 @awayt='60';
 @awayl='on';
 @awayr='Not Here';
@@ -54,7 +56,12 @@ subpackage main;
 @rsendbuf='10';
 @_ss='15';
 @_ovsize='5';
-@_ovmode='fibxwzZsy';
+@_ovmode='bfiklrsuwxyzZ';
+@skills='on';
+@srkline='on';
+@srkbots='on';
+@owcopy='off';
+@dateconv='off';
 @kickops='off';
 @togpager='off';
 @fke1='wholeft';
@@ -63,11 +70,11 @@ subpackage main;
 @fke4='scan';
 @fke5='uptime';
 @fke6='dcc';
-@fke7='listchan';
-@fke8='listbot';
+@fke7='arejoin';
+@fke8='svlist';
 @fke9='config';
-@fke10='userlist';
-@fke11='shitlist';
+@fke10='topic';
+@fke11='ahelp';
 @fke12='ehelp';
 @crapl='on';
 @msgl='on';
@@ -76,11 +83,11 @@ subpackage main;
 @dccl='on';
 @togaway='off';
 @getumode='iw';
-@showop='off';
+@showop='on';
 @autoget='off';
-@_ubanself='off';
 @_pubnick=N;
 @_tss='on';
+@clonecheck='off';
 
 # load default theme
 load $(loadpath)/themes/main.th;
