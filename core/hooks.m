@@ -9,8 +9,7 @@ subpackage hooks;
 
 ## exit hook
 on #-exit 000 "*" {
-	@ex.signon=stime($time());
-	xecho -v -b Signon time  :    $ex.signon;
+	xecho -v -b Signon time  :    $stime($F);
         xecho -v -b Signoff time :    $stime($time());
         xecho -v -b Total uptime :    $tdiff(${time() - F});
         xecho -v -b signoff: $N \($*\);
@@ -73,6 +72,7 @@ alias uptime {
 	//echo $info(c);
 	//echo Compile-time options: $info(o);
 	//echo Amnesiac release/cvs id: $a.rel [cvs \($a.commitid\)];
+	//echo Amnesiac release date: $a.date;
 	//echo Amnesiac snap date: $a.snap;
 	//echo Last Recv Message: \($lrmn\) $lrm;
 	//echo Last Recv Notice: \($lrnn\) $lrn;
