@@ -145,6 +145,9 @@ getusers;
 
 format.init;
 
+# Load python support
+load python;
+
 # We're finished, display ans.
 load $(loadpath)ans/startup.ans;
 

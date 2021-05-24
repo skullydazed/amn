@@ -59,7 +59,6 @@ alias switchtarget {
 @ bindctl(sequence ^W^ set swap_next_window);
 @ bindctl(sequence ^WC set parse_command clear all);
 @ bindctl(sequence ^W^X set parse_command window swap last);
-@ bindctl(sequence $chr(27 167) set parse_command ^_wsact);
 
 @ bindctl(sequence meta1-a set ^swap_next_window);
 
