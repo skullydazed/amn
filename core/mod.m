@@ -138,7 +138,7 @@ alias _loadmod {
 	if (!@)
 		return 0;
 	@:cmod="$0";
-	if (finditem(_mods $cmod)>=0)
+	if (findw($cmod $_modules)<0 || finditem(_mods $cmod)>=0)
 		return 0;
 	@ setitem(_mods $numitems(_mods) $cmod);
 	@:bhelp = 0;

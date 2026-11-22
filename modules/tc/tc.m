@@ -66,6 +66,3 @@ alias nicklist xecho -b Nickname list: $tc.msglist;
 
 on #-msg -12782 "*" { tc.add_to_list $0; };
 on #-send_msg -12782 "*" { tc.add_to_list $0; };
-
-on #-dcc_chat -12782 "*" { tc.add_to_list =$0; };
-on #-send_dcc_chat -12782 "*" { tc.add_to_list =$0; };

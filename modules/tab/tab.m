@@ -181,10 +181,7 @@ alias get.msg {
 		($(K)cd %)
 		($(K)ls %)
 		($(K)load %)
-		($(K)dcc send % %)
-		($(K)send % %)
 		($(K)exec *)
-		($(K)xdcc offer %)
 		{
 			@lw=twiddle($rightw(1 $L));
 			if (:temp = pattern(${lw}% $glob(${lw}*))) {
@@ -227,70 +224,6 @@ alias get.msg {
 			@_tabnum--;
 			return;
 
-		};
-
-		## dcc completion
-		($(K)dcc${' '})
-		($(K)dcc %)
-		{
-			@:cmds='CHAT SEND GET RAW CLOSE CLOSEALL LIST';
-			xtype -l $gendisp("$tolower($cmds)" $_getlast($L));
-			return;
-		};
-		($(K)dcc close${' '})
-		($(K)dcc close %)
-		{
-			@:cmds='CHAT SEND GET RAW -ALL';
-			xtype -l $gendisp("$tolower($cmds)" $_getlast($L));
-			return;
-			
-		};
-
-		# For matching active dcc sessions. However dccctl seems broke
-		# so this will work as soon as someone fixes this.
-		($(K)dcx %)
-		($(K)nochat %)
-		($(K)dcn %)
-		($(K)dcs %)
-		($(K)dcr %)
-		($(K)dcc close %${' '})
-		($(K)dcc close % %)
-		{
-			
-			@:cmd=word(0 $L);
-			@:mm=word(2 $L);
-
-			if (cmd == "$(K)dcx" || cmd == "$(K)nochat") {
-				@mm='chat';
-			} else if (cmd == "$(K)dcs") {
-				@mm='send';
-			} else if (cmd == "$(K)dcg") {
-				@mm='get';
-			};
-
-			@:refs = dccctl(TYPEMATCH $mm);
-			if (mm == '*' || mm == '-ALL' || cmd == "$(K)dcn" || cmd == "$(K)dcr") {
-				@:refs=dccctl(USERMATCH *);
-			};
-			@:users='';
-			fe ($refs) rr {
-				push users $dccctl(GET $rr user);
-			};
-			xtype -l $gendisp("$users" $_getlast($L));
-			return;
-		};
-
-		# dcc close completion
-		($(K)dcc close SEND %${' '})
-		($(K)dcs %${' '})
-		{
-			@:refs=dccctl(TYPEMATCH SEND);
-			@:files='';
-			fe ($refs) rr {
-				push files $dccctl(GET $rr description);
-			};
-			xtype -l $gendisp("$files" $_getlast($L));
-			return;
 		};
 
 		# set completion
@@ -355,10 +288,6 @@ alias get.msg {
 		($(K)m %)
 		($(K)msg %)
 		($(K)notice %)
-		($(K)dcc chat %)
-		($(K)chat %)
-		($(K)dcc send %)
-		($(K)send %)
 		($(K)ctcp %)
 		($(K)dns %)
 		($(K)ignore${' '})
@@ -414,12 +343,6 @@ on -input "/accept *" {
 fe (msg send_msg) cur {
 	on #-$cur 2 * {
 		@add.msg($0);
-	};
-};
-
-fe (send_dcc_chat dcc_chat dcc_connect dcc_request dcc_offer) cur {
-	on #-$cur 2 * {
-		@add.msg(=$0);
 	};
 };
 

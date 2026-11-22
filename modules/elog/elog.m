@@ -14,17 +14,14 @@ subpackage elog;
 
 ## compile sets
 addset log_msgs bool;
-addset log_dcc bool;
 addset log_public bool;
 addset log_crap bool;
 set log_msgs on;
-set log_dcc on;
 set log_public on;
 set log_crap off;
 
 ## set log menu config interface
 osetitem log elog_msgs log msgs:;
-osetitem log elog_dcc log dcc chat:;
 osetitem log elog_public log publics:;
 osetitem log elog_crap log craps:;
 
@@ -36,16 +33,6 @@ alias config.elog_msgs {
 		@tmpvar=tolower($getset(log_msgs));
 		config.matchinput on|off tmpvar '$1' log msgs;
 		^set log_msgs $tmpvar;
-	};
-};
-
-alias config.elog_dcc {
-	if ( *0 == '-r' ) {
-		return $tolower($getset(log_dcc));
-	} else if (*0 == '-s') {
-		@tmpvar=tolower($getset(log_dcc));
-		config.matchinput on|off tmpvar '$1' log dcc chat;
-		^set log_dcc $tmpvar;
 	};
 };
 
@@ -74,10 +61,6 @@ alias elogm {
 	config.elog_msgs -s $*;
 };
 
-alias elogd {
-	config.elog_dcc -s $*;
-};
-
 alias elogp {
 	config.elog_public -s $*;
 };
@@ -92,9 +75,6 @@ alias _dontlog (what, void) {
 	(msg) {
 		return ${getset(log_msgs) == [off]};
 	};
-	(dcc) {
-		return ${getset(log_dcc) == [off]};
-	};
 	(public) {
 		return ${getset(log_public) == [off]};
 	};
@@ -108,7 +88,7 @@ alias _dontlog (what, void) {
 alias _log {
 	@ :name = tr(#./*?<>$$!&#_________#$tolower($0));
 	@ :sn   = tr(#./*?<>$$!&#_________#$tolower($servername()));
-	@ :fd = open(~/.amn/logs/log.${sn}.$name W);
+	@ :fd = open("$twiddle(~/.amn/logs/log.${sn}.$name)" W);
 			if (fd == -1) {
 		return;
 	};
@@ -153,18 +133,6 @@ on #-encrypted_notice 888 "*" {
 	if (_dontlog(${ ic ? [public] : [msg] })) { return; };
 	_log ${ ic ? [$1] : [$0] } *e* -$0!$userhost()- $2-;
 };                                                    
-
-## dcc log hooks
-on #-dcc_chat 888 "*" {
-	if (_dontlog(dcc)) { return; };
-	_log $0 [dcc=\($0\)] $1-;
-};
-
-on #-send_dcc_chat 888 "*" {
-	if (_dontlog(dcc)) { return; };
-	_log $0 [dcc=>\($0\)] $1-;
-};
-
 
 ## public log hooks
 on #-public 888 "*" {
@@ -261,7 +229,6 @@ alias loghelp eloghelp;
 alias eloghelp {
 //echo -----------------------= Enhanced Logging Help =--------------------------;
 //echo elogm	/elogm [on|off] toggle msg logging to multiple files;
-//echo elogd	/elogd [on|off] toggle dcc logging to multiple files;
 //echo elogp	/elogp [on|off] toggle public logging to multiple files;
 //echo elogc	/elogc [on|off] toggle craps logging to multiple files;
 //echo

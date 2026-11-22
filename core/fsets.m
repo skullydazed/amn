@@ -6,7 +6,7 @@ if (word(2 $loadinfo()) != [pf]) {
 };
 subpackage fsets;
 
-@fwords="back chops ctcp_reply dcc_connect dcc_done_file dcc_lost_chat dcc_lost_file dcc_request invite scan_footer scan_header scan_nicks scan_nicks_border scan_users scan_users_non scan_users_op scan_users_voc server_notice sort user_non wallop whois_actual whois_admin whois_away whois_channels whois_footer whois_header whois_ident whois_idle whois_name whois_nick whois_operator whois_server whois_signon whois_unknown whowas_footer whowas_header whowas_name whowas_nick whowas_unknown $format_strings";
+@fwords="back chops ctcp_reply invite scan_footer scan_header scan_nicks scan_nicks_border scan_users scan_users_non scan_users_op scan_users_voc server_notice sort user_non wallop whois_actual whois_admin whois_away whois_channels whois_footer whois_header whois_ident whois_idle whois_name whois_nick whois_operator whois_server whois_signon whois_unknown whowas_footer whowas_header whowas_name whowas_nick whowas_unknown $format_strings";
 
 ## sfset, internal function used in wis etc to set formats
 ## Full variable name is used here i.e. input is format_var
@@ -70,22 +70,6 @@ alias fparse {return ${**cparse($($*))};};
 		//echo $fparse(format_send_ctcp $0 $1 $2 $3-);
 	};
 };
-
-## dcc fsets.
-^on ^dcc_request * {
-	//echo $fparse(format_dcc_request $0 $1 $2 $3 $4 $5 $6);
-};
-^on ^dcc_connect * {
-	if ( *1 != 'RAW') {
-		//echo $fparse(format_dcc_connect $0 $1 $2 $3 $4 $5);
-	};
-};
-^on ^dcc_lost "% CHAT *" {
-	xecho $fparse(format_dcc_lost_chat $*);
-};
-
-^on ^send_dcc_chat * {//echo $fparse(format_send_dcc_chat $0 $1-);};
-^on ^dcc_chat * {//echo $fparse(format_dcc_chat $0 $1-);};
 
 ## fsets to defer getusers(status_update)
 ^on ^channel_signoff * {

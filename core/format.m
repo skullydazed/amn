@@ -178,8 +178,6 @@ alias format (choice,value,void) {
 			(i) { modeform$extra};
 			(j) { notform$extra};
 			(k) { snotform$extra};
-			(l) { sdcform$extra};
-			(m) { dcform$extra};
 			(n) { topform$extra};
 			(o) { ctcpform$extra};
 			(p) { sctcpform$extra};
@@ -204,8 +202,8 @@ alias format (choice,value,void) {
 //echo -------------------= Amnesiac Formats =------------------------;
 //echo;
 //echo  [a] messages            [k] send notices    [u] nick changes;
-//echo  [b] send messages       [l] send dcc chat   [v] channel wall;
-//echo  [c] publics             [m] dcc chat        [w] away formats;
+//echo  [b] send messages                          [v] channel wall;
+//echo  [c] publics                                 [w] away formats;
 //echo  [d] send publics        [n] topics          [x] action formats;
 //echo  [e] public other        [o] ctcps           [y] desc formats;
 //echo  [f] channel signoffs    [p] send ctcps      [z] public notice;

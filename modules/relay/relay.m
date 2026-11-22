@@ -15,18 +15,17 @@ osetitem relay rfrombuf Inbound Buffer:;
 # output_rewrite for relay(paste)
 ^set output_rewrite $_paste($1-)$1-;
 
-# common relay funcs relw relm relsm reln relsn reld reldm
+# common relay funcs relw relm relsm reln relsn
 alias lpaste msg $T $line(${[$0]?[$0]:1});
 alias lp lpaste;
 alias paste {relw $*;};
-alias reldsm {reldm $*;};
 
 # var
 @relayw='on';
 
 # flushing pasto.
 alias rflush {@delarray(_foo); @delarray(rnot); @delarray(rmesg); @delarray(smesg); \ 
-@delarray(smsg); @delarray(snot); @delarray(rdmesg); @delarray(rdsmsg);};
+@delarray(smsg); @delarray(snot);};
 
 # /config opts
 alias config.rfrombuf {
@@ -234,75 +233,6 @@ alias relsn {
 	@relayw='on';
 };
 
-on #-dcc_chat 33 * if (relayw == 'on') {
-	if (numitems(rdmesg) >=$(rfrombuf)) {
-		@delitem(rdmesg 0);
-	};
-	@setitem(rdmesg $numitems(rdmesg) $fparse(format_dcc_chat $0 $1-));
-};
-
-alias reld {
-	^local yy;
-	@relayw='off';
-	for (@yy=0, yy<numitems(rdmesg), @yy++)	{
-		//echo [$(yy)] $getitem(rdmesg $yy);
-	};
-	if (*0 != '-l') {
-		input "[enter which line(s) to paste msg ENTER to cancel ]: " {
-			fe ($*) xx {
-				@ aa = substr("-" $xx);
-				if ( aa != -1 )
-				{
-					@start = left($aa $xx);
-			       		@end = rest(${aa+1} $xx);
-				}{
-					@start = xx
-					@end = xx
-				};
-						for (@cc=start,cc<=end, @cc++)
-				{
-					msg $T $getitem(rdmesg $cc);
-				};
-			};
-		};
-	};
-	@relayw='on';
-};
-
-^on #-send_dcc_chat 33 * if (relayw == 'on') {
-	if (numitems(rdsmsg) >=$(rsendbuf)) {
-		@delitem(rdsmsg 0);
-	};
-	@setitem(rdsmsg $numitems(rdsmsg) $fparse(format_send_dcc_chat $0 $1-));
-};
-
-alias reldm {
-	^local zz;
-	@relayw='off';
-	for (@zz=0, zz<numitems(rdsmsg), @zz++) {
-		//echo [$(zz)] $getitem(rdsmsg $zz);
-	};
-	if (*0 != '-l') {
-		input "[enter which line(s) to paste smsg ENTER to cancel]: " {
-			fe ($*) xx {
-				@ aa = substr("-" $xx);
-				if ( aa != -1 )	{
-					@start = left($aa $xx);
-				       	@end = rest(${aa+1} $xx);
-				}{
-					@start = xx
-					@end = xx
-				};
-						for (@cc=start,cc<=end, @cc++)
-				{
-		     			msg $T $getitem(rdsmsg $cc);
-				};
-			};
-		};
-	};
-	@relayw='on';
-};
-
 ## end relay functions
 
 ## fake relay funct
@@ -346,8 +276,6 @@ alias rhelp {
 //echo relsm  /relsm then <number(s)> to paste sent msg lines in buffer.;
 //echo reln   /reln then <number(s)> to paste notice lines in buffer.;
 //echo relsn  /relsn then <number(s)> to paste sent notice lines in buffer.;
-//echo reld   /reld then <number(s)> to paste dcc lines in buffer.;
-//echo reldm  /reldm then <number(s)> to paste sent dcc lines in buffer.;
 //echo paste  /paste then <number> to paste line in buffer.;
 //echo relw   /relw then <number> to paste line in buffer.;
 //echo;

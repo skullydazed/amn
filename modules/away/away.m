@@ -12,7 +12,6 @@ osetitem away awaymsg A-msg:;
 osetitem away awaylogmsg A-log msgs:;
 osetitem away awaylogcrap A-log crap/miscs:;
 osetitem away awaylognotice A-log notices:;
-osetitem away awaylogdcc A-log dcc:;
 osetitem away awaylogpub A-log public:;
 
 
@@ -134,14 +133,6 @@ alias config.awaylogmsg {
 	};
 };
 
-alias config.awaylogdcc {
-	if ( *0 == '-r' ) {
-		return $dccl;
-	} else if (*0 == '-s') {
-		config.matchinput on|off dccl '$1' dcc logging;
-	};
-};
-
 alias config.awaylognotice {
 	if ( *0 == '-r' ) {
 		return $notl;
@@ -179,10 +170,6 @@ alias logm {
 	config.awaylogmsg -s $*;
 };           
 
-alias logd {
-	config.awaylogdcc -s $*;
-};
-
 alias logn {
 	config.awaylognotice -s $*;
 };
@@ -195,7 +182,6 @@ alias logpub {
 alias mlog {logm $*;};
 alias clog {logcrap $*;};
 alias nlog {logn $*;};
-alias dlog {logd $*;};
 alias playback {readlog;};
 alias atog {awaytog $*;};
 alias awayt {awaytime $*;};
@@ -203,7 +189,7 @@ alias awayr {awaymsg $*;};
 
 ## away hook func
 alias _awaylog {
-	@fd = open($(savepath)$awaysavefile W);
+	@fd = open("$twiddle($(savepath)$awaysavefile)" W);
 	@write($fd $encode($0 $strftime(%x at %I:%M:%S %p) $1-));
 	@close($fd);
 };
@@ -229,18 +215,6 @@ on #-notice 3 "*" {
 on #-notice 4 "*[*#*]*" {
 	if (crapl=='ON'&&awaystat&&awayl=='ON') {
 		^_awaylog WALL $*;
-	};
-};
-
-on #-dcc_request 6 "*" {
-	if (dccl =='ON' && awaystat && awayl =='ON') {
-		^_awaylog DCC dcc $1 request from $0 \($userhost()\));
-	};
-};
-
-on #-dcc_chat 4 "*" {
-	if (dccl =='ON' && awaystat && awayl =='ON') {
-		^_awaylog DCC_MSG $*;
 	};
 };
 

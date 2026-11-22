@@ -58,7 +58,7 @@ alias new_window_with_properties (number,properties) {
 	};
 };
 alias mw (command,number default 0,void){
-	@:properties = "level msgs,dccs name msgs";
+	@:properties = "level msgs name msgs";
 	if (@command) {
 		switch ($command) {
 			(-hidden) {

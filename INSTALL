@@ -22,7 +22,7 @@ How to install this package:
      load ~/amn/amn.epic
      ^^ see sample.epicrc in amn/docs directory for more options/info.
   o  start epic5, some commands/helpdocs, /config /format /theme /ahelp /ehelp
-     /winhelp /dcchelp /mhelp
+     /winhelp /mhelp
   o  common switches/options; epic5 -n somenick -H somevhost.com
      epic5 -H somevhost.com somenick irc.someserver.com
      ^^ does not have to be specified in that particular way or use of
