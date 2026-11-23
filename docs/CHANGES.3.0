@@ -11,3 +11,4 @@ ChangeLog amnesiac 3.0.x releases
 - Report file operation failures in saves, logs, and readers. Stage replacement saves before updating their destination or backup. //skullY
 - Restore automatic reconnect after a server closes the connection, and rejoin saved channels with their keys. //skullY
 - Preserve quoted ignore reasons and absolute timeout deadlines across saves and restarts. Skip saved rules that expired while the client was offline. //skullY
+- Fix a bug where numeric 366 stalled in line-by-line (dumb) mode because $geom() returns -2147483648. //skullY

@@ -52,6 +52,10 @@ alias printnames (printstats,lchan,lnick) {
 	}{
 		@_swidth=#nicks.ops + #nicks.non + #nicks.voc;
 	};
+	# Headless screens may report a negative width.
+	if (_swidth < 1) {
+		@_swidth = 1;
+	};
 	: {/*
 	   This piece of code is a real bitch
 	   took me a long time to figure out what it does do
