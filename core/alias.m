@@ -103,21 +103,51 @@ alias _center {
 ## long complex aliases below here. this used for anything? //zak
 alias cat {
 	if (@) {
-		@:ansifile = open($0 R T);
-		while (!eof($ansifile)) {
-			//echo $read($ansifile);
+		if (index(r $info(o)) >= 0 && (substr(.zip $* $realpath($*)) >= 0 || substr(.tar $* $realpath($*)) >= 0)) {
+			xecho $acban Cannot read $* with this EPIC file reader;
+			return;
 		};
-		@close($ansifile);
+		@:fd = open("$*" R);
+		if (fd < 0) {
+			xecho $acban Could not open $* for reading;
+			return;
+		};
+		while (!eof($fd)) {
+			@:line = read($fd);
+			if (ferror($fd) || (eof($fd) && line == [])) {
+				break;
+			};
+			//echo $line;
+		};
+		@:read_failed = ferror($fd) != 0;
+		if (close($fd) != 0 || read_failed) {
+			xecho $acban Error reading $*;
+		};
 	};
 };
 ## we use this for anything? //zak
 alias evalcat {
 	if (@) {
-		@:ansifile = open($0 R T);
-		while (!eof($ansifile)) {
-			eval //echo $read($ansifile);
+		if (index(r $info(o)) >= 0 && (substr(.zip $* $realpath($*)) >= 0 || substr(.tar $* $realpath($*)) >= 0)) {
+			xecho $acban Cannot read $* with this EPIC file reader;
+			return;
 		};
-		@close($ansifile);
+		@:fd = open("$*" R);
+		if (fd < 0) {
+			xecho $acban Could not open $* for reading;
+			return;
+		};
+		while (!eof($fd)) {
+			@:line = read($fd);
+			if (ferror($fd) || (eof($fd) && line == [])) {
+				break;
+			};
+			eval //echo $line;
+		};
+		@:read_failed = ferror($fd) != 0;
+		if (close($fd) != 0 || read_failed) {
+			xecho $acban Error reading $*;
+		};
 	};
 };
 

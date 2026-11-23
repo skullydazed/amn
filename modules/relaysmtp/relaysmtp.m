@@ -134,57 +134,125 @@ alias rsmtpload {
 };
 
 alias rsmtpsave {
-	@rename($(savepath)relaysmtp.save $(savepath)relaysmtp.save~);
-	@fd = open($(savepath)relaysmtp.save W);
-	@write($fd config.rsmtpstatus -l $_modsinfo.relaysmtp.phoneStatus);
-	@write($fd config.rsmtpemailuser -l $_modsinfo.relaysmtp.emailUser);
-	@write($fd config.rsmtpemailpass -l $_modsinfo.relaysmtp.emailPass);
-	@write($fd config.rsmtpemaildomain -l $_modsinfo.relaysmtp.emailDomain);
-	@write($fd config.rsmtpemailsep -l $_modsinfo.relaysmtp.emailSep); 
-	@write($fd config.rsmtpemaildestaddress -l $_modsinfo.relaysmtp.destAddress);
-	@write($fd config.rsmtpsendmail -l $_modsinfo.relaysmtp.sendmail); 
-	@close($fd);
+	@:path = twiddle($(savepath)relaysmtp.save);
+	@:fd = open("${path}.$pid().tmp" wbx);
+	if (fd < 0) {
+		xecho $acban Could not open temporary save for $path;
+		return;
+	};
+	@:failed = 0;
+	if (write($fd config.rsmtpstatus -l $_modsinfo.relaysmtp.phoneStatus) < 0) {
+		@failed = 1;
+	};
+	if (write($fd config.rsmtpemailuser -l $_modsinfo.relaysmtp.emailUser) < 0) {
+		@failed = 1;
+	};
+	if (write($fd config.rsmtpemailpass -l $_modsinfo.relaysmtp.emailPass) < 0) {
+		@failed = 1;
+	};
+	if (write($fd config.rsmtpemaildomain -l $_modsinfo.relaysmtp.emailDomain) < 0) {
+		@failed = 1;
+	};
+	if (write($fd config.rsmtpemailsep -l $_modsinfo.relaysmtp.emailSep) < 0) {
+		@failed = 1;
+	};
+	if (write($fd config.rsmtpemaildestaddress -l $_modsinfo.relaysmtp.destAddress) < 0) {
+		@failed = 1;
+	};
+	if (write($fd config.rsmtpsendmail -l $_modsinfo.relaysmtp.sendmail) < 0) {
+		@failed = 1;
+	};
+	if (close($fd) != 0) {
+		@failed = 1;
+	};
+	if (!save.replace("$path" $failed)) {
+		return;
+	};
 	xecho -b RelaySMTP settings saved to $(savepath)relaysmtp.save;
 };
 
 ## Internal aliases
 alias _sendmail (ircDest, msg) {
-	local emailAddress ${_modsinfo.relaysmtp.emailUser}${_modsinfo.relaysmtp.emailSep}${_modsinfo.relaysmtp.emailPass}${_modsinfo.relaysmtp.emailSep}${ircDest}@${_modsinfo.relaysmtp.emailDomain}
-	fe ($exec($_modsinfo.relaysmtp.sendmail -f $emailAddress $_modsinfo.relaysmtp.destAddress)) in out err {break};
-	@close($err);
-	@write($in, To: $_modsinfo.relaysmtp.destAddress);
-	@write($in, From: $emailAddress);
-	@write($in, Subject: ${ircDest}!$userhost($ircDest));
-	@write($in, );
-	@write($in, $msg);
-	@close($in);
-	@close($out);
+	@:emailAddress = [${_modsinfo.relaysmtp.emailUser}${_modsinfo.relaysmtp.emailSep}${_modsinfo.relaysmtp.emailPass}${_modsinfo.relaysmtp.emailSep}${ircDest}@${_modsinfo.relaysmtp.emailDomain}];
+	@:fds = exec($_modsinfo.relaysmtp.sendmail -f $emailAddress $_modsinfo.relaysmtp.destAddress);
+	if (numwords($fds) != 3) {
+		xecho -b RelaySMTP could not open sendmail pipes;
+		return;
+	};
+	@:in = word(0 $fds);
+	@:out = word(1 $fds);
+	@:err = word(2 $fds);
+	@:failed = close($err) != 0;
+	if (write($in To: $_modsinfo.relaysmtp.destAddress) < 0 ||
+	    write($in From: $emailAddress) < 0 ||
+	    write($in Subject: ${ircDest}!$userhost($ircDest)) < 0 ||
+	    write($in) < 0 ||
+	    write($in $msg) < 0) {
+		@failed = 1;
+	};
+	if (close($in) != 0) {
+		@failed = 1;
+	};
+	if (close($out) != 0 || failed) {
+		xecho -b RelaySMTP error writing to sendmail;
+	};
 };
 
 # The alias that processes the queue
 alias _smtpQueueProcess (void) {
-	if (fexist($_modsinfo.relaysmtp.cmdQueue) == 1) {
-		@rename($_modsinfo.relaysmtp.cmdQueue ${_modsinfo.relaysmtp.cmdQueue}.work);
-		@smtpQueue = open("${_modsinfo.relaysmtp.cmdQueue}.work" R);
-		@unlink(${_modsinfo.relaysmtp.cmdQueue}.work);
-		while (1) {
-			if (eof($smtpQueue)) {
-				break;
-			};
-			@line = read($smtpQueue)
-			if (strip(" " $line)!=[]) {
-				@pass = word(1 $line);
-				@nick = word(2 $line);
-				@msg = afterw($nick $line);
-				if (pass==_modsinfo.relaysmtp.emailPass) {
-					xecho -b relaysmtp: /msg $nick $msg;
-					msg $line;
-				};
+	timer -ref relaysmtp 10 _smtpQueueProcess;
+	@:queue = twiddle($_modsinfo.relaysmtp.cmdQueue);
+	@:work = [${queue}.work];
+	if (!@word(2 $stat("$work"))) {
+		@:mode = word(2 $stat("$queue"));
+		if (!@mode) {
+			return;
+		};
+		if (left(2 $mode) != [10]) {
+			xecho -b RelaySMTP expected a regular queue file at $queue;
+			return;
+		};
+		if (rename("$queue" "$work") != 0) {
+			xecho -b RelaySMTP could not move $queue to $work;
+			return;
+		};
+	};
+	if (index(r $info(o)) >= 0 && (substr(.zip $work $realpath($work)) >= 0 || substr(.tar $work $realpath($work)) >= 0)) {
+		xecho $acban Cannot read $work with this EPIC file reader;
+		return;
+	};
+	@:smtpQueue = open("$work" R);
+	if (smtpQueue < 0) {
+		xecho $acban Could not open $work for reading;
+		return;
+	};
+	if (unlink("$work") != 0) {
+		xecho -b RelaySMTP could not remove $work;
+		@:read_failed = ferror($smtpQueue) != 0;
+		if (close($smtpQueue) != 0 || read_failed) {
+			xecho $acban Error reading $work;
+		};
+		return;
+	};
+	while (!eof($smtpQueue)) {
+		@:line = read($smtpQueue);
+		if (ferror($smtpQueue)) {
+			break;
+		};
+		if (strip(" " $line) != []) {
+			@:pass = word(1 $line);
+			@:nick = word(2 $line);
+			@:msg = afterw($nick $line);
+			if (pass == _modsinfo.relaysmtp.emailPass) {
+				xecho -b relaysmtp: /msg $nick $msg;
+				msg $line;
 			};
 		};
-		@close($smtpQueue);
-	}
-	timer -ref relaysmtp 10 _smtpQueueProcess;
+	};
+	@:read_failed = ferror($smtpQueue) != 0;
+	if (close($smtpQueue) != 0 || read_failed) {
+		xecho $acban Error reading $work;
+	};
 };
 
 # The hook to send messages to our phone.

@@ -7,30 +7,41 @@ if (word(2 $loadinfo()) != [pf]) {
 
 subpackage save;
 
-## Write a complete replacement before moving the previous save to its backup.
-alias save.replace (path, failed, void) {
-	@:backup = [${path}~];
+## Finish writing the replacement before moving the previous save to its backup.
+alias save.replace (path dwords 1, failed, void) {
 	@:staged = [${path}.$pid().tmp];
-	@:had_save = fexist($path) == 1;
-	if (failed || (had_save && rename($path $backup) != 0)) {
-		@unlink($staged);
-		return 0;
+	@:backup = [${path}~];
+	@:mode = word(2 $stat("$path"));
+	if (!failed && @mode && left(2 $mode) != [10]) {
+		@failed = 1;
 	};
-	if (rename($staged $path) != 0) {
-		if (had_save) {
-			@rename($backup $path);
+	@:backed_up = 0;
+	if (!failed && @mode) {
+		if (rename("$path" "$backup") != 0) {
+			xecho $acban Could not back up $path to $backup;
+			@failed = 1;
+		} else {
+			@backed_up = 1;
 		};
-		@unlink($staged);
-		return 0;
 	};
-	return 1;
+	if (!failed && rename("$staged" "$path") == 0) {
+		return 1;
+	};
+	if (backed_up && rename("$backup" "$path") != 0) {
+		xecho $acban Could not restore $path from $backup;
+	};
+	if (unlink("$staged") != 0) {
+		xecho $acban Could not remove temporary save $staged;
+	};
+	xecho $acban Could not save $path;
+	return 0;
 };
 
 alias asave {
 	@:path = twiddle($(savepath)$savefile);
-	@:fd = open(${path}.$pid().tmp wb);
+	@:fd = open("${path}.$pid().tmp" wbx);
 	if (fd < 0) {
-		xecho $acban Could not save Amnesiac settings to $path;
+		xecho $acban Could not open temporary save for $path;
 		return;
 	};
 	@:failed = write($fd ** amnesiac config file - saved $strftime($time() %D %T)) < 0;
@@ -43,67 +54,125 @@ alias asave {
 			@failed = 1;
 		};
 	};
-	@close($fd);
-	if (save.replace($path $failed)) {
+	if (close($fd) != 0) {
+		@failed = 1;
+	};
+	if (save.replace("$path" $failed)) {
 		xecho $acban Amnesiac settings saved to $path;
-	} else {
-		xecho $acban Could not save Amnesiac settings to $path;
 	};
 };
 
 alias setsave {
-	@rename($(savepath)$setsavefile $(savepath)$setsavefile~);
-        @savemt = open($(savepath)$setsavefile W T);
-        @write($savemt ** amnesiac settings file - saved $strftime($time() %D %T));
+	@:path = twiddle($(savepath)$setsavefile);
+	@:fd = open("${path}.$pid().tmp" wbx);
+	if (fd < 0) {
+		xecho $acban Could not open temporary save for $path;
+		return;
+	};
+	@:failed = 0;
+	if (write($fd ** amnesiac settings file - saved $strftime($time() %D %T)) < 0) {
+		@failed = 1;
+	};
 	fe ($symbolctl(pmatch builtin_variable *)) cur {
-		@write($savemt set $cur $getset($cur));
-	}
-	@close($savemt);
+		if (write($fd set $cur $getset($cur)) < 0) {
+			@failed = 1;
+		};
+	};
+	if (close($fd) != 0) {
+		@failed = 1;
+	};
+	if (!save.replace("$path" $failed)) {
+		return;
+	};
 	xecho $acban Epic settings saved to $(savepath)$setsavefile;
 };
 
-alias fsetsave {  
-	@rename($(savepath)$fsetsavefile $(savepath)$fsetsavefile~);
-        @fsetsavemt = open($(savepath)$fsetsavefile W T);
-        @write($fsetsavemt ** amnesiac format file - saved $strftime($time() %D %T));
+alias fsetsave {
+	@:path = twiddle($(savepath)$fsetsavefile);
+	@:fd = open("${path}.$pid().tmp" wbx);
+	if (fd < 0) {
+		xecho $acban Could not open temporary save for $path;
+		return;
+	};
+	@:failed = 0;
+	if (write($fd ** amnesiac format file - saved $strftime($time() %D %T)) < 0) {
+		@failed = 1;
+	};
 #fwords is edited in fsets.m
 	fe ($fwords) a1 {
-		@write($fsetsavemt ^sfset format_$a1 $(format_$a1));
+		if (write($fd ^sfset format_$a1 $(format_$a1)) < 0) {
+			@failed = 1;
+		};
 	};
-	@close($fsetsavemt);
+	if (close($fd) != 0) {
+		@failed = 1;
+	};
+	if (!save.replace("$path" $failed)) {
+		return;
+	};
 	xecho $acban Fset settings saved to $(savepath)$fsetsavefile;
 };
 
 alias fsave {
-	@rename($(savepath)$fsavefile $(savepath)$fsavefile~);
-        @savemt = open($(savepath)$fsavefile W T);
-        @write($savemt ** amnesiac format file - saved $strftime($time() %D %T));
-	@write($savemt assign scdesc $scdesc);
-	
-	fe ($format_strings ) cvar {
-		@write($savemt assign theme.format.$cvar $(theme.format.$cvar));
+	@:path = twiddle($(savepath)$fsavefile);
+	@:fd = open("${path}.$pid().tmp" wbx);
+	if (fd < 0) {
+		xecho $acban Could not open temporary save for $path;
+		return;
 	};
-	@close($savemt);
+	@:failed = 0;
+	if (write($fd ** amnesiac format file - saved $strftime($time() %D %T)) < 0) {
+		@failed = 1;
+	};
+	if (write($fd assign scdesc $scdesc) < 0) {
+		@failed = 1;
+	};
+
+	fe ($format_strings ) cvar {
+		if (write($fd assign theme.format.$cvar $(theme.format.$cvar)) < 0) {
+			@failed = 1;
+		};
+	};
+	if (close($fd) != 0) {
+		@failed = 1;
+	};
+	if (!save.replace("$path" $failed)) {
+		return;
+	};
 	xecho $acban Format settings saved to $(savepath)$fsavefile;
 };
 
 alias csave {
-	@:vars = 'c1 c2 c3 c4 c5 sc1 sc2 sc3 sc4';
-	@rename($(savepath)$csavefile $(savepath)$csavefile~);
-        @savemt = open($(savepath)$csavefile W T);
-        @write($savemt ** amnesiac color format file - saved $strftime($time() %D %T));
-	fe ($vars ) cvar {
-		@write($savemt assign $cvar $($cvar));
+	@:path = twiddle($(savepath)$csavefile);
+	@:fd = open("${path}.$pid().tmp" wbx);
+	if (fd < 0) {
+		xecho $acban Could not open temporary save for $path;
+		return;
 	};
-	@close($savemt);
+	@:failed = 0;
+	@:vars = 'c1 c2 c3 c4 c5 sc1 sc2 sc3 sc4';
+	if (write($fd ** amnesiac color format file - saved $strftime($time() %D %T)) < 0) {
+		@failed = 1;
+	};
+	fe ($vars ) cvar {
+		if (write($fd assign $cvar $($cvar)) < 0) {
+			@failed = 1;
+		};
+	};
+	if (close($fd) != 0) {
+		@failed = 1;
+	};
+	if (!save.replace("$path" $failed)) {
+		return;
+	};
 	xecho $acban Color settings saved to $(savepath)$csavefile;
 };
 
 alias igsave {
 	@:path = twiddle($(savepath)$igsfile);
-	@:fd = open(${path}.$pid().tmp wb);
+	@:fd = open("${path}.$pid().tmp" wbx);
 	if (fd < 0) {
-		xecho $acban Could not save ignores to $path;
+		xecho $acban Could not open temporary save for $path;
 		return;
 	};
 	@:failed = 0;
@@ -113,11 +182,11 @@ alias igsave {
 			@failed = 1;
 		};
 	};
-	@close($fd);
-	if (save.replace($path $failed)) {
+	if (close($fd) != 0) {
+		@failed = 1;
+	};
+	if (save.replace("$path" $failed)) {
 		xecho $acban Ignores saved to $path;
-	} else {
-		xecho $acban Could not save ignores to $path;
 	};
 };
 

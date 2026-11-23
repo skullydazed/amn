@@ -305,10 +305,10 @@ alias chpass (user, newpass) {
 
 alias _usave (quiet) {
   ^local i,fd,ret,name,flags,fail,cnt;
-  @ unlink($(savepath)userlist.tmp);
-  @ fd = open($(savepath)userlist.tmp W);
-  if (fd == -1) {
-    xecho -b Unable to open $(savepath)userlist.tmp for writing;
+  @:path = twiddle($(savepath)userlist.conf);
+  @ fd = open("${path}.$pid().tmp" wbx);
+  if (fd < 0) {
+    xecho $acban Could not open temporary save for $path;
     return;
   };
   @ fail = 0;
@@ -350,26 +350,31 @@ alias _usave (quiet) {
     };
     @ cnt++;
   };
-  @ close($fd);
-  if (fail) {
-    @ unlink($(savepath)userlist.tmp);
-    xecho $acban Error while writing to $(savepath)userlist.tmp;
-  } else {
-    @ ret = rename($(savepath)userlist.tmp $(savepath)userlist.conf);
-    if (ret) {
-      xecho $acban Error while renaming $(savepath)userlist.tmp;
-    } elsif (!quiet) {
-      xecho $acban Saved $cnt entries in the userlist [mod];
-      if (getset(userlist_save_auto) == [ON])
-        _usave 1;
+  @:mode = word(2 $stat("$path"));
+  if (close($fd) != 0 || fail || (@mode && left(2 $mode) != [10]) || rename("${path}.$pid().tmp" "$path") != 0) {
+    if (unlink("${path}.$pid().tmp") != 0) {
+      xecho $acban Could not remove temporary save ${path}.$pid().tmp;
     };
+    xecho $acban Could not save $path;
+    return;
+  };
+  if (!quiet) {
+    xecho $acban Saved $cnt entries in the userlist [mod];
+    if (getset(userlist_save_auto) == [ON])
+      _usave 1;
   };
 };
 
 alias uload {
   ^local fd,line,i,key,cnt,name,cmd,foo,fail,bar;
-  @ fd = open($(savepath)userlist.conf R);
-  if (fd == -1) {
+  @:path = twiddle($(savepath)userlist.conf);
+  if (index(r $info(o)) >= 0 && (substr(.zip $path $realpath($path)) >= 0 || substr(.tar $path $realpath($path)) >= 0)) {
+    xecho $acban Cannot read $path with this EPIC file reader;
+    return;
+  };
+  @ fd = open("$path" R);
+  if (fd < 0) {
+    xecho $acban Could not open $path for reading;
     return;
   };
   purge userlist;
@@ -377,9 +382,11 @@ alias uload {
   @ fail = 0;
   while (!eof($fd)) {
     @ line = read($fd);
-    if (line == [])
+    if (ferror($fd) || (eof($fd) && line == []))
       break;
     @ cnt++;
+    if (line == [])
+      continue;
     @ name = word(1 $line);
     @ key = encode($tolower($name));
     @ cmd = word(0 $line);
@@ -436,7 +443,11 @@ alias uload {
       };
     };
   };
-  if (fail) {
+  @:read_failed = ferror($fd) != 0;
+  if (close($fd) != 0 || read_failed) {
+    xecho $acban Error reading $path;
+    purge userlist;
+  } elsif (fail) {
     xecho $acban Parse error on userlist line $cnt;
     purge userlist;
   } else {
@@ -446,7 +457,6 @@ alias uload {
     };
     xecho $acban Loaded userlist with $cnt entries;
   };
-  @ close($fd);
 };
 
 alias userlist (patterns) {

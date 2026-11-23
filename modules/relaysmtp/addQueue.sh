@@ -15,4 +15,7 @@ while read LINE; do
 	fi
 done
 
-echo "$PASSWORD $DESTNICK $MESSAGE" >> $QUEUE
+if ! printf '%s\n' "$PASSWORD $DESTNICK $MESSAGE" >> "$QUEUE"; then
+	printf 'RelaySMTP could not append to %s\n' "$QUEUE" >&2
+	exit 1
+fi

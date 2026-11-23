@@ -50,7 +50,7 @@ alias format.getfilename (format_name) {
 #	@:sname=rest($strlen(format_) $format_name);
 	@:sname=format_name;
 	fe ($glob($(loadpath)format/*)) ii {
-		if (fexist("$(ii)$sname") == 1 ) {
+		if (@word(2 $stat("$(ii)$sname")) ) {
 			return $(ii)$sname;
 		};
 	};
@@ -62,16 +62,31 @@ alias format.getfilename (format_name) {
 alias format.numitems (fname) {
 	@:fn=format.getfilename($fname);
 	@:mv=0;
-	if (fexist("$fn") == 1) {
-			@ :fd = open("$fn" R);
+	if (@word(2 $stat("$fn"))) {
+			if (index(r $info(o)) >= 0 && (substr(.zip $fn $realpath($fn)) >= 0 || substr(.tar $fn $realpath($fn)) >= 0)) {
+				xecho $acban Cannot read $fn with this EPIC file reader;
+				return 0;
+			};
+			@:fd = open("$fn" R);
+			if (fd < 0) {
+				xecho $acban Could not open $fn for reading;
+				return 0;
+			};
 
 			while ( !eof($fd)) {
 				@:cline = read($fd);
+				if (ferror($fd)) {
+					break;
+				};
 				@:cv= word(0 $cline);
 				if (isnumber($cv) && cv > mv )
 					@mv=cv;
 			};
-			@close($fd);
+			@:read_failed = ferror($fd) != 0;
+			if (close($fd) != 0 || read_failed) {
+				xecho $acban Error reading $fn;
+				return 0;
+			};
 	};
 	return $mv;
 };
@@ -116,18 +131,36 @@ alias format.returndesc (format_name, number) {
 ## return the format string by number
 alias format.readitem (fname, number) {
 	@:fn=format.getfilename($fname);
-	if (fexist("$fn") == 1) {
-			@ :fd = open("$fn" R);
+	if (@word(2 $stat("$fn"))) {
+			if (index(r $info(o)) >= 0 && (substr(.zip $fn $realpath($fn)) >= 0 || substr(.tar $fn $realpath($fn)) >= 0)) {
+				xecho $acban Cannot read $fn with this EPIC file reader;
+				return 0;
+			};
+			@:fd = open("$fn" R);
+			if (fd < 0) {
+				xecho $acban Could not open $fn for reading;
+				return 0;
+			};
 
 			while ( !eof($fd)) {
 				@:cline = read($fd);
+				if (ferror($fd)) {
+					break;
+				};
 				@:cv= word(0 $cline);
 				if (cv == number ) {
-					@close($fd);
+					@:read_failed = ferror($fd) != 0;
+					if (close($fd) != 0 || read_failed) {
+						xecho $acban Error reading $fn;
+						return 0;
+					};
 					return $rest(${@cv+1} $cline);
 				};
 			};
-			@close($fd);
+			@:read_failed = ferror($fd) != 0;
+			if (close($fd) != 0 || read_failed) {
+				xecho $acban Error reading $fn;
+			};
 	};
 	return 0;
 };

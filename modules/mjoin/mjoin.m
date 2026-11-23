@@ -71,12 +71,24 @@ alias mjoin {
 };
 
 alias chansave {
-	@rename($(savepath)$chansfile $(savepath)$chansfile~);
-	@savemt = open($(savepath)$chansfile W T);
-	for (@xx=1, xx<numitems(chans), @xx++) {
-		@write($savemt @chans.$xx=[$getitem(chans $xx)]);
+	@:path = twiddle($(savepath)$chansfile);
+	@:fd = open("${path}.$pid().tmp" wbx);
+	if (fd < 0) {
+		xecho $acban Could not open temporary save for $path;
+		return;
 	};
-	@close($savemt);
+	@:failed = 0;
+	for (@xx=1, xx<numitems(chans), @xx++) {
+		if (write($fd @chans.$xx=[$getitem(chans $xx)]) < 0) {
+			@failed = 1;
+		};
+	};
+	if (close($fd) != 0) {
+		@failed = 1;
+	};
+	if (!save.replace("$path" $failed)) {
+		return;
+	};
 	xecho $acban Mjoin channel(s) saved to $(savepath)$chansfile [mod];
 };
 

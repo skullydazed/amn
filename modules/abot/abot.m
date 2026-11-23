@@ -68,13 +68,27 @@ alias listbot {
 };
 
 alias botsave {
-	@ rename($(savepath)$bsavefile $(savepath)$bsavefile~);
-	@ savec = open($(savepath)$bsavefile W T);
-	@ write($savec ** autobot config file - saved $strftime($time() %D %T));
-	for (@xx=0, xx<numitems(bots), @xx++) {
-		@ write($savec @bot.$xx=[$getitem(bots $xx)]);
+	@:path = twiddle($(savepath)$bsavefile);
+	@:fd = open("${path}.$pid().tmp" wbx);
+	if (fd < 0) {
+		xecho $acban Could not open temporary save for $path;
+		return;
 	};
-	@ close($savec);
+	@:failed = 0;
+	if (write($fd ** autobot config file - saved $strftime($time() %D %T)) < 0) {
+		@failed = 1;
+	};
+	for (@xx=0, xx<numitems(bots), @xx++) {
+		if (write($fd @bot.$xx=[$getitem(bots $xx)]) < 0) {
+			@failed = 1;
+		};
+	};
+	if (close($fd) != 0) {
+		@failed = 1;
+	};
+	if (!save.replace("$path" $failed)) {
+		return;
+	};
 	xecho $acban abot settings saved to $(savepath)$bsavefile [mod];
 };
 

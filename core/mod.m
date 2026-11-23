@@ -125,12 +125,24 @@ alias delmod {
 };
 
 alias modsave {
-	@rename($(savepath)$modfile $(savepath)$modfile~);
-	@savemt = open($(savepath)$modfile W);
-	for (@xx=0, xx<numitems(_mods), @xx++) {
-		@write($savemt @mods.$xx=[$getitem(_mods $xx)]);
+	@:path = twiddle($(savepath)$modfile);
+	@:fd = open("${path}.$pid().tmp" wbx);
+	if (fd < 0) {
+		xecho $acban Could not open temporary save for $path;
+		return;
 	};
-	@close($savemt);
+	@:failed = 0;
+	for (@xx=0, xx<numitems(_mods), @xx++) {
+		if (write($fd @mods.$xx=[$getitem(_mods $xx)]) < 0) {
+			@failed = 1;
+		};
+	};
+	if (close($fd) != 0) {
+		@failed = 1;
+	};
+	if (!save.replace("$path" $failed)) {
+		return;
+	};
 	xecho $acban Modules saved to $(savepath)$modfile;
 };
 
@@ -142,7 +154,7 @@ alias _loadmod {
 		return 0;
 	@ setitem(_mods $numitems(_mods) $cmod);
 	@:bhelp = 0;
-	if (fexist($(loadpath)modules/$(cmod)/config)==1) {
+	if (@word(2 $stat("$(loadpath)modules/$(cmod)/config"))) {
 		load -pf $(loadpath)modules/$(cmod)/config;
 		if (@_modsinfo[$cmod][helpcmd]) {
 			@:bhelp=1;
@@ -160,11 +172,11 @@ alias _loadmod {
 
 alias _modload {
 	fe ($_modules) cmod {
-		if (fexist($(loadpath)modules/$(cmod)/config)==1) {
+		if (@word(2 $stat("$(loadpath)modules/$(cmod)/config"))) {
 			load -pf $(loadpath)modules/$(cmod)/config;
 		};
 	};
-	if (fexist($(savepath)$modfile)==1) {
+	if (@word(2 $stat("$(savepath)$modfile"))) {
 		@ delarray(_mods);
 		load $(savepath)$modfile;
 		foreach mods aa {

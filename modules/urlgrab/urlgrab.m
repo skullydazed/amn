@@ -17,13 +17,18 @@ alias urlgrab {
 
 alias rmurl rmgrab;
 alias rmgrab {
-	if (fexist(${savepath}$httpsavefile) == -1) {
+	if (!@word(2 $stat("${savepath}$httpsavefile"))) {
 		xecho $acban url log file does not exist.;
 	}{
 		input "remove url log? [y|n]: " {
 			if ([$0]==[y]) {
-				exec rm ${savepath}$httpsavefile;
-					xecho $acban ${savepath}$httpsavefile deleted;
+				exec -direct -end {
+					if (*1 == 0 && *2 == 0) {
+						xecho $acban Log deleted;
+					} else {
+						xecho $acban Could not remove log;
+					};
+				} rm -- "$twiddle(${savepath}$httpsavefile)";
 			}{
 				xecho $acban remlog canceled;
 			};
@@ -33,9 +38,16 @@ alias rmgrab {
 
 alias urlload {
 	^on #-public 33 "% % *http://*" {
-		@fd = open(${savepath}$httpsavefile W);
-		@write($fd $strftime(%x at %I:%M:%S %p) $*);
-		@close($fd);
+		@:path = twiddle(${savepath}$httpsavefile);
+		@:fd = open("$path" W);
+		if (fd < 0) {
+			xecho $acban Could not open $path for writing;
+			return;
+		};
+		@:failed = write($fd $strftime(%x at %I:%M:%S %p) $*) < 0;
+		if (close($fd) != 0 || failed) {
+			xecho $acban Error writing $path;
+		};
 	};
 };
 alias urlunload {

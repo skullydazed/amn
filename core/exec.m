@@ -42,15 +42,26 @@ alias nslookup {dns $*;};
 ## (pager) this taken from EPIC4 dist written by archon
 alias more {
 	if ( @ ) {
-		if (fexist("$*") == 1) {
-			@ :fd = open("$*" R);
+		if (@word(2 $stat("$*"))) {
+			if (index(r $info(o)) >= 0 && (substr(.zip $* $realpath($*)) >= 0 || substr(.tar $* $realpath($*)) >= 0)) {
+				xecho $acban Cannot read $* with this EPIC file reader;
+				return;
+			};
+			@:fd = open("$*" R);
+			if (fd < 0) {
+				xecho $acban Could not open $* for reading;
+				return;
+			};
 
 			while (1) {
 				@:rows = winsize() - 1;
 				for (@:line=0, line <= rows, @line++) {
-					@ outp = read($fd);
-					if (eof($fd)) {
-						@ close($fd);
+					@:outp = read($fd);
+					if (ferror($fd) || (eof($fd) && outp == [])) {
+						@:read_failed = ferror($fd) != 0;
+						if (close($fd) != 0 || read_failed) {
+							xecho $acban Error reading $*;
+						};
 						return;
 					}{
 						xecho $outp;
@@ -58,7 +69,10 @@ alias more {
 				};
 				^local ret $'Enter q to quit, or anything else to continue ';
 				if (ret == 'q') {
-					@ close($fd);
+					@:read_failed = ferror($fd) != 0;
+					if (close($fd) != 0 || read_failed) {
+						xecho $acban Error reading $*;
+					};
 					return;
 				};
 			};

@@ -9,8 +9,11 @@ if (word(2 $loadinfo()) != [pf]) {
 subpackage elog;
 
 ## create logging directory if nonexistent
-@ mkdir(~/.amn/logs);
-@ chmod(~/.amn/logs 0700);
+if (left(1 $word(2 $stat("~/.amn/logs"))) != [4] && mkdir("~/.amn/logs") != 0) {
+	xecho $acban Could not create directory ~/.amn/logs;
+} elsif (chmod("~/.amn/logs" 0700) != 0) {
+	xecho $acban Could not set permissions on ~/.amn/logs;
+};
 
 ## compile sets
 addset log_msgs bool;
@@ -88,12 +91,16 @@ alias _dontlog (what, void) {
 alias _log {
 	@ :name = tr(#./*?<>$$!&#_________#$tolower($0));
 	@ :sn   = tr(#./*?<>$$!&#_________#$tolower($servername()));
-	@ :fd = open("$twiddle(~/.amn/logs/log.${sn}.$name)" W);
-			if (fd == -1) {
+	@:path = twiddle(~/.amn/logs/log.${sn}.$name);
+	@:fd = open("$path" W);
+	if (fd < 0) {
+		xecho $acban Could not open $path for writing;
 		return;
 	};
-	@ write($fd $strftime(%Z %x [%I:%M:%S]) $1-);
-	@ close($fd);
+	@:failed = write($fd $strftime(%Z %x [%I:%M:%S]) $1-) < 0;
+	if (close($fd) != 0 || failed) {
+		xecho $acban Error writing $path;
+	};
 };
 
 ## message log hooks

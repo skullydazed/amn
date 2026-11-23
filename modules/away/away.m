@@ -30,13 +30,18 @@ alias awayhelp {
 };
 
 alias remlog  {
-	if (fexist($(savepath)$awaysavefile) == -1) {
+	if (!@word(2 $stat("$(savepath)$awaysavefile"))) {
 		xecho $acban log file does not exist.;
 	}{
 		input "remove log? [y|n]: " {
 			if ([$0]==[y]) {
-				exec rm $(savepath)$awaysavefile;
-				xecho $acban $(savepath)away.log deleted;
+				exec -direct -end {
+					if (*1 == 0 && *2 == 0) {
+						xecho $acban Log deleted;
+					} else {
+						xecho $acban Could not remove log;
+					};
+				} rm -- "$twiddle($(savepath)$awaysavefile)";
 			}{
 				xecho $acban remlog canceled;
 			};
@@ -76,7 +81,7 @@ alias back {
 		if ( awaystat == 1 ) {
 			//away;
 			@awaystat=0;
-			if (fexist($(savepath)$awaysavefile)!=-1) {
+			if (@word(2 $stat("$(savepath)$awaysavefile"))) {
 				xecho -v $acban type /readlog to view log.;
 			};
 		};
@@ -189,9 +194,16 @@ alias awayr {awaymsg $*;};
 
 ## away hook func
 alias _awaylog {
-	@fd = open("$twiddle($(savepath)$awaysavefile)" W);
-	@write($fd $encode($0 $strftime(%x at %I:%M:%S %p) $1-));
-	@close($fd);
+	@:path = twiddle($(savepath)$awaysavefile);
+	@:fd = open("$path" W);
+	if (fd < 0) {
+		xecho $acban Could not open $path for writing;
+		return;
+	};
+	@:failed = write($fd $encode($0 $strftime(%x at %I:%M:%S %p) $1-)) < 0;
+	if (close($fd) != 0 || failed) {
+		xecho $acban Error writing $path;
+	};
 };
 
 ## logging hooks
@@ -242,12 +254,20 @@ alias decodemore (cfile) {
 		@ line = 0;
 		@ done = 0;
 		@ rows = winsize() - 1;
-		if (fexist($cfile) == 1) {
-			@ fd = open($cfile R);
+		if (@word(2 $stat("$cfile"))) {
+			if (index(r $info(o)) >= 0 && (substr(.zip $cfile $realpath($cfile)) >= 0 || substr(.tar $cfile $realpath($cfile)) >= 0)) {
+				xecho $acban Cannot read $cfile with this EPIC file reader;
+				return;
+			};
+			@:fd = open("$cfile" R);
+			if (fd < 0) {
+				xecho $acban Could not open $cfile for reading;
+				return;
+			};
 			while (!eof($fd) && (pause!='q')) {
 				while (line++ != rows) {
 					@ ugh = decode($read($fd));
-					if (eof($fd)) {
+					if (ferror($fd) || (eof($fd) && ugh == [])) {
 						@ line = rows;
 						@ done = 1;
 					} {
@@ -259,8 +279,11 @@ alias decodemore (cfile) {
 					@ line = 0;
 				};
 			};
-			@ close($fd);
-			@ fd = line = done = rows = pause = ugh = '';
+			@:read_failed = ferror($fd) != 0;
+			if (close($fd) != 0 || read_failed) {
+				xecho $acban Error reading $cfile;
+			};
+			@ line = done = rows = pause = ugh = '';
 		}{
 			xecho -b $cfile\: no such file.;
 		};

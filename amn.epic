@@ -93,13 +93,16 @@ load -pf $(loadpath)core/ignore.m;
 load -pf $(loadpath)core/notify.m;
 
 ## load savefiles.
-@mkdir($(savepath));
-@chmod($(savepath) 700);
+if (left(1 $word(2 $stat("$(savepath)"))) != [4] && mkdir("$(savepath)") != 0) {
+	xecho $acban Could not create directory $(savepath);
+} elsif (chmod("$(savepath)" 700) != 0) {
+	xecho $acban Could not set permissions on $(savepath);
+};
 
 ## Load saved settings and state. The module loader reads mod.save.
 @_amn_loading_saved_state = 1;
 fe ($remw($modfile $savefiles)) ff {
-	if (fexist($(savepath)$ff)==1) {
+	if (@word(2 $stat("$(savepath)$ff"))) {
 		load $(savepath)$ff;
 	};
 };
@@ -137,7 +140,7 @@ _modload;
 _progress;
 
 # Load settings file here. Modules might add their own sets
-if (fexist($(savepath)$setsavefile)==1) {
+if (@word(2 $stat("$(savepath)$setsavefile"))) {
    load $(savepath)$setsavefile;
 };
 

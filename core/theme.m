@@ -15,43 +15,82 @@ alias tsave (name,...) {
 
 	if (!@) {
 		xecho $acban $scriptname usage: /tsave <theme> <description>;
-	}{
-		if (fexist($(loadpath)themes/${name}.th)==1) {
-			@ rename($(loadpath)themes/${name}.th $(loadpath)themes/${name}.th.old);
-			^exec rm $(loadpath)themes/${name}.th.old 1> /dev/null 2> /dev/null;
-		};
-	        @saveth = open($(loadpath)themes/${name}.th W T);
-		@desc = *;
-		@:auth=N;
-	        @ write($saveth :$auth);
-	        @ write($saveth :$desc);
-	        @ write($saveth :$name);
-		@ write($saveth assign scdesc \\\($desc\\\));
-		fe ($oldvars ) cvar {
-			@write($saveth assign $cvar $($cvar));
-		};
-		fe ($format_strings ) cvar {
-			@write($saveth assign theme.format.$cvar $(theme.format.$cvar));
-		};
-	        @ close($saveth);
-		xecho $acban saved theme file [$(loadpath)themes/$(name).th] $desc;
+		return;
 	};
+	@:path = twiddle($(loadpath)themes/${name}.th);
+	@:fd = open("${path}.$pid().tmp" wbx);
+	if (fd < 0) {
+		xecho $acban Could not open temporary save for $path;
+		return;
+	};
+	@:failed = 0;
+	@desc = *;
+	@:auth=N;
+	if (write($fd :$auth) < 0) {
+		@failed = 1;
+	};
+	if (write($fd :$desc) < 0) {
+		@failed = 1;
+	};
+	if (write($fd :$name) < 0) {
+		@failed = 1;
+	};
+	if (write($fd assign scdesc \\\($desc\\\)) < 0) {
+		@failed = 1;
+	};
+	fe ($oldvars ) cvar {
+		if (write($fd assign $cvar $($cvar)) < 0) {
+			@failed = 1;
+		};
+	};
+	fe ($format_strings ) cvar {
+		if (write($fd assign theme.format.$cvar $(theme.format.$cvar)) < 0) {
+			@failed = 1;
+		};
+	};
+	@:mode = word(2 $stat("$path"));
+	if (close($fd) != 0 || failed || (@mode && left(2 $mode) != [10]) || rename("${path}.$pid().tmp" "$path") != 0) {
+		if (unlink("${path}.$pid().tmp") != 0) {
+			xecho $acban Could not remove temporary save ${path}.$pid().tmp;
+		};
+		xecho $acban Could not save $path;
+		return;
+	};
+	xecho $acban saved theme file [$(loadpath)themes/$(name).th] $desc;
 };
 
 alias theme (name,void) {
 	if (!@name) {
 		//echo      file name           author              description;
 		fe ($glob($(loadpath)themes\/*.th)) th {
-			@ :thfile = open($th R T);
-			@ :auth = after(: $read($thfile));
-			@ :desc = after(: $read($thfile));
-			@ :name = after(: $read($thfile));
-			@ close($thfile);
+			if (index(r $info(o)) >= 0 && (substr(.zip $th $realpath($th)) >= 0 || substr(.tar $th $realpath($th)) >= 0)) {
+				xecho $acban Cannot read $th with this EPIC file reader;
+				continue;
+			};
+			@:thfile = open("$th" R);
+			if (thfile < 0) {
+				xecho $acban Could not open $th for reading;
+				continue;
+			};
+			@:auth = after(: $read($thfile));
+			@:desc = [];
+			@:name = [];
+			if (!ferror($thfile)) {
+				@desc = after(: $read($thfile));
+			};
+			if (!ferror($thfile)) {
+				@name = after(: $read($thfile));
+			};
+			@:read_failed = ferror($thfile) != 0;
+			if (close($thfile) != 0 || read_failed) {
+				xecho $acban Error reading $th;
+				continue;
+			};
 			//echo      $[10]name          $[12]auth        $desc$repeat(${20-strlen($strip( $stripansicodes($desc)))}  );
 		};
 		xecho $acban current theme is $scdesc;
 	}{
-		if (fexist($(loadpath)themes/${name}.th)==-1) {
+		if (!@word(2 $stat("$(loadpath)themes/${name}.th"))) {
 			xecho $acban theme ${name} does not exist;
 		}{
 			load $(loadpath)themes/${name}.th;

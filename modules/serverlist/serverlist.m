@@ -8,11 +8,20 @@ if (word(2 $loadinfo()) != [pf]) {
 alias servload {
 };
 alias servsave {
-	@rename($(savepath)servergroups.conf $(savepath)servergroups.conf~);
-        @savemt = open($(savepath)servergroups.conf W T);
-        @write($savemt ** amnesiac servergroups file - saved $strftime($time() %D %T));
+	@:path = twiddle($(savepath)servergroups.conf);
+	@:fd = open("${path}.$pid().tmp" wbx);
+	if (fd < 0) {
+		xecho $acban Could not open temporary save for $path;
+		return;
+	};
+	@:failed = 0;
+	if (write($fd ** amnesiac servergroups file - saved $strftime($time() %D %T)) < 0) {
+		@failed = 1;
+	};
 	fe ($serverctl(ALLGROUPS)) cg {
-        	@write($savemt [$cg]);
+		if (write($fd [$cg]) < 0) {
+			@failed = 1;
+		};
 		@:refs=serverctl(GMATCH $cg);
 		fe ($refs) cr {
 			@:desc=serverctl(GET $cr FULLDESC);
@@ -33,8 +42,13 @@ alias servsave {
 				};
 			};
 
-			@write($savemt $mstr);
+			if (write($fd $mstr) < 0) {
+				@failed = 1;
+			};
 		};
 	};
-	@close($savemt);
+	if (close($fd) != 0) {
+		@failed = 1;
+	};
+	@save.replace("$path" $failed);
 };

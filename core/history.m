@@ -127,14 +127,33 @@ alias historyctl (action, ...) {
 			return 0;
 		};
 		(read) {
-			if ((:fd = open(${*0 ? *0 : history_save_file} R)) > -1) {
-				while (:line = read($fd)) {
-					if (numitems(array.history) == history) {
-						@ delitem(array.history 0);
-					};
-					@ setitem(array.history $numitems(array.history) $line);
+			@:path = twiddle(${*0 ? *0 : history_save_file});
+			if (index(r $info(o)) >= 0 && (substr(.zip $path $realpath($path)) >= 0 || substr(.tar $path $realpath($path)) >= 0)) {
+				xecho $acban Cannot read $path with this EPIC file reader;
+				return;
+			};
+			@:fd = open("$path" R);
+			if (fd < 0) {
+				xecho $acban Could not open $path for reading;
+				return;
+			};
+			while (!eof($fd)) {
+				@:line = read($fd);
+				if (ferror($fd) || (eof($fd) && line == [])) {
+					break;
 				};
-				@ close($fd);
+				if (line == []) {
+					continue;
+				};
+				if (numitems(array.history) == history) {
+					@delitem(array.history 0);
+				};
+				@setitem(array.history $numitems(array.history) $line);
+			};
+			@:read_failed = ferror($fd) != 0;
+			if (close($fd) != 0 || read_failed) {
+				xecho $acban Error reading $path;
+			} else {
 				return $fd;
 			};
 		};
@@ -143,13 +162,24 @@ alias historyctl (action, ...) {
 			@ delarray(array.history);
 		};
 		(save) {
-			if ((:fd = open(${*0 ? *0 : history_save_file} W)) > -1) {
-				fe ($jot(0 ${numitems(array.history) - 1} 1)) hh {
-					@ write($fd $getitem(array.history $hh));
-				};
-				@ close($fd);
-				return $fd;
+			@:path = twiddle(${*0 ? *0 : history_save_file});
+			@:fd = open("$path" W);
+			if (fd < 0) {
+				xecho $acban Could not open $path for writing;
+				return;
 			};
+			@:failed = 0;
+			fe ($jot(0 ${numitems(array.history) - 1} 1)) hh {
+				if (write($fd $getitem(array.history $hh)) < 0) {
+					@failed = 1;
+					break;
+				};
+			};
+			if (close($fd) != 0 || failed) {
+				xecho $acban Error writing $path;
+				return;
+			};
+			return $fd;
 		};
 		(set) {
 			^set history $0;
@@ -219,6 +249,6 @@ addset history_persistent bool {
 };
 
 set history_persistent off;
-if (history_persistent == 'on' && fexist($history_save_file) == 1) {
+if (history_persistent == 'on' && @word(2 $stat("$history_save_file"))) {
 	@ historyctl(read $history_save_file);
 };

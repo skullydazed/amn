@@ -86,15 +86,33 @@ alias delword {
 };
 
 alias wordssave {
-	@rename($(savepath)$wordsfile $(savepath)$wordsfile~);
-	@savemt = open($(savepath)$wordsfile W T);
-	@write($savemt @pubtrap = [$pubtrap]);
-	for (@xx=1, xx<numitems(_words), @xx++) {
-		@write($savemt @_words.$xx=[$getitem(_words $xx)]);
-		@write($savemt @_wordschan.$xx=[$getitem(_wordschan $xx)]);
-		@write($savemt @_wordstype.$xx=[$getitem(_wordstype $xx)]);
+	@:path = twiddle($(savepath)$wordsfile);
+	@:fd = open("${path}.$pid().tmp" wbx);
+	if (fd < 0) {
+		xecho $acban Could not open temporary save for $path;
+		return;
 	};
-	@close($savemt);
+	@:failed = 0;
+	if (write($fd @pubtrap = [$pubtrap]) < 0) {
+		@failed = 1;
+	};
+	for (@xx=1, xx<numitems(_words), @xx++) {
+		if (write($fd @_words.$xx=[$getitem(_words $xx)]) < 0) {
+			@failed = 1;
+		};
+		if (write($fd @_wordschan.$xx=[$getitem(_wordschan $xx)]) < 0) {
+			@failed = 1;
+		};
+		if (write($fd @_wordstype.$xx=[$getitem(_wordstype $xx)]) < 0) {
+			@failed = 1;
+		};
+	};
+	if (close($fd) != 0) {
+		@failed = 1;
+	};
+	if (!save.replace("$path" $failed)) {
+		return;
+	};
 	xecho $acban Mmatrix wordlist(s) saved to $(savepath)$wordsfile [mod];
 };
 

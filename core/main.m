@@ -12,9 +12,9 @@ subpackage main;
 @a.ver='amnesiac';
 @a.rel_id='0';
 @a.rel="3.0.$a.rel_id";
-@a.date='20261122';
-@a.snap='20261122';
-@a.commitid='53';
+@a.date='20261123';
+@a.snap='20261123';
+@a.commitid='54';
 
 ## color vars.
 @ cl    = "[0m";

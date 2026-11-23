@@ -17,10 +17,15 @@ on #-hook 10 "amnesiac_notify *" {
 	if (*1 == [SignOff] && nsolog != [on]) {
 		return;
 	};
-	@:fd = open("$twiddle($(savepath)$nlogfile)" W);
-	if (fd >= 0) {
-		@write($fd $toupper($1) by $2 on $strftime(%x at %X));
-		@close($fd);
+	@:path = twiddle($(savepath)$nlogfile);
+	@:fd = open("$path" W);
+	if (fd < 0) {
+		xecho $acban Could not open $path for writing;
+		return;
+	};
+	@:failed = write($fd $toupper($1) by $2 on $strftime(%x at %X)) < 0;
+	if (close($fd) != 0 || failed) {
+		xecho $acban Error writing $path;
 	};
 };
 
@@ -38,13 +43,18 @@ alias nsotog {
 
 # notify aliases.
 alias rnlog  {
-	if (fexist($(savepath)$nlogfile) == -1) {
+	if (!@word(2 $stat("$(savepath)$nlogfile"))) {
 		xecho $acban notify log file does not exist.;
 	}{              
 		input "remove log? [y|n]: " {
 			if (*0=='y') {
-				exec rm $(savepath)$nlogfile;
-				xecho $acban $(savepath)$nlogfile deleted;
+				exec -direct -end {
+					if (*1 == 0 && *2 == 0) {
+						xecho $acban Log deleted;
+					} else {
+						xecho $acban Could not remove log;
+					};
+				} rm -- "$twiddle($(savepath)$nlogfile)";
 			}{
 				xecho $acban rnlog canceled;
 			};
@@ -61,15 +71,27 @@ alias nlist ncache;
 alias rmnlog rnlog;
 
 alias nsave {
-	@rename($(savepath)$nfile $(savepath)$nfile~);
-    	@savemt = open($(savepath)$nfile W T);
-       	@write($savemt @nsolog=[$nsolog]);
-	@close($savemt);
+	@:path = twiddle($(savepath)$nfile);
+	@:fd = open("${path}.$pid().tmp" wbx);
+	if (fd < 0) {
+		xecho $acban Could not open temporary save for $path;
+		return;
+	};
+	@:failed = 0;
+	if (write($fd @nsolog=[$nsolog]) < 0) {
+		@failed = 1;
+	};
+	if (close($fd) != 0) {
+		@failed = 1;
+	};
+	if (!save.replace("$path" $failed)) {
+		return;
+	};
 	xecho $acban Notify settings saved to $nfile [mod];
 };
 
 alias nload {
-	if (fexist($(savepath)$nfile) == 1) {
+	if (@word(2 $stat("$(savepath)$nfile"))) {
 		load $(savepath)$nfile;
 	};
 };

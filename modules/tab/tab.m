@@ -63,11 +63,24 @@ alias tabload {
 };
 
 alias tabsave {
-	@rename($(savepath)tab.save $(savepath)tab.save~);
-	@fd = open($(savepath)tab.save W);
-	@write($fd config.blankmsg -l $_modsinfo.tab.blankmsg);
-	@close($fd);
+	@:path = twiddle($(savepath)tab.save);
+	@:fd = open("${path}.$pid().tmp" wbx);
+	if (fd < 0) {
+		xecho $acban Could not open temporary save for $path;
+		return;
+	};
+	@:failed = 0;
+	if (write($fd config.blankmsg -l $_modsinfo.tab.blankmsg) < 0) {
+		@failed = 1;
+	};
+
 	abwecho Tab settings saved to $(savepath)tab.save;
+	if (close($fd) != 0) {
+		@failed = 1;
+	};
+	if (!save.replace("$path" $failed)) {
+		return;
+	};
 };
 
 # Bind our key(s)
@@ -271,11 +284,29 @@ alias get.msg {
 		{
 			@:ath="";
 			fe ($glob($(loadpath)themes\/*.th)) th {
-				@:thfile = open($th R T);
+				if (index(r $info(o)) >= 0 && (substr(.zip $th $realpath($th)) >= 0 || substr(.tar $th $realpath($th)) >= 0)) {
+					xecho $acban Cannot read $th with this EPIC file reader;
+					continue;
+				};
+				@:thfile = open("$th" R);
+				if (thfile < 0) {
+					xecho $acban Could not open $th for reading;
+					continue;
+				};
 				@:auth = after(: $read($thfile));
-				@:desc = after(: $read($thfile));
-				@:name = after(: $read($thfile));
-				@close($thfile);
+				@:desc = [];
+				@:name = [];
+				if (!ferror($thfile)) {
+					@desc = after(: $read($thfile));
+				};
+				if (!ferror($thfile)) {
+					@name = after(: $read($thfile));
+				};
+				@:read_failed = ferror($thfile) != 0;
+				if (close($thfile) != 0 || read_failed) {
+					xecho $acban Error reading $th;
+					continue;
+				};
 				push ath $name;
 			};
 			xtype -l $gendisp("$ath" $_getlast($L));

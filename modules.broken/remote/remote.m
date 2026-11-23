@@ -120,12 +120,28 @@ alias remoteload (void) {
 };
 
 alias remotesave (void) {
-	@rename($(savepath)remote.save $(savepath)remote.save~);
-	@fd = open($(savepath)remote.save W);
-	@write($fd config.remotehostname -l $_modsinfo.remote.hostname);
-	@write($fd config.remotelistenport -l $_modsinfo.remote.listenPort);
-	@write($fd config.remotepassword -l $_modsinfo.remote.password);
-	@close($fd);
+	@:path = twiddle($(savepath)remote.save);
+	@:fd = open("${path}.$pid().tmp" wbx);
+	if (fd < 0) {
+		xecho $acban Could not open temporary save for $path;
+		return;
+	};
+	@:failed = 0;
+	if (write($fd config.remotehostname -l $_modsinfo.remote.hostname) < 0) {
+		@failed = 1;
+	};
+	if (write($fd config.remotelistenport -l $_modsinfo.remote.listenPort) < 0) {
+		@failed = 1;
+	};
+	if (write($fd config.remotepassword -l $_modsinfo.remote.password) < 0) {
+		@failed = 1;
+	};
+	if (close($fd) != 0) {
+		@failed = 1;
+	};
+	if (!save.replace("$path" $failed)) {
+		return;
+	};
 	xecho -b Remote settings saved to $(savepath)remote.save;
 };
 
