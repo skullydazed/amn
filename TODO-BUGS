@@ -4,12 +4,6 @@ Rewrite Section:
 
 This is some notes from hop on stuff we should look at rewriting.
 
-<hop> $N is *never* what you think it is.
-<hop> $servernick() is what you should use
------
-<hop> btw, the same deal with $C  -- $C is the current input window's current
-      channel.  what you want is $winchan($serverwin())
------
 <hop> 1) You can create your own output levels with $levelctl()
 <hop> http://epicsol.org/help/levelctl
 <hop> ie, @levelctl(ADD bleh);/xecho -l bleh HAHAHAH!                           

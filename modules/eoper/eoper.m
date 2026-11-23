@@ -355,7 +355,7 @@ alias wholist {
         if (@) {
                 who $0;
         }{
-                who $C;
+                who $winchan($serverwin());
         };
         wait;
         ^on who -*;

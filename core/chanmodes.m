@@ -205,7 +205,7 @@ alias devoice {
 	};
 };
 
-alias mdv (chan default "$C", void) {
+alias mdv (chan default "$winchan($serverwin())", void) {
         @_massmode($serverchan() -v $remw($servernick() $onchannel($chan)));
 };
 

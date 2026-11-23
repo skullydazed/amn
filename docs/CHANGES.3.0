@@ -14,3 +14,4 @@ ChangeLog amnesiac 3.0.x releases
 - Fix a bug where numeric 366 stalled in line-by-line (dumb) mode because $geom() returns -2147483648. //skullY
 - Unset STATUS_MAIL because that moved out to a Python script in epic6 and we don't need to support it directly in amn. //skullY
 - Move serverlist to modules.broken. //skullY
+- Change all uses of $C to $winchan($serverwin()). //skullY
