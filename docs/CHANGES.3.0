@@ -1,6 +1,6 @@
-ChangeLog amnesiac 2.x -> 3.0.0 release
+ChangeLog amnesiac 3.0.x releases
 
-2026.11.22
+2026.11.22 [version 3.0.0] [git 53]
 - whaaaaaaaaat? new amn release? no way! //skullY
 - dict and remote have been removed for now because epic6 doesn't have dcc currently. when it's back in epic6 they'll be back in amn. //skullY
 - Remove obsolete DCC settings, hooks, key bindings, formats, and tab completions. Old mod.save files skip unavailable modules, including dict and remote. Regular IRC completion, relay, and logging still work. //skullY
