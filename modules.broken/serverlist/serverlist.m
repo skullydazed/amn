@@ -1,6 +1,14 @@
 # Copyright (c) 2003-2026 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 
+# <hop> in serverlist.m, i'd love to know why you're torturing the poor FULLDESC
+#       return value like that. ;-)
+# <hop> if the return value isn't usable, i'd rather fix the return value than
+#       require you to murder it.
+# <hop> so there is a $serverctl(READ_FILE filename)
+# <hop> and if you write all of the $serverctl(GET <refnum> FULLDESC) to that
+#       file, it'll Just Work(tm).
+
 if (word(2 $loadinfo()) != [pf]) {
 	load -pf $word(1 $loadinfo());
 	return;
