@@ -7,18 +7,48 @@ if (word(2 $loadinfo()) != [pf]) {
 
 subpackage save;
 
-## save funcs
-alias asave {
-	@rename($(savepath)$savefile $(savepath)$savefile~);
-        @savemt = open($(savepath)$savefile W T);
-        @write($savemt ** amnesiac config file - saved $strftime($time() %D %T));
-	@write($savemt notify $notify());
-	@:vars = 'fke1 fke2 fke3 fke4 fke5 fke6 fke7 fke8 fke9 fke10 fke11 fke12 plog crapl msgl notl awayt awayr showop kickops getumode togaway windowdoubles clonecheck bt_ _bt et_ _et _ss _ort _pubnick _tss _ovsize _ovmode acban rfrombuf rsendbuf';
-	fe ($vars ) cvar {
-		@write($savemt assign $cvar $($cvar));
+## Write a complete replacement before moving the previous save to its backup.
+alias save.replace (path, failed, void) {
+	@:backup = [${path}~];
+	@:staged = [${path}.$pid().tmp];
+	@:had_save = fexist($path) == 1;
+	if (failed || (had_save && rename($path $backup) != 0)) {
+		@unlink($staged);
+		return 0;
 	};
-	@close($savemt);
-	xecho $acban Amnesiac settings saved to $(savepath)$savefile;
+	if (rename($staged $path) != 0) {
+		if (had_save) {
+			@rename($backup $path);
+		};
+		@unlink($staged);
+		return 0;
+	};
+	return 1;
+};
+
+alias asave {
+	@:path = twiddle($(savepath)$savefile);
+	@:fd = open(${path}.$pid().tmp wb);
+	if (fd < 0) {
+		xecho $acban Could not save Amnesiac settings to $path;
+		return;
+	};
+	@:failed = write($fd ** amnesiac config file - saved $strftime($time() %D %T)) < 0;
+	if (write($fd notify - $notify()) < 0) {
+		@failed = 1;
+	};
+	@:vars = 'fke1 fke2 fke3 fke4 fke5 fke6 fke7 fke8 fke9 fke10 fke11 fke12 plog crapl msgl notl awayt awayr showop kickops getumode togaway windowdoubles clonecheck bt_ _bt et_ _et _ss _ort _pubnick _tss _ovsize _ovmode acban rfrombuf rsendbuf';
+	fe ($vars) cvar {
+		if (write($fd assign $cvar $($cvar)) < 0) {
+			@failed = 1;
+		};
+	};
+	@close($fd);
+	if (save.replace($path $failed)) {
+		xecho $acban Amnesiac settings saved to $path;
+	} else {
+		xecho $acban Could not save Amnesiac settings to $path;
+	};
 };
 
 alias setsave {
@@ -70,13 +100,25 @@ alias csave {
 };
 
 alias igsave {
-	@rename($(savepath)$igsfile $(savepath)$igsfile~);
-	@saveig = open($(savepath)$igsfile W T);
-	fe ($igmask(*)) _igmasks {
-		@ write($saveig ^ignore $_igmasks $igtype($_igmasks));
+	@:path = twiddle($(savepath)$igsfile);
+	@:fd = open(${path}.$pid().tmp wb);
+	if (fd < 0) {
+		xecho $acban Could not save ignores to $path;
+		return;
 	};
-	@close($saveig);
-	xecho $acban Ignores saved to $(savepath)$igsfile;
+	@:failed = 0;
+	fe ($ignorectl(REFNUMS)) ref {
+		@:mask = ignorectl(GET $ref NICK);
+		if (write($fd ^ignore $mask $igtype($mask)) < 0) {
+			@failed = 1;
+		};
+	};
+	@close($fd);
+	if (save.replace($path $failed)) {
+		xecho $acban Ignores saved to $path;
+	} else {
+		xecho $acban Could not save ignores to $path;
+	};
 };
 
 alias save saveall;

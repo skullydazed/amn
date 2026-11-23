@@ -66,8 +66,12 @@ alias igmask (pattern, void) {
 };
 
 alias igtype (pattern, void) {
-	fe ($ignorectl(get $ignorectl(refnum $pattern) levels)) ii {
-		push function_return ${ii =~ '+*' ? "$rest(1 $ii)" : sar(#/##$sar(#^#DONT-#$ii))};
+	fe ($ignorectl(GET $ignorectl(REFNUM $pattern) LEVELS)) entry {
+		switch ($left(1 $entry)) {
+			(^) { push function_return DONT-$rest(1 $entry); }
+			(+) { push function_return +$rest(1 $entry); }
+			(/) { push function_return $rest(1 $entry); }
+		};
 	};
 };
 

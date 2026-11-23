@@ -13,17 +13,14 @@ osetitem misc nlog Log notify signoffs:;
 @nlogfile=word(1 $_modsinfo.nlog.savefiles);
 @nsolog='off';
 
-^on #-notify_signon 10  * {
-        @fd = open($(savepath)$nlogfile W);
-        @write($fd SIGNON by $0 \($userhost()\) $1- on $strftime(%x at %X));
-        @close($fd);
-};
-
-^on #-notify_signoff 10 * {
-	if ( nsolog == 'on' ) {
-	        @fd = open($(savepath)$nlogfile W);
-	        @write($fd SIGNOFF by $0 $1- on $strftime(%x at %X));
-	        @close($fd);
+on #-hook 10 "amnesiac_notify *" {
+	if (*1 == [SignOff] && nsolog != [on]) {
+		return;
+	};
+	@:fd = open("$twiddle($(savepath)$nlogfile)" W);
+	if (fd >= 0) {
+		@write($fd $toupper($1) by $2 on $strftime(%x at %X));
+		@close($fd);
 	};
 };
 
@@ -72,5 +69,7 @@ alias nsave {
 };
 
 alias nload {
-	^eval load $nfile;
+	if (fexist($(savepath)$nfile) == 1) {
+		load $(savepath)$nfile;
+	};
 };

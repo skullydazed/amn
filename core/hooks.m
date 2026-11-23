@@ -85,16 +85,6 @@ alias uptime {
 };
 ## end uptime functionality
 
-## notify/signon cosmetics
-^on ^notify_signon * {
-	xecho -v $G SignOn by $0!$sar(g/@/@/$1-) on $strftime(%x at %X);
-};
-
-^on ^notify_signoff * {
-	xecho -v $G SignOff by $0 on $strftime(%x at %X);
-};
-## end notify/signon cosmetics
-
 ## aliases/hooks for script version
 alias svf (void) {
 	if (@T)

@@ -133,10 +133,10 @@ alias tig {
 
 	if ( strlen($igns) ) {
 		fe ($igns) ignores {
-			xecho -b [$ignores] $ignorectl(GET $ignores NICK) $ignorectl(GET $ignores LEVEL);
+			xecho -b [$ignores] $ignorectl(GET $ignores NICK) $igtype($ignorectl(GET $ignores NICK));
 		};
 		input "enter # of which ignore to takeoff: " {
-			if ( ( "$0" >= word(0 $igns)) && "$0" <= word(${numwords($igns)-1} $igns)) {
+			if ( findw($0 $ignorectl(REFNUMS)) >= 0) {
 				@ignorectl(DELETE $0);
 			}{
 				xecho -b number out of range \($word(0 $igns) - $word(${numwords($igns)-1} $igns)\);
@@ -147,37 +147,6 @@ alias tig {
 	};
 };
 
-alias _ighost (uh,void){
-	if (match(*!*@* $uh)) {
-		return $uh;
-	}{
-		if (:uhost=getuhost($uh)) {
-                        return *!$uhost;
-		}{
-			return $uh;
-		};
-       };
-};
-
-alias ignore {
-	if (#) {
-		if (# > 1) {
-			//ignore $_ighost($0) $1-;
-		}{
-			//ignore $_ighost($0) all;
-		};
-	}{
-		xecho -b Ignorance List:;
-		@:igns=numsort($ignorectl(REFNUMS));
-		if ( strlen($igns) ) {
-			fe ($igns) ignores {
-				xecho -b [$ignores] $ignorectl(GET $ignores NICK) $ignorectl(GET $ignores LEVEL);
-			};
-	
-		};
-	};
-};
-		
 alias cig {
 	if (@) {
 		^ignore $0 public;

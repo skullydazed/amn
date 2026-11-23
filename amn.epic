@@ -105,7 +105,7 @@ fe ($remw($modfile $savefiles)) ff {
 };
 
 @_amn_loading_saved_state = 0;
-notify.sync_all;
+_ntfy_sync_all;
 
 _progress;
 
