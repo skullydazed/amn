@@ -127,12 +127,12 @@ alias botload {
 			@botmatch=getitem(bots $ii);
 		};
 	};
-	if (@botmatch) { 
+	if (@botmatch) {
 		@:host=after(! $word(0 $botmatch));
 		@:nick=before(! $word(0 $botmatch));
 		@:cmd=word(3 $botmatch);
 		@:pass=decode($word(1 $botmatch));
-		if (ischanop($nick $chan)&&match($host $userhost($nick))) { 
+		if (ischanop($nick $chan)&&match($host $userhost($nick))) {
 			xecho $acban $botprompt msging $nick for ops on $chan;
 			msg $nick $cmd $pass;
 		};

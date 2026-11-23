@@ -194,7 +194,7 @@ alias winvisible (winnum default 0, void) {
 
 ## auto-whowas
 alias whowas (nick, number default "$num_of_whowas", void) {
-	//whowas $nick $number;                             
+	//whowas $nick $number;
 };
 
 ## Auto_Rejoin

@@ -44,7 +44,7 @@ alias setorig {
 
 ## multiserv stuff.
 alias wcs {wser $*;};
-alias wns {wser $*;}; 
+alias wns {wser $*;};
 alias wser (srv) {
 	if (srv) {
 		^window new server $srv hide swap last;
@@ -134,7 +134,7 @@ on #^server_lost $posser * {
 };
 
 # Only suppress the first MOTD from each server connection.
-for i in (372 375 376 377) { 
+for i in (372 375 376 377) {
 	on ^$i * {
 		if (getset(suppress_server_motd) == 'ON' && doing_motd[$lastserver()]) {
 			return;
@@ -258,7 +258,7 @@ alias _relag {
 	if (*1 == S) {
 		if (time()-_rlt > 400) {
 			^set status_user1 ??;
-		}{ 
+		}{
 			^set status_user1 ${time()-_rlt};
 		};
 	};
@@ -408,19 +408,19 @@ on ^250 * {
 ^on ^server_notice "% % Looking up your hostname*" {
 	abecho $fparse(format_timestamp_some $($_timess))$2-;
 };
- 
+
 ^on ^server_notice "% % Checking Ident*" {
 	abecho $fparse(format_timestamp_some $($_timess))$2-;
 };
- 
+
 ^on ^server_notice "% % Found your hostname*" {
 	abecho $fparse(format_timestamp_some $($_timess))$2-;
 };
- 
+
 ^on ^server_notice "% % Got ident response*" {
 	abecho $fparse(format_timestamp_some $($_timess))$2-;
 };
-  
+
 ^on ^server_notice "% % No Ident response*" {
 	abecho $fparse(format_timestamp_some $($_timess))$2-;
 };
@@ -440,7 +440,7 @@ on ^250 * {
 
 alias svhelp servhelp;
 alias servhelp {
-        if (!@) {    
+        if (!@) {
 
 //echo ---------------------= Server Usage Help =-------------------------;
 //echo svlist    /svlist views currently available servers/info.;

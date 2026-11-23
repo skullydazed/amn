@@ -55,7 +55,7 @@ sir skullY's fault, blame him
 -sync docs to reality //zak
 
 05.19.09
--Add pattern matching to op deop voice devoice. 
+-Add pattern matching to op deop voice devoice.
  I.e. you can now do /op *kreca* and it will op all nick matching kreca.
  Suggested by wicked, david and others, inspired by irssi apparently. //kreca
 
@@ -69,27 +69,27 @@ sir skullY's fault, blame him
 -Fix /ignore which apparently hasn't worked in at least 2 years. //skullY
 
 05.27.09
--Add case correction to tab completion. 
+-Add case correction to tab completion.
  Requested by: inittab. With help from: Skully
  //kreca
 
 06.05.09
--Load amnesiac saved sets after all modules are loaded. 
- This makes sure that module added sets will save and load automatically. 
+-Load amnesiac saved sets after all modules are loaded.
+ This makes sure that module added sets will save and load automatically.
  Make use of this in the utf8 module. //kreca
--Add the ability to operview and mw to specify window number 
- (for hidden windows). Give operview the same syntax as mw 
- (-split,-hidden,-kill). If the window at that given already exists the flags 
+-Add the ability to operview and mw to specify window number
+ (for hidden windows). Give operview the same syntax as mw
+ (-split,-hidden,-kill). If the window at that given already exists the flags
  will be added to that specified window, otherwise it will be created at that
- number. 
- Requested by Alien88, hopefully he'll now fullfill my request/condition. 
+ number.
+ Requested by Alien88, hopefully he'll now fullfill my request/condition.
  //kreca
 
 06.06.12
 -Reset keybindings on /adump. //skullY
 
 06.18.09
--Add easykline script to oper module. To use this type /klineview [number] 
+-Add easykline script to oper module. To use this type /klineview [number]
  and a special window for klines is created. Type help in that window (no slash)
  to see how it works. It's good for mass klining / fast klining. Inspired
  by http://www.garion.org/hosc/. (Public domain)
@@ -110,12 +110,12 @@ sir skullY's fault, blame him
  cvs diff for more changeinfo. //zak
 
 12.12.09
--remove the hop alias which never worked. people should use /cycle instead. 
+-remove the hop alias which never worked. people should use /cycle instead.
  thanks to slocate for finding this. //skullY
 
 -01.05.10
 -Happy new year!
--Add scan_users info to all scan format so it's easier to customize. 
+-Add scan_users info to all scan format so it's easier to customize.
  rb mongoose. //kreca
 
 01.23.10
@@ -199,7 +199,7 @@ not make it, also merge channel.m into chanmodes.m purging more duplicates
 *sigh*, now amnesiac has /bk /bantype ban support etc again sorry for
 the mess. //zak
 -Also another note, between epic5 cvs 1620-21(server handling names got broken,
- it's fixed in 1622, but other bugs have now popped up cvs users of epic5 
+ it's fixed in 1622, but other bugs have now popped up cvs users of epic5
  should stick with 1619, until the bugs are corrected. you can find a copy
  at http://amnesiac.ircii.org/epic5/cvs if you dont know how to revert with
  cvs.  //zak
@@ -230,7 +230,7 @@ the mess. //zak
 -remove core/version.m -> merged to core/hooks.m for very little lines in
  version.m, hooks.m seems like a better fit. //zak
 -various cleanups //zak
- 
+
 03.14.10
 -fix /ub alias. rb zak. //kreca
 
@@ -272,7 +272,7 @@ the mess. //zak
  from core/hooks.m -> core/server.m for appropriation. //zak
 
 04.16.10
--Fix silencing of ctcps. The control codes were lost once upon a time and 
+-Fix silencing of ctcps. The control codes were lost once upon a time and
  havent worked since. Now use on ctcp_reply instead to silence it. //kreca
 
 04.28.10
@@ -294,8 +294,8 @@ release
 -move things to do with chanmodes from alias.m (invite/part) -> chanmodes.m
 -even though we had /not set to remove topic for a long time, it has now
  been changed to /cot|/untopic (dont ask), blame xavier, /not is now aliased
- as /notice 
--fix clonechecking, it now works again. 
+ as /notice
+-fix clonechecking, it now works again.
 -minor cleanups //zak
 
 [cvs 44]

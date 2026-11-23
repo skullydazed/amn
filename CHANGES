@@ -10,7 +10,7 @@ we have the first release in god knows how many years long overdue,
 I'm not perfectly happy with the release with a broken userlist and some
 other possible bugs, and the oper module mess needs to be dealt with. //zak
 -increment values of some default settings, namely dcc_ports increase
-low-med port range, increment lastlog buffer to 3500 scrollback to 2000, 
+low-med port range, increment lastlog buffer to 3500 scrollback to 2000,
 as most people surely have ram for that much these days, heck i use up to
 45000 at times.uses about 30-40megs depending on how many
 windows/channels. increment connect retry amount. //zak

@@ -1,4 +1,4 @@
-DESC 
+DESC
 1 $word(0 $info(v))/$sar(g/ /./$restw(1 $info(v)))[$info(i)] $sar(g/././$tolower($uname())) $sar(g/././$(a.ver)/$(a.rel)) $scdesc
 2 $sar(g/././$(a.ver)/$(a.rel)) $tolower($msar(g/././-/-/$J))[$info(i)] $scdesc
 3 ircii/$word(0 $info(v))-$word(1 $info(v)).$word(2 $info(v)).$word(3 $info(v))[$info(i)] $sar(g/././$tolower($uname()))(haze.midron.tk) $sar(g/././$(a.ver)/$(a.rel))
@@ -8,7 +8,7 @@ DESC
 7 $word(0 $info(v))/$word(1 $info(v)).$word(2 $info(v)).$word(3 $info(v))[$info(i)] - $(a.ver)<$(a.rel)> - ..$strip(\(\) $scdesc)
 8 $word(0 $info(v))/$word(1 $info(v)).$word(2 $info(v)).$word(3 $info(v))[$info(i)] : $tolower($uname()) [$(a.ver)$(a.rel)]
 9 $word(0 $info(v))/$word(1 $info(v)).$word(2 $info(v)).$word(3 $info(v))[$info(i)] $tolower($uname()) $a.ver/$a.rel
-10 $word(0 $info(v))/$word(1 $info(v)).$word(2 $info(v)).$word(3 $info(v))[$info(i)] $(a.ver)$sar(g/././$(a.rel)) 
+10 $word(0 $info(v))/$word(1 $info(v)).$word(2 $info(v)).$word(3 $info(v))[$info(i)] $(a.ver)$sar(g/././$(a.rel))
 11 $(a.ver)$sar(g/././$(a.rel)) $word(0 $info(v))/$word(1 $info(v)).$word(2 $info(v)).$word(3 $info(v))[$info(i)]
 12 $(a.ver)[$(a.rel)] $word(0 $info(v))/$word(1 $info(v)).$word(2 $info(v)).$word(3 $info(v))[$info(i)]
 13 $word(0 $info(v))/$word(1 $info(v)).$word(2 $info(v)).$word(3 $info(v))[$info(i)] - $tolower($uname(%s)-$uname(%%r)) - amnesiac/$(a.rel)

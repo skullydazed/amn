@@ -1,7 +1,7 @@
 07.26.10 - last edited by crapple
 
 NOTE: most of this information here is for referece purposes, for some brave
-amnesiac users who still have yet to upgrade in the past 3+ years. you   
+amnesiac users who still have yet to upgrade in the past 3+ years. you
 should always back up your ~/.amn savefile directory before attempting to
 upgrade in case things breaks, or needs to be merged manually.
 
@@ -43,7 +43,7 @@ tar zxf ac-snap.tgz -C /path/to/preferred/place
 NOTE: please see docs/cvs-update.txt for more information.
 
 most of you should be able to update easily after grabbing the latest
-release and or snapshot, cd /path/to/your/amn && cvs up -Pd 
+release and or snapshot, cd /path/to/your/amn && cvs up -Pd
 this will require you to have cvs installed naturally.
 
 NOTE: in some cases you may have to rm -rf ~/.amn in cases we may have

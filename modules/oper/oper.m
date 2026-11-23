@@ -110,14 +110,14 @@ alias operview (command,number default 0,void){
 			(-split) {
 				abecho $banner operview is turned on.;
 				@:refnum = windowctl(NEW);
-				^window 
+				^window
 					$refnum
-					double off 
-					fixed on 
+					double off
+					fixed on
 					size $_ovsize
 					$properties
 					status_format "[operview] %> [$servername($winserv(OperView))]";
-			
+
 					umode +$_ovmode;
 					^window back;
 			};
@@ -440,6 +440,6 @@ alias ohelp {
 //echo /dline <ip> reason.  will set a dline with reason. (ratbox);
 //echo /undline <ip> will remove a dline. (ratbox);
 //echo binds ^E scroll_backward in ovwin ^D scroll_forward in ovwin;
-                                       
+
 //echo -------------------------------------------------------------------;
 };

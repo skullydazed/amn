@@ -1,6 +1,6 @@
 # Copyright (c) 2003-2026 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
-/* 
+/*
  * Copyright (c) 2003 Brian Weiss <brian@epicsol.org>
  * All rights reserved.
  *

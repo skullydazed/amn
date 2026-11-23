@@ -5,7 +5,7 @@
 # Original implementation 2008 Dec 13, Zach White (skullY@EFnet)
 #
 # This script lets you connect to your currently running irc client using
-# another irc client. 
+# another irc client.
 
 
 # Make sure we're using the pf loader
@@ -424,8 +424,8 @@ alias _rsend {
 @levelctl(ADD remote);
 
 ## For debug
-^on ^dcc_raw * { 
-	if ([$3] != [ping]) { 
+^on ^dcc_raw * {
+	if ([$3] != [ping]) {
 		#_recho RAW: $*;
 	};
 };

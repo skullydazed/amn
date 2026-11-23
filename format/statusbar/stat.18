@@ -1,12 +1,12 @@
 subpackage stat18
 alias stat18 {
 ^set status_format1 $(sc2)$(ld.hline)$(sc2)$(ld.hline)$(sc2)$(ld.hline)$(ld.e)$(hblk)$(ld.hline_e)%>$(ld.e)$(ld.hline)$(sc2)$(ld.hline)$(ld.hline)$(sc2)$(ld.hline)
-^set status_format2 %T $(sc1)[$(cl)%*%=%@%N%#%A$(sc1)]$(cl) $(sc1)[$(cl)%R%C%+%Q$(sc1)]$(cl) %F %B 
+^set status_format2 %T $(sc1)[$(cl)%*%=%@%N%#%A$(sc1)]$(cl) $(sc1)[$(cl)%R%C%+%Q$(sc1)]$(cl) %F %B
 
 ^set status_format $(sc2)$(ld.hline)$(sc2)$(ld.hline)$(sc2)$(ld.hline)$(ld.e)$(hblk)$(ld.hline_e)%>$(ld.e)%B%Q$(ld.hline)$(sc2)$(ld.hline)$(ld.hline)$(sc2)$(ld.hline)
 
 
-^set input_prompt $(blu):$(cyn):$(hcyn):$(cl) 
+^set input_prompt $(blu):$(cyn):$(hcyn):$(cl)
 ^set status_notify $(sc1)[$(cl)Act: $(hwht)%F$(sc1)]$(cl)
 ^set status_umode \($(sc1)+$(cl)%#\)
 ^set status_oper $(sc2)*$(cl)
@@ -23,5 +23,5 @@ alias stat18 {
 
 stat18
 @windowdoubles=[on]
-^window double on 
+^window double on
 ^timer -del 14

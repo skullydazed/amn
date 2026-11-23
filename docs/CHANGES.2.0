@@ -15,7 +15,7 @@ CHANGES: amnesiac 1.5.x -> 2.0 release
  //kreca
 
 06.04.07
--Get rid of all evals in core/*. New version requirement: EPIC5-0.3.4 
+-Get rid of all evals in core/*. New version requirement: EPIC5-0.3.4
  ("This is a stable alpha release that fixes all of the known issues with
  epic5-0.3.3 and is stable enough to be targeted by scripts and packagers.")
  //kreca
@@ -46,7 +46,7 @@ CHANGES: amnesiac 1.5.x -> 2.0 release
 -Fix bug in /cycle which parted all channels. rb Alien88 //kreca
 -Add /v to tab completion, requested by Mongoose. //kreca
 -Fix bug that sent //#- to the server upon joins. rb wjr. //kreca
--Add wser and _wser aliases. Submitted by someone unknown (send me an msg). 
+-Add wser and _wser aliases. Submitted by someone unknown (send me an msg).
  //kreca
 
 01.11.08
@@ -96,7 +96,7 @@ CHANGES: amnesiac 1.5.x -> 2.0 release
 
 1.24.08
 -sync docs to reality/update docs //zak
--increment version requirement  EPIC5-0.3.5-cvs (20070917) [1520] 
+-increment version requirement  EPIC5-0.3.5-cvs (20070917) [1520]
  or higher commitnum [1520] being the commitnum //zak
 -make /10 work. since some get's confused between /0 and /10 //zak
 
@@ -150,7 +150,7 @@ w/specified host to connect with. //zak
 -Fix /awaymsg / /config away c so it sets the reason. rb tjh. //kreca
 
 05.07.08
--Fix bug in away on connect, also get rid of some unused variables. 
+-Fix bug in away on connect, also get rid of some unused variables.
  reported by Byron. //kreca
 
 05.10.08
@@ -216,7 +216,7 @@ and documented now. //skullY bug me if it breaks
 12.15.08
 -add new remote module. Connect to your client with another client. //skullY
 -increment snap //skullY
--fix tab.m so it actually works without the eval I removed the other 
+-fix tab.m so it actually works without the eval I removed the other
  day. //skullY
 
 12.23.08
@@ -237,11 +237,11 @@ and documented now. //skullY bug me if it breaks
  and testing them. //kreca
 
 1.23.09
--Make scanformat and whoisformat work for amnesiac dirs that has a . in 
+-Make scanformat and whoisformat work for amnesiac dirs that has a . in
  their path. //kreca
 -Convert all ibm437 that are represented in the portable graphics charachter
- set by using ^Echr^E instead. This makes a lot of the formats nicer when 
- using latin-1 or utf. 
+ set by using ^Echr^E instead. This makes a lot of the formats nicer when
+ using latin-1 or utf.
  There are still a few characters left, specifically in a few sbars,
  bannerformats, awayformats and pubnotices. I havnt noticed any others,
  please report if you find any and I'll see if I can find a representation

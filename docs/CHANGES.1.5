@@ -28,7 +28,7 @@ for further CHANGES info please read docs/CHANGES.rel.
 -add wording of /staynick to cancel when one does /orignick //zak
 -increment minor snapver //zak
 -sync epic docs to reality. //zak
--the previous /dlog functionality only logged dcc attempts, now it actually 
+-the previous /dlog functionality only logged dcc attempts, now it actually
  logs dcc_msgs when one is set away and /dlog is turned on.
 -added timestamps for dcc connect() close(), NOTE: you must
  rm -rf ~/.amn/.a.fsetsave if you are upgrading. //zak
@@ -69,8 +69,8 @@ for further CHANGES info please read docs/CHANGES.rel.
 6.5.06
 -cleanup stuff from compat.m i never really liked relying on the builtins
 script myself, hopefully nothing in the script contains the removed functs
-the following functs have been removed from compat. servergroup, servername 
-serveryourname wincursorline servernick winscrollbacksize if anyone notice 
+the following functs have been removed from compat. servergroup, servername
+serveryourname wincursorline servernick winscrollbacksize if anyone notice
 any breakage please let me know //zak
 -add new /dcr alias for renaming dcc nicks /dcr oldnick newnick to change
 your dcc chat nicks. //zak
@@ -112,7 +112,7 @@ your dcc chat nicks. //zak
 -Fix bug in delset and spell BlackJac correctly. //kreca
 -Fixed bug where nicks with a backslash on the end would get an extra
  backslash added. //skullY
--Make /msg tab cycling work correctly, it's always been broken and 
+-Make /msg tab cycling work correctly, it's always been broken and
  unable to cycle through the list more than once //kreca
 -Add /msg #chan to the /msg tab cycling list as requested. //kreca
 -add theme 'alien' for Alien88 which should keep him happy //zak
@@ -129,8 +129,8 @@ your dcc chat nicks. //zak
 -increment minor/snapdate //zak
 
 9.6.06
--Bring in auto reconnect script, control it with set auto_reconnect 
- auto_reconnect_delay and auto_reconnect_retries. This needs a lot 
+-Bring in auto reconnect script, control it with set auto_reconnect
+ auto_reconnect_delay and auto_reconnect_retries. This needs a lot
  of testing, that's why it's disabled by default. //kreca
 -auto_reconnect has been tested by me and it does work fine, however more
  feedback would be appreciated //zak
@@ -169,7 +169,7 @@ your dcc chat nicks. //zak
 -some minor aliasing changes/nits //zak
 -increment minor again *Sigh* //zak
 -** IMPORTANT CHANGE ** All files in ~/.amn/ starting with a .
- has now been renamed to drop the . This is renamed automatically for 
+ has now been renamed to drop the . This is renamed automatically for
  now on startup / adump. //kreca
 
 9.7.06
@@ -207,7 +207,7 @@ your dcc chat nicks. //zak
 
 9.19.06
 -Use the new input_reset key binding to keep the cut buffer (in tab.m and
- history script. Emulate the behaviour for older epic5 clients 
+ history script. Emulate the behaviour for older epic5 clients
  (bleeding edge feature) //kreca
 
 9.21.06
@@ -246,11 +246,11 @@ your dcc chat nicks. //zak
 -A lot of cleanups have been going on. The pf conversion is almost half done
  now. //kreca
 -Dcc tab completion is almost complete. //kreca
--With epic5 commitid 1415 and greater the action support is rewritten to 
+-With epic5 commitid 1415 and greater the action support is rewritten to
  incorporate the new changes to dcc actions. //kreca
 
 10.17.06
--Clean up /more. It's a lot better than the original implementation. Add 
+-Clean up /more. It's a lot better than the original implementation. Add
  support for filenames containing white space while being there. //kreca
 -Increment snap date //kreca
 -Add /mode #chan tab support //kreca
@@ -313,7 +313,7 @@ your dcc chat nicks. //zak
 -Add time format 22 made by bioterror. /timeform 22 to check it out //kreca
 
 1.22.07
--Add auto_rejoin_connect setting which prevents the client from rejoining 
+-Add auto_rejoin_connect setting which prevents the client from rejoining
  channels upon reconnect. //kreca
 
 1.31.07
@@ -332,7 +332,7 @@ your dcc chat nicks. //zak
  //zak
 
 2.13.07
--bring in theme shtfck by bioterror. Really nice charset independent theme 
+-bring in theme shtfck by bioterror. Really nice charset independent theme
  with similar colors to chloro. //kreca
 -add sbar 16 that is used in shtfck also made by bioterror //kreca
 -n/a is now displayed in the sbars when no chops data is available. //kreca
@@ -386,10 +386,10 @@ NOTE: there is still more work that needs to be done on the userlist it isnt
 04.10.07
 -Module framework cleanups. A lot easier to add modules and all help
  (vmod/emod) will be up to date directly. //kreca
--Format framework is nearly finished with constructors for formats. Easy 
+-Format framework is nearly finished with constructors for formats. Easy
  to add new formats which are quite complicated (like whois scan statbar
  timestamps, banners etc). //kreca
--All formats are now contained in amn/format/*. Scripter shouldnt have to 
+-All formats are now contained in amn/format/*. Scripter shouldnt have to
  mess with other files. //kreca
 
 04.17.07

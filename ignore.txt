@@ -15,13 +15,13 @@ not stop someone from flooding you, but it does stop your screen from
 being flooded.  If someone attacks you with a floodnet, you can still
 be knocked off of irc even if you __IGNORE__ it.
 
-Messages can be filtered based on any nick!user@host pattern, (which 
-can be abbreviated to just a nick, or just a user@host) or on any 
+Messages can be filtered based on any nick!user@host pattern, (which
+can be abbreviated to just a nick, or just a user@host) or on any
 channel.
 
 Messages are filtered by context type.  This allows you to ignore only
 certain types of messages from someone without having to ignore every
-message from that person.  For example, you could ignore [[INVITE]]s 
+message from that person.  For example, you could ignore [[INVITE]]s
 from someone who is annoying you without having to ignore his [[MSG]]s.
 
 __IGNORE__ will apply a filter based on the best possible match.  Thus, if
@@ -38,7 +38,7 @@ a ignore reason and timeout may be included.
 
 Most, but not every ignore level works with channels.
 
-When you are trying to remove an ignore, you must specify the pattern 
+When you are trying to remove an ignore, you must specify the pattern
 exactly as it appears in your ignore list.  "Approximate" patterns will
 be treated as NEW patterns and will not supersede existing patterns.
 

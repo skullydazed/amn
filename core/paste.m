@@ -24,7 +24,7 @@ alias _pasteon {
 			//send  ;
 		} {
 			//send $*;
-		}; 
+		};
 	};
 
 	xecho -s $acban PASTE mode ON. Ctrl-P to turn off, automatically ends in $paste_delay seconds.;

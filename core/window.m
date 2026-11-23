@@ -39,17 +39,17 @@ alias new_window_with_properties (number,properties) {
 	if (number > 0) {
 		if (windowctl(GET $number REFNUM) > 0) {
 			@new_window=0;
-			^window 
+			^window
 				$number
 				$properties;
 		};
 	};
 	if (new_window == 1) {
 		@:refnum = windowctl(NEW);
-		^window 
-			$refnum 
-			hide 
-			swap last 
+		^window
+			$refnum
+			hide
+			swap last
 			$properties
 			;
 		if (number > 0) {
@@ -66,12 +66,12 @@ alias mw (command,number default 0,void){
 			};
 			(-split) {
 				@:refnum = windowctl(NEW);
-				^window 
+				^window
 					$refnum
-					double off 
-					fixed on 
-					size 7 
-					status_format %>[msgs] 
+					double off
+					fixed on
+					size 7
+					status_format %>[msgs]
 					$properties;
 				^window back;
 			};

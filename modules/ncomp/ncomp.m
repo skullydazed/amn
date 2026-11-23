@@ -19,7 +19,7 @@ subpackage ncomp;
 		};
 		return;
 	};
-	if (!pattern($txt* $chanusers($serverchan())) && pattern(*$txt* $chanusers($serverchan()))) { 
+	if (!pattern($txt* $chanusers($serverchan())) && pattern(*$txt* $chanusers($serverchan()))) {
 		@ per = pattern(*$txt* $chanusers($serverchan()));
 		if (numwords($per) > 1) {
 			xecho $acban Ambiguous matches: $per;

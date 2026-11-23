@@ -66,7 +66,7 @@ alias printnames (printstats,lchan,lnick) {
 	   then it does a fe ($channel_nick_list) _nlist.1 _nlist.2 ... {
 		xecho $_nlist.1 $_nlist.2 $_nlist.3 ... <--- _nlist2 simplified
 	   }
-	   
+
 	   this is the most obscure lines of code I've ever seen,
 	   hence the explanation. Someone has been smoking crack!
 	   (It's a beautiful way to do it though ;) )

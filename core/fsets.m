@@ -126,7 +126,7 @@ alias fparse {return ${**cparse($($*))};};
 	xecho -l msg $fparse(format_timestamp_some $($_timess))$(hwht)\<$(cl)CID$(hwht)\>$(cl) Press alt-Y to accept from $1;
 };
 
-## topic stuff 
+## topic stuff
 ## NOTE: Need to investigate if we really need to suppress
 ## some of these numerics with so many changes to the ircd in the past
 ## 8 years //zak
@@ -180,7 +180,7 @@ on ^318 * {
 		xecho $fparse(format_whois_footer);
 	};
 };
-on ^314 * { 
+on ^314 * {
 	xecho $fparse(format_whowas_header);
 	xecho $fparse(format_whowas_nick $1 $2 $3);
 	xecho $fparse(format_whowas_name $5-);
@@ -200,11 +200,11 @@ on ^310 * {
         xecho $fparse(format_whois_active $*);
 };
 
-on ^320 * {                                 
+on ^320 * {
         xecho $fparse(format_whois_root $*);
 };
 
-on ^378 * {                                 
+on ^378 * {
         xecho $fparse(format_whois_connect $*);
 };
 ## End Unreal.
@@ -218,7 +218,7 @@ on ^313 * {
 	xecho $fparse(format_whois_operator $1 $randread($(loadpath)reasons/oper.reasons));
 };
 
-^on ^401 * { 
+^on ^401 * {
         xecho $fparse(format_whois_header);
 	xecho $fparse(format_whois_unknown $1);
         xecho $fparse(format_whois_footer);
@@ -238,7 +238,7 @@ on ^313 * {
 	xecho $fparse(format_whowas_footer);
 };
 
-^on ^406 * { 
+^on ^406 * {
 	xecho $fparse(format_whowas_header);
 	xecho $fparse(format_whowas_unknown $1);
 };

@@ -2,13 +2,13 @@ subpackage stat13
 
 alias stat13 {
 ^set status_format %T [%R] %*%=%@%N%#%S%H%B%Q%A%C%+%I%O%M%F%L %D %W
-^set status_format1  %T [%R] +%*%=%@%N%#%S%H%B%Q%A%C%+%I%O%M%F%L 
-^set status_format2   (ops:%Y) (non:%X) (voc:%Z)     %U %> 
-^set input_prompt > 
+^set status_format1  %T [%R] +%*%=%@%N%#%S%H%B%Q%A%C%+%I%O%M%F%L
+^set status_format2   (ops:%Y) (non:%X) (voc:%Z)     %U %>
+^set input_prompt >
 ^set status_umode  (+%#)
 ^set status_oper *
 ^set status_channel  %C
-^set status_mode  (+%+)  
+^set status_mode  (+%+)
 ^set status_clock  %T
 ^set status_chanop @
 ^set status_user5 $(sc1)s$(hblk)/$(sc2)$S
@@ -22,7 +22,7 @@ alias stat13 {
 ^set STATUS_SCROLLBACK  (Scroll)
 ^set STATUS_SERVER %S
 ^set -STATUS_USER
-^set STATUS_WINDOW ^^^^^^^^ 
+^set STATUS_WINDOW ^^^^^^^^
 }
 stat13
 @windowdoubles=[off]

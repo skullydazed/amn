@@ -5,7 +5,7 @@ Amnesiac FAQ 0.1.2
     d' `$bl $  `b'`$$ $'   $$  `$b.       `$b.   $$   d' `$bl
    dsssss$b $      $$ $    $$  d$P'^  ,b.   `$$. $$  dsssss$b
   d'     `$b$      $$ $    $$ d$b     ,$$.db `$$ $$ d'     `$b    ,b
- d'       `$$      $$,$    `$b'$$b. ,$$$'`$$bdP'.$$dbs     s$$b  .d$' 
+ d'       `$$      $$,$    `$b'$$b. ,$$$'`$$bdP'.$$dbs     s$$b  .d$'
 d' ###### ,d$$b ###X#A#V#I#E#R##b`$$$$$'d####################`$$$$P'
 
 Q: How do I get help documentation?
@@ -37,7 +37,7 @@ A: /theme to see a list of themes, /theme <name> to switch themes. You can
 
 Q: How do I load and unload modules?
 A: /addmod to load a module, /delmod to remove a module, /listmod to see
-   what's loaded, /vmod to see all the modules available. /emod to see more 
+   what's loaded, /vmod to see all the modules available. /emod to see more
    detailed description about the module.
 
 Q: How do I use windows?

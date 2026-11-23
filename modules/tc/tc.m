@@ -8,19 +8,19 @@
 
 if (word(2 $loadinfo()) != [pf]) { load -pf $word(1 $loadinfo()); return; };
 
-# (note from jfn)  The original allowed you to save up to 10 nicks to 
+# (note from jfn)  The original allowed you to save up to 10 nicks to
 # by cycled through by pressing <tab> or <esc>.  I totaly rewrote the file
-# and added the ability to set the number of nicks to save, and also made 
+# and added the ability to set the number of nicks to save, and also made
 # it a full tabkey clone.  This file is a lot easier to figure out, too.
-# 
+#
 # What it does:
 #     save an arbitrary number of nicks in a list (settable by you)
 #     cycle through the list by pressing <tab>
 #     cycle backwards through the list by pressing <^R>
 #     remove last <TAB>bed nick from the list (^X^X)
 #
-# Because this script uses a queue instead of a list and index counter, 
-# you may find this script has a different set of idiosyncrasies then 
+# Because this script uses a queue instead of a list and index counter,
+# you may find this script has a different set of idiosyncrasies then
 # the original tabscript.
 #
 subpackage tc;

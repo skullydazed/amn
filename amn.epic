@@ -117,15 +117,15 @@ if (fke6 == [dcc]) {
 };
 
 ## load format functions (no particular order required any more)
-fe ($glob($(loadpath)format/*)) ii { 
+fe ($glob($(loadpath)format/*)) ii {
 	load -pf $(ii)config.m;
 };
 
 ## load core files
 fe ($glob($(loadpath)core/*.m)) mod {
-	if ( mod != "$(loadpath)core/compat.m" && 
-	     mod != "$(loadpath)core/addsets.m" && 
-	     mod != "$(loadpath)core/main.m" && 
+	if ( mod != "$(loadpath)core/compat.m" &&
+	     mod != "$(loadpath)core/addsets.m" &&
+	     mod != "$(loadpath)core/main.m" &&
 	     mod != "$(loadpath)core/config.m" &&
 	     mod != "$(loadpath)core/ignore.m" &&
 	     mod != "$(loadpath)core/notify.m" ) {

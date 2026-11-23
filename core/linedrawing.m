@@ -11,7 +11,7 @@ alias set_line_drawing (mode, void) {
 	if (mode == 1 ) {
 		@ld.e = '';
 		@ld.asc_chars = getcap(TERM acs_chars 0 0);
-	} 
+	}
 	else {
 # Hard coded vars for ibm437. Above does not play well with status bars
 		@ld.asc_chars ="j$chr(217)k$chr(191)l$chr(218)m$chr(192)q$chr(196)t$chr(195)u$chr(180)v$chr(193)w$chr(194)x$chr(179)~$chr(250)";

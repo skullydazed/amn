@@ -21,7 +21,7 @@ alias dns {
 };
  	
 alias nslookup {dns $*;};
- 
+
 ^on ^exec "dns *" {
 	if (*1 == 'Non-authoritative') {
 		xecho -c [dns] Non-authoritative answer for $_dnst;

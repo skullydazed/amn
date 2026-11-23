@@ -13,7 +13,7 @@ alias format.loadscan (number,void)
 };
 
 alias scanform.show (void) {
-	fe ($numsort($glob($(loadpath)format/scan/scan.*))) ii { 
+	fe ($numsort($glob($(loadpath)format/scan/scan.*))) ii {
 		@i = after(-1 . $ii);
 		load ${loadpath}format/scan/scan.$i;
 		xecho -v scan  [$(i)];

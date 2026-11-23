@@ -35,13 +35,13 @@ alias sb bans;
 alias btype {bantype $*;};
 alias etype {exempttype $*;};
 alias i invs;
-alias e exs; 
+alias e exs;
 alias exempt exs;
 alias invites invs;
 alias tpi tinv;
 alias tpe texp;
-alias pinv ui; 
-alias pexp ue; 
+alias pinv ui;
+alias pexp ue;
 alias exhelp exempthelp;
 
 ## ban aliases.
@@ -70,7 +70,7 @@ alias partall {
 alias cops {
 	^on who -*;
 	^on ^who * {
-		@:ck=left(2 $2);  
+		@:ck=left(2 $2);
 		if ( ck =='G*' || ck == 'H*') {
 			xecho $[9]0 $[9]1 $[20]5 $3@$4;
 		};
@@ -321,7 +321,7 @@ alias ecycle {
 
 alias waitop {
 	timer $srand($time())$rand(10) {
-		if (! [$ischanop($0 $1)]) { 
+		if (! [$ischanop($0 $1)]) {
 			mode $1 +o $0 };
 		};
 	};

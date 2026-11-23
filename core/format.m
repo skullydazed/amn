@@ -7,7 +7,7 @@ if (word(2 $loadinfo()) != [pf]) {
 };
 
 subpackage format;
-## Format helper functions (for scripters) 
+## Format helper functions (for scripters)
 alias _format.getop (noop dwords 1, nickchan) {
 	@:nick=word(0 $split(: $nickchan));
 	@:chan=word(1 $split(: $nickchan));
@@ -166,7 +166,7 @@ alias format.readitem (fname, number) {
 };
 
 ## Helper functions for config.m (to handle generic cases)
-## 
+##
 alias format.printformats (format_name,letter,long_name) {
 	@:fni=format.numitems($format_name);
 	for (@mm=1, mm <= fni, @mm++) {

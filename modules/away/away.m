@@ -54,7 +54,7 @@ alias readlog {
 };
 
 on -idle * {
-	if (*0!= 0) { 
+	if (*0!= 0) {
 		if (awayt == *0 && awaystat != 1 && togaway != 'OFF') {
 			away autoaway after $0 mins;
 			xecho $acban Auto-Away after $0 minutes;
@@ -173,7 +173,7 @@ alias logcrap {
 
 alias logm {
 	config.awaylogmsg -s $*;
-};           
+};
 
 alias logn {
 	config.awaylognotice -s $*;

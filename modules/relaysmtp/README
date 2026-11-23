@@ -15,7 +15,7 @@ irc client. I use the following procmail recipe for this:
 	* ^From: <your email address>
 	|/bin/sh $HOME/amn/modules/relaysmtp/addQueue.sh
 
-If you have installed amnesiac in another location you will need to adjust 
+If you have installed amnesiac in another location you will need to adjust
 the procmail recipe and the addQueue.sh script.
 
 This will allow you to send an email similar to the following:
@@ -26,7 +26,7 @@ This will allow you to send an email similar to the following:
 	Hello!
 
 When this email is delivered it will result in your irc client sending a
-/msg to the irc nick you specify. 
+/msg to the irc nick you specify.
 
 ### Configuration (Within epic)
 
@@ -77,7 +77,7 @@ are ok.)
     /config relaysmtp f 5105550420@messaging.sprintpcs.com
 
 Now when someone sends me a message on irc it will be relayed to my phone
-with the proper From address, so I can simply reply to existing messages in 
+with the proper From address, so I can simply reply to existing messages in
 my phone's threaded sms reader.
 
 But wait, I need to ask zak something, and he hasn't messaged me yet. I'll
@@ -97,5 +97,5 @@ BUGS:
 
 I don't know what happens if you're on multiple servers. Probably you'll only
 be able to send messages to people on the server that is currently visible,
-while getting messages that are sent to you from any network. If you use 
+while getting messages that are sent to you from any network. If you use
 multiple networks and want me to work on this, find me (skullY) on EFnet.

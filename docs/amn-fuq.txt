@@ -3,7 +3,7 @@
     d' `$bl $  `b'`$$ $'   $$  `$b.       `$b.   $$   d' `$bl
    dsssss$b $      $$ $    $$  d$P'^  ,b.   `$$. $$  dsssss$b
   d'     `$b$      $$ $    $$ d$b     ,$$.db `$$ $$ d'     `$b    ,b
- d'       `$$      $$,$    `$b'$$b. ,$$$'`$$bdP'.$$dbs     s$$b  .d$' 
+ d'       `$$      $$,$    `$b'$$b. ,$$$'`$$bdP'.$$dbs     s$$b  .d$'
 d' ###### ,d$$b ###X#A#V#I#E#R##b`$$$$$'d####################`$$$$P'
 
 This fuq was made for satire written by crapple with help from others.
@@ -21,7 +21,7 @@ skullY
 hide
 and a bunch of others who we dont know about.
 
-also special thanks to the #epic/#amnesiac idiots for helping us 
+also special thanks to the #epic/#amnesiac idiots for helping us
 create this fuq
 
 Frequently Unanswered Questions
@@ -34,7 +34,7 @@ A: ftp.epicsol.org
 Q: who made amnesiac, how do i contact the author?
 A: crapple made amnesiac since if you are reading this FUQ there is
 unfortunatly no way to contact me.
-   
+
 Q: How do i install amnesiac?
 A: presuming you have epic installed and have the script downloaded
 tar zxvf amnesiac*.tgz; cd amn; more INSTALL
@@ -58,7 +58,7 @@ or if the client is already loaded and the script is untarred
 
 Q: what are the help commands?
 A: /ehelp /ahelp or if using epic6 sometimes /load help; /help will give
-you epic's internal help info if the client is installed globally or 
+you epic's internal help info if the client is installed globally or
 the source/scripts is in ~/.epic
 
 Q: Why am I banned in #Amnesiac?
@@ -87,7 +87,7 @@ A: http://amnesiac.ircii.org/ac-snap.tgz or http://amnesiac.ircii.org
    or cvs up -Pd in your amn directory as of 1.5 release (this requires cvs
    to be installed)
 
-Q: my backspace key in the xterm spews out ~~ or does not work does that 
+Q: my backspace key in the xterm spews out ~~ or does not work does that
    mean im lame?
 A: try export/setenv TERM=vt100 [rxvt,xterm,screen] then restart the client.
 
@@ -126,7 +126,7 @@ A: 8========D~
 Q: how come taco bell soft tacos smell like a wet dog? :(
 A: dunno. go ask in #bearcave.
 
-Q: why do I get banned in #Amnesiac for being a newbie.. 
+Q: why do I get banned in #Amnesiac for being a newbie..
 YES I REALLY AM A NEWBIE.
 A: GO AWAY
 
@@ -136,13 +136,13 @@ my question  regarding it?, why do I get banned if I change
 my host?. when will it be removed?.
 
 A: LAME VHOSTS ARE NOT PERMITTED IN #AMNESIAC IT WILL NEVER BE
-   REMOVED, YOU CAN PROLLY GET BACK IN LATER UNDER A DIFF ONE IF 
+   REMOVED, YOU CAN PROLLY GET BACK IN LATER UNDER A DIFF ONE IF
    YOU DO NOT BOTHER ANYONE!.
 
 Q: how do I dcc chat? how do I add a dcc query window?
-A: make some windows with /wc then do alt-1-9 to change windows or 
+A: make some windows with /wc then do alt-1-9 to change windows or
  esc 1-9 or /1 /2 /3 /4 etc.. to change windows
- in the window you want to dcc chat do /dcc chat nick /q =nick will them in 
+ in the window you want to dcc chat do /dcc chat nick /q =nick will them in
  a query the = does matter its the switch for dcc or if you dont use windows
  use /msg =nick
 

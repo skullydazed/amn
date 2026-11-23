@@ -16,7 +16,7 @@ subpackage netsplit;
 
 ## some aliases //zak
 alias listsplit wholeft;
-alias npurge netpurge;  
+alias npurge netpurge;
 alias nclean netclean;
 
 ## shows the current time in HH:MM:SS format
@@ -52,7 +52,7 @@ alias bogusclear {
 	if (isbogus($1-)) {
 		xecho $fparse(format_signoff $0 $1 $2-);
 		defer getusers;
-	} { 
+	} {
 		netbroke $encode($tolower($0)) $encode($1) $encode($2).$encode($3) $2 $3;
 	};
 };
@@ -75,9 +75,9 @@ alias netbroke {
 	@nj = netjoined($encode($tolower($1)) $encode($0) $1 $0 $USERHOST());
 	if (nj == 1) {
 	xecho $fparse(format_join $0 $1 $2);
-		if (clonecheck == 'on') {           
+		if (clonecheck == 'on') {
 			xecho -b Checking for clones of $0!$userhost($0);
-			fe ($channel($1)) channick {                     
+			fe ($channel($1)) channick {
 				@nicklength = (strlen($channick) - 2);
 				@channick = right($nicklength $channick);
 				if (userhost($channick)==userhost($0)) {
@@ -165,9 +165,9 @@ alias wholeft {
 # They don't chop off the string if it is too long.
 
 alias lformat (len, stuff) {
-	if (@stuff < len) { 
-	    return $([$len]stuff); 
-	} else { 
-	    return $stuff; 
+	if (@stuff < len) {
+	    return $([$len]stuff);
+	} else {
+	    return $stuff;
 	};
 };

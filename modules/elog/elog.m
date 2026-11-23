@@ -128,7 +128,7 @@ on #-notice 888 "*" {
 	if (_dontlog(msg)) { return; };
 	_log $0 -$0!$userhost()- $1-;
 };
-  
+
 ## public log hooks
 on #-public 888 "*" {
 	if (_dontlog(public)) { return; };

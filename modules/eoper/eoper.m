@@ -111,7 +111,7 @@ alias config.dateconv {
 	if ( [$0] == [-r] )
 	{
 		return $dateconv;
-		
+
 	} else if ([$0] == [-s]) {
 		config.matchinput on|off dateconv '$1' convert kline/gline times to remaining time;
 	};
@@ -166,7 +166,7 @@ alias _dateconv {
 ## amazing gline functions
 alias gi {
 	^local zz
-	if (numitems(glineTargets)<2) { 
+	if (numitems(glineTargets)<2) {
 		abecho %CGline%n list is empty!;
 		return;
 	};
@@ -252,14 +252,14 @@ alias operview (command,number default 0,void){
 			(-split) {
 				abecho $banner operview is turned on.;
 				@:refnum = windowctl(NEW);
-				^window 
+				^window
 					$refnum
-					double off 
-					fixed on 
+					double off
+					fixed on
 					size $_ovsize
 					$properties
 					status_format "[operview] %> [$servername($winserv(OperView))]";
-			
+
 					umode +$_ovmode;
 					quote flags all -CLICONNECTS -CLIDISCONNECTS -THROTTLES -NICKCHANGES -JUPENAMES -CLICONNV;
 					^window back;

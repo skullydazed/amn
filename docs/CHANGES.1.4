@@ -7,12 +7,12 @@ Changes since Amnesiac-1.0a-cvs14
 -update E5-KNOWNBUGS doc's from -HEAD.
 
 8/8/05
--added a new /format for nickname changes. Check /format u. 
+-added a new /format for nickname changes. Check /format u.
  Made by violence, thanks! //kreca
 -possibly fixed the ignore save... oops //zak
 -some comment changes and documentation update somewhat. //zak
--fix sbar num 11 to output proper format ops/non/voice it was using 
- vars i have no idea where they came from set it the way my script works 
+-fix sbar num 11 to output proper format ops/non/voice it was using
+ vars i have no idea where they came from set it the way my script works
  status_users2 = chops aka %2 users3 = nonops aka %3 and %4 = voice
  remember this in the future should any of you guys do sbar formats. //zak
 -fix a couple of stupid forgotten usages of ADDING $* for some aliases
@@ -38,7 +38,7 @@ work fine with epic5. //kreca
  from kreca. //zak
 -fix amn.epic to update for new_math_bullshit //zak
 -fix all the formats.m to work with new math. //zak
--release final snapshot for testing hopefully now we can get rid of 
+-release final snapshot for testing hopefully now we can get rid of
  that damn poison. //zak
 -add a new statbar which works well with window double on/off and does not
  use any form of /sbcolor so colors cannot be changed this way!, merged from
@@ -56,7 +56,7 @@ useless shit it's said in public it looks something like this in the chan
 the knock was request in you do not need to have that window active.
 it'll do it 'automagically' for you.
 [snapshot]
-*** <knock> irc.umich.edu xcrapple!zak@ninja.alienz.net 
+*** <knock> irc.umich.edu xcrapple!zak@ninja.alienz.net
 with the knock with bold brackets and servername is in hred. //zak
 -update snapver so i know what ppl are using. //zak
 -make /me in dcc chats output to the correct window. Now it'll be easier
@@ -96,7 +96,7 @@ to igno^H^H^H^H understand what zak tells me in our chat sessions //kreca
 -sync package with subpackage with files i've edited. //zak
 -clean up a bunch of cruft, arrange fsets.m a bit nicer //zak
 -fix up subpackages of statbars which might be causing some confusion //zak
--fix /kickban yes it works again only with it's $kickreasons. so it's 
+-fix /kickban yes it works again only with it's $kickreasons. so it's
  /kickban nick not /kickban nick somereason. must use randreason at this
  time.
 -add bantypes to /config /settings
@@ -113,13 +113,13 @@ to igno^H^H^H^H understand what zak tells me in our chat sessions //kreca
 -sync version to a pre-release as i want to finish up some other things
  before i release this out the door, this should be considered pretty stable
  now compared to the previous snapshots //zak
--modified /uptime to be a bit eliter, with some functional idea's from 
+-modified /uptime to be a bit eliter, with some functional idea's from
  fudd's darkstar script. //zak
 -change some fset formatting outputs for the better some less ansi, some
  a bit more verbose/informative. //zak ie /topic /not. and /c
 -add a /unkey alias. //zak
 -couple additions into kick.reasons //zak
--readd kreca's action.dcc/me fixes again with some slight mods 
+-readd kreca's action.dcc/me fixes again with some slight mods
  MAYBE it will fix the misdirected /me's this time. //zak
 -move the old action.m into pasture. //zak
 -fixed a really stupid incomplete mode array found by adam. thanks! //zak
@@ -159,13 +159,13 @@ to igno^H^H^H^H understand what zak tells me in our chat sessions //kreca
 -update all themes default versions to be a little less verbose per
  default!. //zak
 -change our version ways to be more realistic. //zak
--change /sv formats not to use $uname $client_info and a bit better 
+-change /sv formats not to use $uname $client_info and a bit better
  output. //zak
 -update my theme again(nocturnal) //zak
 -updated TODO-BUGS a bit more to my liking. //zak
 -organize/comment amn.epic a bit better and remove the stupid fparse
  on startup. //zak
--correctly fix/save/make the /resp2 /resp3 /resp4 the right way this 
+-correctly fix/save/make the /resp2 /resp3 /resp4 the right way this
  time. sorry if i caused any problems!. //zak
 
 9.1.05
@@ -186,12 +186,12 @@ just there fore informative purposes.
 -docs/UPGRADE.old - not updated anymore just there for informative purposes
 -UPGRADE - synced to reality. */ //zak
 -add a sample.epicrc in docs/ //zak
--remove mangle_logfiles all from amn.epic ppl can set it in their 
+-remove mangle_logfiles all from amn.epic ppl can set it in their
  epicrc's. //zak
 -remove window 1 name on startup. slightly change comments in amn.epic
 -get rid of the annoying / mode format #1 that has bugged me for a long
  time. //zak
--cleanups in userlist.m and orignick.m 
+-cleanups in userlist.m and orignick.m
 -cleanups of some xecho module banners. and a few aliases remove/changed.
 -removed encryption module
 -update patchlevel.
@@ -212,7 +212,7 @@ ie; with or without brackets and diff color... /format 3 for the list.
 -update patchlevel
 -fix query bug
 -fix timestamp_format bug
--fix timestamp config option problem i noticed while playing with it 
+-fix timestamp config option problem i noticed while playing with it
  a little more of it not turning off/on properly.
 -add a new alias for adam /wsa which window swaps into the status_format %F
  (activity) window
@@ -237,7 +237,7 @@ ie; with or without brackets and diff color... /format 3 for the list.
 -indentaion cleanup and removal of timestamp output for each row. //kreca
 -cleanup of more crap, and removed lame commands, and some just cluttering
  bloat commands like outputting /suptime /date like really who gives a shit.
--fixup of some minor things in notify.m and notifylog.m 
+-fixup of some minor things in notify.m and notifylog.m
 -remove a lot of junk in mass.m and more to come up yet!.
 -i'm not updating patchlevel this as it's not being snapshotted yet.
 -oh fix a minor fuckup of forgetting to remove lpaste from alias.m when
@@ -245,15 +245,15 @@ ie; with or without brackets and diff color... /format 3 for the list.
  by my words!.
 -large cleanup to amn.epic and mod.m. Indentation fixed in some aliases aswell //kreca
 -various stuff moved out to alias.m, hooks.m and operview.m //kreca
--split out all defaults in amn.epic to core/sets.m. Default modules are now 
+-split out all defaults in amn.epic to core/sets.m. Default modules are now
 located in mod.defaults //kreca
--add new alias, cat which behaves just like unix cat. Rip out ansi.m and 
+-add new alias, cat which behaves just like unix cat. Rip out ansi.m and
 replace it with evalcat in alias.m //kreca
 -make format t use evalcat and fix indentation in alias format. //kreca
--bind alt-§ to the alias wsa (see description above) 
+-bind alt-§ to the alias wsa (see description above)
 (the key to the left of 1) //kreca
--make bwk accept what kind of action that will be done upon the trigger. 
-/addword word #chan <type>.  currently type can be bk and kick. Do some 
+-make bwk accept what kind of action that will be done upon the trigger.
+/addword word #chan <type>.  currently type can be bk and kick. Do some
 more cleanup to bwk.m //kreca
 -move out 2 ans to their proper place in the adcc module
 -make getusers update statbars on the fly again for modes/quits/parts/joins
@@ -294,7 +294,7 @@ aliases are /orw and /orww
 -new menu help /mhelp for modules see /ehelp for info.
 -remove more cruft from ahelp.
 -add breset alias which does /binds -defaults, in case you fsck something
- up when trying to play around with keybinds this well set it back to 
+ up when trying to play around with keybinds this well set it back to
  epic defaults not amnesiac default /adump or reload script to bring all
  the keybindings back the way they were. i do not beleive /dump all dumps
  keybindings. (i could be wrong)
@@ -311,7 +311,7 @@ aliases are /orw and /orww
  unignore and some other common  things ppl keep bugging me about.
  see /ehelp as well for more info.
 -fix ignore and tig to use real epic refnums. //kreca
--added a fix for /ignore to work with the new math parser. Done by skully, 
+-added a fix for /ignore to work with the new math parser. Done by skully,
  thanks!
 -minor hack to fix /tig for now. /ignore still has some kinks. //zak
 -new format by adam, /format 4 (kickformats) thanks!. minor hooking to make
@@ -326,7 +326,7 @@ aliases are /orw and /orww
 -zap some whitespaces in mjoin. //zak
 -more code cleanups. //zak
 -output linewrap is now enabled per default, i disabled this in the past
- because some ppl complain about the trailing space on every line. but it 
+ because some ppl complain about the trailing space on every line. but it
  still ends up using much more space on long txt, to go back to the old
  behavior do /orw. (will set a save/toggle or the like in the near future)
 -move ignore/tig/cig to it's own file ignore.m(core) //zak
@@ -335,7 +335,7 @@ aliases are /orw and /orww
 
 9.9.05
 -make sbar #4 look a bit better requested by ryan. //zak
--add a /rel alias.. /rel -l to view msgbuf/paste -n for notice -m for 
+-add a /rel alias.. /rel -l to view msgbuf/paste -n for notice -m for
  sentmsg's. /rhelp for more info. hope this will make xavier somewhat
  happy. //zak
 -change some formatting in the relay input to make more sense, ie;
@@ -356,7 +356,7 @@ aliases are /orw and /orww
 aliases from alias.m to channel.m merge stuff from mass.m module into
 channel.m as well, this makes much more sense and easier to find said
 aliases in future, code cleanups while in these area's. //zak
--move bantype/timestamp from alias.m to config.m this is more proper 
+-move bantype/timestamp from alias.m to config.m this is more proper
  cleanup/document config.m a little better while in here. //zak
 -create a more extended explanation of modules /emod. make /vmod output
  nicer. yes both are a hack. will make it a bit better in the future.
@@ -397,7 +397,7 @@ Note: PLEASE READ THE UPGRADE FOR REMOVING 2 SAVEFILES BEFORE LOADING.
 -add more material into /ghelp general user help. see /ghelp //zak
 -fix a couple of broken aliases, remove a few nonessential aliases //zak
 -remove a lot more stuff from compat.m hopefully i didn't break anything
- the less stuff i need to rely on from builtins/compat etc.. the 
+ the less stuff i need to rely on from builtins/compat etc.. the
  happier i am. //zak
 -increment development version to 1.1d r/6 //zak
 
@@ -413,7 +413,7 @@ Note: PLEASE READ THE UPGRADE FOR REMOVING 2 SAVEFILES BEFORE LOADING.
 -remove/change some default sets on startup //zak
 -increment development version to 1.1d r/7 //zak
 -fix a couple more hardcoded window doubles in modules. //zak
--make /relm -l behave exactly like /relm. Now users with this 
+-make /relm -l behave exactly like /relm. Now users with this
  defect will be happy *cough* //kreca
 -make /relsn /relsm /reln etc... also support the -l switch. //zak
 -massive sync to EPIC-BUGS info. //zak
@@ -480,8 +480,8 @@ Note: PLEASE READ THE UPGRADE FOR REMOVING 2 SAVEFILES BEFORE LOADING.
  on in the first place if anyone notices something breaks let me know
  this should get rid of the trailing whitespace at the beginning.
  and fixing the output_rewrite to actually do what it should do right. //zak
--increment development version to 9. might actually be getting close to 
- a release now after we decide the politics of what we're going to do about 
+-increment development version to 9. might actually be getting close to
+ a release now after we decide the politics of what we're going to do about
  some questionable skullyisms. //zak
 -minor nits to TODO-BUGS. //zak
 -Replace a bunch of xecho -b's with xecho $acban. Should make it easier to
@@ -492,7 +492,7 @@ Note: PLEASE READ THE UPGRADE FOR REMOVING 2 SAVEFILES BEFORE LOADING.
  reliable. //skullY
 -sync TODO-BUGS to reality. //zak
 -minor -on to name change request in README //zak
--remove the old /orw /orww sillyness. just use /set indent on 
+-remove the old /orw /orww sillyness. just use /set indent on
  if you really really really want to //zak
 -Add a new module, tc. Tabkey /msg handler from epic. //skullY
 
@@ -507,13 +507,13 @@ Note: PLEASE READ THE UPGRADE FOR REMOVING 2 SAVEFILES BEFORE LOADING.
 
 10.12.05
 -merge in the following changes from a patch trent(criminal) sent to me.
- minor cosmetics fix to whois.2 
+ minor cosmetics fix to whois.2
  add scan.7 whois.7 (slightly modified copies of others) //trent
 
 10.18.05
 -add /wi support to tabkey from kreca //zak
 -add /m /msg support but not cyclable by me *gulp* //zak
-^^ might break some things as kreca does some really CONFUSING things 
+^^ might break some things as kreca does some really CONFUSING things
 to tab.m... due to my lack of sleep or quite possibly i might see duplicate
 edit_topic code that's conflicting from exec.m and tab.m want to check it
 out kreca? (i'm clearly dreaming here since i [insert kreca do/check
@@ -533,7 +533,7 @@ something over here] ) //zak
 10.20.05
 -set stat.11 to use doublestats for the time being, so people don't get
  confused with [opervision] //zak
--userlist.m: Allow users to specify * as a channel name for the userlist. 
+-userlist.m: Allow users to specify * as a channel name for the userlist.
  Fix the formatting while I'm there. //skullY
 -move script echo;s/parses to amn.epic to load before it loads the banners.
  as the output that should come out on startup shows a missing //echo.
@@ -556,7 +556,7 @@ Changes since amnesiac 1.2-rel
 -resync amc.load to use _center again //zak
 -merge the above into -release.
 -somewhat general start of the amnesiac-fuq Frequently Unanswered
-Questions. spinoff of the old bitchx.fuq docs/amn-fuq.txt //zak 
+Questions. spinoff of the old bitchx.fuq docs/amn-fuq.txt //zak
 -new snapshot.
 1.2d r/1
 -Add the beginnings of a real faq. //skullY
@@ -599,13 +599,13 @@ Questions. spinoff of the old bitchx.fuq docs/amn-fuq.txt //zak
 
 10.26.05
 -Fix all the scan.m garbage. I don't think that /scan should do anything
- but call /names ($C|$*), but kreca says no leave that so he can fix that 
+ but call /names ($C|$*), but kreca says no leave that so he can fix that
  part. //skullY
--Big cleanup to scan.m, make /sco /scv /scn /scan on ^366 all use the same 
+-Big cleanup to scan.m, make /sco /scv /scn /scan on ^366 all use the same
  alias to print scans. Get rid of the redundant formats
  format_scan_onjoin_nicks_border and format_scan_onjoin_nicks.
  This fixes what skully wanted to do in the comment above //kreca
--Revert action.m to use xecho -window to fix /me's in dcc query 
+-Revert action.m to use xecho -window to fix /me's in dcc query
  windows. //kreca
 
 10.28.05
@@ -647,12 +647,12 @@ thanks! //zak
  format_tab_users? //kreca
 
 11.08.05
--Make away message only display once when doing a /msg to a user who is 
+-Make away message only display once when doing a /msg to a user who is
  marked away. The counter is reset after 120 seconds of inactivity,
  currently this time is hardcoded. Hopefully this will make zak shut up!
  //kreca
 -Make /me's in non-current channels show correctly //kreca
--Fix /lusers for real this time. Works on every efnet server, sorta works 
+-Fix /lusers for real this time. Works on every efnet server, sorta works
  on freenode, doesn't seem to work on undernet but who cares about them
  anyway? //skullY
 
@@ -698,7 +698,7 @@ thanks! //zak
  somewhat some more to be done to this yet.(keybindings)
  06:30|<CID> irc.umich.edu zak@emogroupie.scenewhore.org (ninjazak)
  ^^ sample output for umode +g //zak
--fix format public so it'll show colours when showop is on + more 
+-fix format public so it'll show colours when showop is on + more
  logical separation. however this will break backwards compability
  with saved formats, PLEASE REMOVE .amn BEFORE COMPLAINING. //kreca
 -add keybinding of alt-y to CID to accept. add a bit more clearer
@@ -722,7 +722,7 @@ thanks! //zak
 CHANGES SINCE 1.3.x
 
 12.02.05
--move old CHANGES to docs/CHANGES.rel 
+-move old CHANGES to docs/CHANGES.rel
 -recycle CHANGES for -snapshot.
 -unfreeze tree, change version to reflect -snapshot. //zak
 
@@ -765,7 +765,7 @@ CHANGES SINCE 1.3.x
 1.24.06
 -Fix bugs in tsave that created broken .th files. //kreca
 -Added theme ansiless which is good if you like to use charset iso-8859-1
- on irc. This will work with almost any character set expect utf... 
+ on irc. This will work with almost any character set expect utf...
  You can see this theme on the screenshot page. //kreca
 
 1.25.06
@@ -797,8 +797,8 @@ core/hooks.m where it probably should have bee originally //zak
 -remove pasture/sync.m i doubt anyone will miss it. //zak
 -increment development version //zak
 -scrap kickonban, you know... the most annoying thing that most
-idiots/misconfigured clients use just to piss some of us off. i feel 
-for the poor sap who kicks me next time, 'amnesiac has that feature 
+idiots/misconfigured clients use just to piss some of us off. i feel
+for the poor sap who kicks me next time, 'amnesiac has that feature
 too excuse no longer applies ;D' //zak
 -remove some small/useless/cluttered aliases no one really uses. //zak
 
@@ -815,7 +815,7 @@ too excuse no longer applies ;D' //zak
 2.8.06
 -sync documents to reality. //zak
 -move settings to settings.default //kreca
--add /setsave which saves all the settings in settings.default to 
+-add /setsave which saves all the settings in settings.default to
  ~/.amn/.a.settings. This removes the need of modifying the old settings file
  aswell as customized ~/.amnrc //kreca
 -add setsave to saveall aka /save //kreca
@@ -825,11 +825,11 @@ too excuse no longer applies ;D' //zak
  while in the general area. //zak
 -fix /stamp /timestamp to actually turn on/off on the fly slight help/fix
  by kreca //zak
--remove outdated/ugly channel clone scan module.. /trickle is preferred 
+-remove outdated/ugly channel clone scan module.. /trickle is preferred
  for weeding out clones/drones/spammers etc.. see /ehelp trickle //zak
 -remove mjoin(ajoin) module from default startup //zak
 -hook in skullY's http module (undocumented at this time) //zak
--remove status_insert* from stat.14 hopefully fixes breakage against 
+-remove status_insert* from stat.14 hopefully fixes breakage against
  some other statbars. //zak
 -bump up minor ver (5) //zak
 
@@ -850,7 +850,7 @@ too excuse no longer applies ;D' //zak
 -resync some docs //zak
 
 2.25.06
--rename /beep /tbeep (interferes with re-addition of beep from builtins) 
+-rename /beep /tbeep (interferes with re-addition of beep from builtins)
  /set beep on; /set beep_on_msg all works/verified by klepto thanks! //zak
 -sync our TODO-BUGS a bit more, removed some finished projects info //zak
  ^^ Come on guys we need to get the todo's done before our release.

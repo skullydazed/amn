@@ -63,11 +63,11 @@ alias cmdeop {cs mdeop $serverchan() $*}
 alias omkick {cs mkick $0 $1}
 alias omdeop {cs mdeop $0 $1}
 alias odeop {cs deop $0 $1}
- 
+
 alias fop if (![$0]) {^quote chanserv op $serverchan() $servernick()} {^quote chanserv op $0 $servernick()}
 
 #person must be in channel for most of these to work.
-#else use the longer command line of anything starting with o IE: oaop 
+#else use the longer command line of anything starting with o IE: oaop
 #to add an aop o meaning obsolete/old way it used to be done.
 alias slist {cs sop $serverchan() list}
 alias alist {cs aop $serverchan() list}
@@ -85,9 +85,9 @@ alias oakick {if ([$1]) {        ^quote chanserv akick $0-
 
 alias svhelp {
 aecho  ----------------------------= Services Help =------------------------------
-	
-	
-		aecho  ms  <memoserv>  send a command to memoserv 
+
+
+		aecho  ms  <memoserv>  send a command to memoserv
 		aecho  ns  <nickserv>  send a command to nickserv
 		aecho  cs  <chanserv>  send a command to chanserv
 		aecho  ident <identify>  identify to nickserv/chanserv IE: /ident yourpass for nickserv
@@ -95,16 +95,16 @@ aecho  ----------------------------= Services Help =--------------------------
 		aecho  getpass <get's password>  oper command to get pass of channel/nick
 		aecho  forbid  <forbid chan>  oper command to block/close chan.
 		aecho  akill  <autokill>  oper command to add autokills.
-		aecho  ojupe  <operserv jupe>  oper command to jupe.	
-		aecho  akrem  <rem autokill>  oper command to remove autokills. 
+		aecho  ojupe  <operserv jupe>  oper command to jupe.
+		aecho  akrem  <rem autokill>  oper command to remove autokills.
 		aecho  os <operserv>  send a command to operserv must be an oper.
 		aecho  allow <allow dcc>  allow nick, so nick can send you a file
 		aecho  release <release nick>  to release a nick from enforcer.
-		aecho  recover <recover nick> ???? 
+		aecho  recover <recover nick> ????
 		aecho  ghost <ghost nick>  kills a ghosted client
 		input_char "menu paused, hit the ANY key to continue. "
 		pause
-		aecho  ninfo <nickname info>  information about a nickname  
+		aecho  ninfo <nickname info>  information about a nickname
 		aecho  why <why nick>  shows why a nick has an op in a chan aop/sop/none etc.
 		aecho  cinfo <channel info>  shows information about a chan.
 		aecho  count <count channel>  counts aops/sops/users in a channel

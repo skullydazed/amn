@@ -63,7 +63,7 @@ alias llw {lastlog -window $*;};
 alias llt {lastlog -target $*;};
 alias llm {lastlog -mangle ALL $*;};
 alias verk {massk $*;};
-alias csc {clear;sc;}; 
+alias csc {clear;sc;};
 alias a {ahelp $*;};
 alias finger {ctcp $0 finger;};
 alias about {more $(loadpath)ans/about.ans;};

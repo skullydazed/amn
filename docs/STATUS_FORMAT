@@ -45,9 +45,9 @@ Taken from epicsols page.
 	connected to multiple servers, this appears in all windows.
 
 %B	(SET STATUS_HOLD_LINES, wrapper)
-	This expands if you have lines in your scrollback that you have 
+	This expands if you have lines in your scrollback that you have
 	never seen ("held lines").  This sub-expansion value is the number
-	of lines that you have never seen.  It is updated every /WINDOW 
+	of lines that you have never seen.  It is updated every /WINDOW
 	HOLD_INTERVAL lines.
 
 %C	(SET STATUS_CHANNEL, wrapper)
@@ -60,8 +60,8 @@ Taken from epicsols page.
 
 %D	(CURRENT)
 	This expands to information about your current file transfer when
-	you have a DCC SEND or DCC GET in progress, and when the window's 
-	level includes DCC, or if this is the current input window and 
+	you have a DCC SEND or DCC GET in progress, and when the window's
+	level includes DCC, or if this is the current input window and
 	/SET CURRENT_WINDOW_LEVEL includes DCC.
 
 %{1}D
@@ -73,7 +73,7 @@ Taken from epicsols page.
 	If you /WINDOW NOTIFY ON,  a window, then hide it, and output occurs
 	to one of the levels in the hidden window's /WINDOW NOTIFY_LEVEL,
 	the window will "notify" you that it has output.  The sub-expansion
-	value is a comma-separated list of the window refnums that are 
+	value is a comma-separated list of the window refnums that are
 	"notifying".
 
 %{1}F   (CURRENT, SET STATUS_NOTIFY, wrapper)
@@ -96,9 +96,9 @@ Taken from epicsols page.
 
 %{1}K
 	This expands when you are browsing the scrollback in this window.
-	It expands to "(Scroll: <num1> of <num2>)" where <num1> is how far 
-	the top of your display is from the bottom of the scrollback buffer 
-	(including any lines being held), and <num2> is how many lines total 
+	It expands to "(Scroll: <num1> of <num2>)" where <num1> is how far
+	the top of your display is from the bottom of the scrollback buffer
+	(including any lines being held), and <num2> is how many lines total
 	are in your scrollback buffer (including any lines being held).
 
 %L	(SET STATUS_CPU_SAVER, wrapper)
@@ -106,7 +106,7 @@ Taken from epicsols page.
 	value is the literal string "CPU".
 
 %M	(CURRENT, SET STATUS_MAIL, wrapper)
-	This expands whenever /SET MAIL is not 0 and you have mail in 
+	This expands whenever /SET MAIL is not 0 and you have mail in
 	your inbox.  EPIC only supports mbox right now.  If /SET MAIL is 1,
 	the sub-expression value is the empty string.  If /SET MAIL is 2,
 	the sub-expression value is the number of emails in your inbox.
@@ -115,14 +115,14 @@ Taken from epicsols page.
 	This always expands.  The sub-expansion value is the nickname you
 	are using on the window's server.  If the window is not connected
 	to a server, the sub-expansion value is "<invalid server>".  If the
-	window is connected to a disconnected server, the sub-expansion 
+	window is connected to a disconnected server, the sub-expansion
 	value is "<not registered yet>".
 
 %O	(CURRENT, SET STATUS_OVERWRITE)
 	This expands when /SET INSERT_MODE is OFF.
 
 %P
-	This is an expando which is used by the developers to display 
+	This is an expando which is used by the developers to display
 	debugging information without doing any screen output.  There is
 	no point in documenting it since it changes frequently.
 
@@ -138,17 +138,17 @@ Taken from epicsols page.
 	This always expands to the window's refnum.
 
 %S	(SET STATUS_SERVER, wrapper)
-	This expands when you are connected to no servers, or when you 
+	This expands when you are connected to no servers, or when you
 	are connected to more than one server.  If the window is not
 	connected to a server, it expands to "No Server".  The sub-expansion
 	value is the first segment (portions of the name separated by dots)
-	of our name for the server (what you supplied to the /SERVER command 
+	of our name for the server (what you supplied to the /SERVER command
 	or put in your server list).  If the name of the server is an IP
 	address, then the sub-expression value is the IP address.  If the
 	first segment of the server's name starts with "irc", then the
-	second segment of the server's name is used.  If the name of the server 
+	second segment of the server's name is used.  If the name of the server
 	is more than 60 characters, it is chopped off at 60 characters.  As an
-	example, if you are connected to "irc.choomba.com", then %S is 
+	example, if you are connected to "irc.choomba.com", then %S is
 	"choomba", and if you are connected to "192.168.1.101" then %S is
 	"192.168.1.101" and if you are connected to "zen.buddha.com" then
 	%S is "zen".  I hope this makes sense!
@@ -162,10 +162,10 @@ Taken from epicsols page.
 	name of the server, and is not chopped up like %S.
 
 %T	(CURRENT, SET STATUS_CLOCK, wrapper)
-	This expands if /SET CLOCK is ON.  The sub-expansion value is 
+	This expands if /SET CLOCK is ON.  The sub-expansion value is
 	the current time formatted with strftime() using /SET CLOCK_FORMAT.
 	If /SET CLOCK_FORMAT is unset, and /SET CLOCK_24HOUR is ON, then
-	the time will be shown in 24 hour time, otherwise it will be shown 
+	the time will be shown in 24 hour time, otherwise it will be shown
 	in 12 hour (imperial) time.
 
 %{1}T
@@ -177,14 +177,14 @@ Taken from epicsols page.
 	This expands to the client's version string ($V)
 
 %W
-	This expands if there is more than one window on the screen, and 
+	This expands if there is more than one window on the screen, and
 	this window is the current input window.  This expando should be
 	used as a visual cue that this window is the current input window
 	when you are using a split screen.
 
 %#	(CURRENT, SET STATUS_UMODE, wrapper)
 	This expands when you have set a user mode on the window's server.
-	It alawys expands if you are connected to more than one server.  It 
+	It alawys expands if you are connected to more than one server.  It
 	does not expand if you are not connected to a server in this window.
 	The sub-expansion value is the user mode for this server.
 
@@ -201,9 +201,9 @@ Taken from epicsols page.
 	The sub-expansion value is the current channel's mode.
 
 %{1}+ 	(SET STATUS_MODE, wrapper)
-	This expands when you are on a channel.  If the current channel 
+	This expands when you are on a channel.  If the current channel
 	does not have a mode set, the sub-expansion value is the empty
-	string. Otherwise, the sub-expansion value is the current channel's 
+	string. Otherwise, the sub-expansion value is the current channel's
 	mode.
 
 %.	(/WINDOW STATUS_SPECIAL)
@@ -211,13 +211,13 @@ Taken from epicsols page.
 
 %=	(SET STATUS_VOICE)
 	This expands when you are a channel voice for the current channel.
-	This does not expand when you are a channel operator for the 
+	This does not expand when you are a channel operator for the
 	current channel.
 
 %@	(SET STATUS_CHANOP or SET STATUS_HALFOP)
 	This expands when to SET STATUS_CHANOP when you are are a channel
-	operator for the current channel.  Otherwise, it expands to SET 
-	STATUS_HALFOP when you are a half-channel-operator ("helper" on 
+	operator for the current channel.  Otherwise, it expands to SET
+	STATUS_HALFOP when you are a half-channel-operator ("helper" on
 	some servers) for the current channel.
 
 %|	(SET STATUS_SSL_ON or SET STATUS_SSL_OFF)

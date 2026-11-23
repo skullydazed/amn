@@ -15,7 +15,7 @@ on #-exit 000 "*" {
         xecho -v -b signoff: $N \($*\);
 };
 
-## catch the "user is away" message and only display it once. 
+## catch the "user is away" message and only display it once.
 ## Thanks to fudd for this idea and inspiration from his script
 ## Note that this does not affect the output of /whois since the hook
 ## is pushed / popped //kreca

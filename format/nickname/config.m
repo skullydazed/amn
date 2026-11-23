@@ -8,9 +8,9 @@ alias ncomp (number) {
 			xecho -b please make a valid selection.;
 			return 0;
 		};
-		
+
 	}{
-		fe ($jot(1 $format.numitems(nick_comp))) aa { 
+		fe ($jot(1 $format.numitems(nick_comp))) aa {
 		xecho $Cparse("%K[%n$([2]aa)%K]%n %K<%ncrapple%K>%n") kreca$format.fshow(nick_comp $aa) hi!
 		};
 		xecho $acban /format r <number> to set nick completion;

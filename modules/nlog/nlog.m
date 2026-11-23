@@ -45,7 +45,7 @@ alias nsotog {
 alias rnlog  {
 	if (!@word(2 $stat("$(savepath)$nlogfile"))) {
 		xecho $acban notify log file does not exist.;
-	}{              
+	}{
 		input "remove log? [y|n]: " {
 			if (*0=='y') {
 				exec -direct -end {

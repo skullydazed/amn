@@ -2,13 +2,13 @@ subpackage stat11
 
 alias stat11 {
 ^set status_format [operview] %>%S
-^set status_format1  %T [win:%R] +%*%=%@%N%#%S%H%B%Q%A%C%+%I%O%M%F%L 
-^set -input_prompt 
-^set status_format2   (ops:%2) (non:%3) (voc:%4) (tot:%7)     %U %> 
+^set status_format1  %T [win:%R] +%*%=%@%N%#%S%H%B%Q%A%C%+%I%O%M%F%L
+^set -input_prompt
+^set status_format2   (ops:%2) (non:%3) (voc:%4) (tot:%7)     %U %>
 ^set status_umode  (+%#)
 ^set status_oper *
 ^set status_channel  %C
-^set status_mode  (+%+)  
+^set status_mode  (+%+)
 ^set status_clock  %T
 ^set status_chanop @
 ^set status_user5 $(sc1)s$(hblk)/$(sc2)$S
@@ -23,7 +23,7 @@ alias stat11 {
 ^set STATUS_SCROLLBACK  (Scroll)
 ^set STATUS_SERVER %S
 ^set -STATUS_USER
-^set STATUS_WINDOW ^^^^^^^^ 
+^set STATUS_WINDOW ^^^^^^^^
 
 }
 stat11

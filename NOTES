@@ -15,7 +15,7 @@ The above is another possible workaround for some terminals. seems to make
 some europeans happy anyways, and thats what truly matters. ;p
 
 ## ansi/ibm437 hardcoding fonts/ugly looking etc..
--this is not a bug per se, it's just how the font handles ansi codes. 
+-this is not a bug per se, it's just how the font handles ansi codes.
  i do not know what fonts really support them, these are some of the
  things you can try if your theme/colors/ansi etc.. in the client looks
  screwed up, also for european/non western languages users. there is a
@@ -26,14 +26,14 @@ some europeans happy anyways, and thats what truly matters. ;p
  xterm/whatever. it is best to have a font that supports this, one such
  font i do know that supports it for rxvt/aterm/etc.. is the vga11x19
  font, most people do not like this font as this is huge on small screens
- ie; 1024x768 or 15" or less monitors, it can be grabbed from 
+ ie; 1024x768 or 15" or less monitors, it can be grabbed from
  http://amnesiac.ircii.org/misc/
  there are also some other fonts in there as well which may or may not work.
  Note: artwiz-font types 'lime, smoothansi fonts works well'
 
 ## terminfo/termcap info.
 -terminfo/termcap issues on FreeBSD not sure about DragonFly... possible fix
- ln -s /usr/compat/linux/usr/share/terminfo /usr/share/misc 
+ ln -s /usr/compat/linux/usr/share/terminfo /usr/share/misc
  and cross your fingers? - help from |Rain| (naturally i presume this
  requires the linux-compat libs installed.)
 
@@ -69,7 +69,7 @@ A: since epic5 1.0.x release or better yet -cvs, if libiconv is installed
         06841000 26881000 rlib 0    1   0      /usr/lib/libcrypto.so.18.0
         0d510000 2d5ef000 rlib 0    1   0      /usr/local/lib/libiconv.so.6.0
 
-## additional information provided from 'outputhelp' straight from 
+## additional information provided from 'outputhelp' straight from
 epic5/documentation source
 
 ## About gnu screen
@@ -79,7 +79,7 @@ under gnu screen.
 
 ## wicked comment
 Th:14:46|<@wicked> export LANG=C works for me mostly
-Th:14:46|<@wicked> crtl+a+: c1 off  
+Th:14:46|<@wicked> crtl+a+: c1 off
 Th:14:46|<@wicked> and
 Th:14:46|<@wicked> crtl+a+: utf8 off off
 
@@ -109,14 +109,14 @@ set output-meta on
 Then in EPIC, you may need to:
 	/set high_bit_escape 0
 
-If you are using GNU screen, make sure you have "defc1 off" in your 
+If you are using GNU screen, make sure you have "defc1 off" in your
 screenrc file, because screen won't even display characters 128-159
 with it on (and it is on by default). (from Ben Winslow, May 16, 1999)
 
 DRAWING CHARACTERS:
 -------------------
 Fonts come with multiple character sets.  Usually there is a character
-set with european national characters ("latin-1"), and another character 
+set with european national characters ("latin-1"), and another character
 set with box drawing characters ("vga").  These character sets are mutually
 exclusive, and epic never forces you to use one or the other (unlike bx, or
 amnesiac which forces you into vga mode unconditionally)

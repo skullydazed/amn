@@ -24,11 +24,11 @@ some confusion on the new mangle/color/functional changes in epic5.
 	EPIC5 now includes a unified mangler/normalizer that is used by the
 	following features:
 		(The above functions)
-		The input prompt	
+		The input prompt
 		/lastlog -mangle
-		/log mangle		
+		/log mangle
 		/set mangle_inbound
-		/set mangle_outbound	
+		/set mangle_outbound
 		The status bar
 
 	All characters are grouped into one of 9 "types":
@@ -38,7 +38,7 @@ some confusion on the new mangle/color/functional changes in epic5.
 	3	Color char 		^C
 	4	Highlight toggle	^B ^E ^F ^O ^V ^_
 	5	Unsafe char		^M (\r)
-	6	Control char		^@ ^A ^D ^H ^K ^L ^N ^P ^Q 
+	6	Control char		^@ ^A ^D ^H ^K ^L ^N ^P ^Q
 					^R ^T ^U ^W ^X ^Y ^Z ^\ ^] ^^
 	7	Beep			^G
 	8	Tab			^I
@@ -72,7 +72,7 @@ some confusion on the new mangle/color/functional changes in epic5.
 
 	There are only *three* ambiguous cases:
 	* Type 2:
-		MANGLE_ESCAPES has first priority, then NORMALIZE, and 
+		MANGLE_ESCAPES has first priority, then NORMALIZE, and
 		finally STRIP_UNPRINTABLE
 	* Type 3:
 		STRIP_UNPRINTABLE has first priority, then NORMALIZE, and
@@ -82,7 +82,7 @@ some confusion on the new mangle/color/functional changes in epic5.
 		STRIP_UNPRINTABLE has first priority over NORMALIZE.
 
 *** News 10/05/2005 -- "ANSI" mangle type linked to "NORMALIZE"
-	The mangler type "ANSI" has been renamed to "NORMALIZE".  You can 
+	The mangler type "ANSI" has been renamed to "NORMALIZE".  You can
 	continue to use "ANSI", but it will be silently changed to "NORMALIZE"
 	internally.
 
@@ -120,7 +120,7 @@ some confusion on the new mangle/color/functional changes in epic5.
 	that, since UNPRINTABLE is more encompassing than ALL.
 
 *** News 08/05/2005 -- New mangle type, "UNPRINTABLE"
-	You can now mangle "UNPRINTABLE", which closely models the 
+	You can now mangle "UNPRINTABLE", which closely models the
 	/SET NO_CONTROL_LOG variable.  When you mangle UNPRINTABLE, all
 	characters that are not printable (isgraph() || isspace()) will
 	be removed, which includes all of the highlight characters.
@@ -142,7 +142,7 @@ some confusion on the new mangle/color/functional changes in epic5.
 	  * /WINDOW KILL_ALL_HIDDEN will not kill the window.
 	  * /WINDOW KILL_OTHERS will not kill the window.
 	  * /WINDOW KILLSWAP will fail[1] with an error message.
-	[1] A failure of *any* /window operation causes any subsequent 
+	[1] A failure of *any* /window operation causes any subsequent
 	    operations in the same statement to be discarded, to avoid
 	    accidentally operating on the wrong window.  This behavior
 	    is not a special-case.

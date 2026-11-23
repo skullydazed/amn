@@ -1,4 +1,4 @@
-DESC  
+DESC
 1 $(hblk)[$(cyn)a+c$(hblk)]$(cl)
 2 $(mag).$(cl)-$(hblk)$(ld.hline)$(cl)
 3 $(blu)$(ld.smalldot)$(hblk)$(ld.smalldot)$(blu)$(ld.smalldot)$(cl)

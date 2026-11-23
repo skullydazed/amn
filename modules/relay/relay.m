@@ -24,7 +24,7 @@ alias paste {relw $*;};
 @relayw='on';
 
 # flushing pasto.
-alias rflush {@delarray(_foo); @delarray(rnot); @delarray(rmesg); @delarray(smesg); \ 
+alias rflush {@delarray(_foo); @delarray(rnot); @delarray(rmesg); @delarray(smesg); \
 @delarray(smsg); @delarray(snot);};
 
 # /config opts

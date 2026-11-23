@@ -21,9 +21,9 @@ alias kline_status {
 };
 alias kline_print_help {
      echo Short help for now.;
-     echo Anything you paste in this window gets searched for 
+     echo Anything you paste in this window gets searched for
          user@host and those hostnames get K-lined;
-     echo Available settings: enable/disable, time, reason, 
+     echo Available settings: enable/disable, time, reason,
               klineuseronly.;
      echo Typing the following into this window will change settings:;
      echo on|off: turns the script on or off.;

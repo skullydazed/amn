@@ -12,13 +12,13 @@ subpackage history;
 #	Copyright (c) 2005 (BlackJac@EFNet)
 #  /history [<indexnum>]
 #	Returns a list of all commands in the history buffer, or
-#	all commands up to <indexnum>. 
-#  /!<indexnum|pattern> Retrieves history buffer entries and outputs them 
+#	all commands up to <indexnum>.
+#  /!<indexnum|pattern> Retrieves history buffer entries and outputs them
 #	to the input line. Use /!<indexnum> to retrieve <indexnum>
 #	or /!<pattern> to retrieve the most recent entry matching <pattern>.
 
 ## flush the history buffer
-alias hflush (void) { 
+alias hflush (void) {
 	@historyctl(reset);
 	xecho -b -c History index flushed;
 };

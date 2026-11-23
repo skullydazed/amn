@@ -42,7 +42,7 @@ you should get something like this.
 *** IPv4 vhost changed to [blah.deathwish.net], IPv6 vhost unchanged
 from [helpdesk.deathwish.net]
 
-/chat nick foo, if user foo is on IPv4 *in cases of firewalls/nat/etc* 
+/chat nick foo, if user foo is on IPv4 *in cases of firewalls/nat/etc*
 if you have a port forwards/firewall set for dcc, /chat nick foo -p portnum.
 alternatively /set DCC_PORT_MAX highport DCC_PORT_MIN minport. /save, to
 save your settings permanently.

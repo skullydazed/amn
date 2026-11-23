@@ -18,8 +18,8 @@ alias stat16 {
 }
 stat16
 @windowdoubles=[on]
-^window double on 
+^window double on
 ^timer -del 14
 
 
-^set input_prompt $T> 
+^set input_prompt $T>
