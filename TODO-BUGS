@@ -7,19 +7,6 @@ This is some notes from hop on stuff we should look at rewriting.
 <hop> 1) You can create your own output levels with $levelctl()
 <hop> http://epicsol.org/help/levelctl
 <hop> ie, @levelctl(ADD bleh);/xecho -l bleh HAHAHAH!                           
------
-<hop>  /server irc.foo.com:pr=v6
-<hop> or /server ssl-irc.foo.com:type=irc-ssl
------
-<hop> you should begin planning for elimiating every use of /eval everywhere    
-<hop> if you need to double-expand strings, use the ** math operator            
-<hop> @ foo = 'this is a string with $var in it'                                
-<hop> @ var = "one"                                                             
-<hop> @ val1 = **foo                                                            
-<hop> @ var = "two"                                                             
-<hop> @ val2 == **foo                                                           
-<hop> val1 -> "this is a string with one in it"  val2 -> "this is a string
-      with two in it"
 
 -------------------------------------------------------------------------------
 User Requests

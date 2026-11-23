@@ -238,7 +238,7 @@ alias aol (tgt default "$T",void) {
 
 alias randaol {@ function_return = getitem(aol $rand($numitems(aol)))};
 
-eval xecho $fparse(format_usage aol [<nick>|<#channel>]);
+xecho $fparse(format_usage aol [<nick>|<#channel>]);
 
 ## drendite wrote it, or roque one, duno, just don't complain to me about it
 alias lsay {

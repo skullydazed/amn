@@ -15,3 +15,4 @@ ChangeLog amnesiac 3.0.x releases
 - Unset STATUS_MAIL because that moved out to a Python script in epic6 and we don't need to support it directly in amn. //skullY
 - Move serverlist to modules.broken. //skullY
 - Change all uses of $C to $winchan($serverwin()). //skullY
+- Remove executable /eval calls from startup, module loading, AOL usage output, and evalcat. //skullY

@@ -117,7 +117,7 @@ alias wordssave {
 };
 
 alias wordsload {
-	^eval load $(savepath)$wordsfile;
+	^load $(savepath)$wordsfile;
 	@ delarray(_words);
 	@ delarray(_wordschan);
 	@ delarray(_wordstype);

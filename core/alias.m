@@ -142,7 +142,7 @@ alias evalcat {
 			if (ferror($fd) || (eof($fd) && line == [])) {
 				break;
 			};
-			eval //echo $line;
+			//echo ${**line};
 		};
 		@:read_failed = ferror($fd) != 0;
 		if (close($fd) != 0 || read_failed) {

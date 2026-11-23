@@ -106,7 +106,7 @@ alias botdel {
 };
 
 alias botload {
-	^eval load $(savepath)$bsavefile;
+	^load $(savepath)$bsavefile;
 	@ delarray(bots);
 	@ setitem(bots 0 !);
 	@ ii = 1;

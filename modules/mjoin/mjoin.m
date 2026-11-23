@@ -93,7 +93,7 @@ alias chansave {
 };
 
 alias chanload {
-	^eval load $(savepath)$chansfile;
+	^load $(savepath)$chansfile;
 	@delarray(chans);
 	@ii = 1;
 	@setitem(chans 0 !);
