@@ -55,7 +55,7 @@ for array in ($getarrays()) {
 @_pcnt=0;
 alias _progress {
 	@_pcnt=_pcnt+1;
-	set input_prompt $(hblk)[$cparse($(c1)$[20]repeat($_pcnt þ))$(hblk)] [$(cl)${_pcnt*2}$(hwht)%$(hblk)];
+	set input_prompt $(hblk)[$cparse($(c1)$[20]repeat($_pcnt ?))$(hblk)] [$(cl)${_pcnt*2}$(hwht)%$(hblk)];
 };
 
 ## unset/set cosmetic crap
@@ -88,16 +88,24 @@ _progress;
 load -pf $(loadpath)core/main.m;
 load -pf $(loadpath)core/config.m;
 
+## Load the commands used by the saved ignore rules and notify list.
+load -pf $(loadpath)core/ignore.m;
+load -pf $(loadpath)core/notify.m;
+
 ## load savefiles.
 @mkdir($(savepath));
 @chmod($(savepath) 700);
 
 ## Load saved settings and state. The module loader reads mod.save.
+@_amn_loading_saved_state = 1;
 fe ($remw($modfile $savefiles)) ff {
 	if (fexist($(savepath)$ff)==1) {
 		load $(savepath)$ff;
 	};
 };
+
+@_amn_loading_saved_state = 0;
+notify.sync_all;
 
 _progress;
 
@@ -115,7 +123,9 @@ fe ($glob($(loadpath)core/*.m)) mod {
 	if ( mod != "$(loadpath)core/compat.m" && 
 	     mod != "$(loadpath)core/addsets.m" && 
 	     mod != "$(loadpath)core/main.m" && 
-	     mod != "$(loadpath)core/config.m" ) {
+	     mod != "$(loadpath)core/config.m" &&
+	     mod != "$(loadpath)core/ignore.m" &&
+	     mod != "$(loadpath)core/notify.m" ) {
         	load -pf $mod;
 		_progress;
 	};
