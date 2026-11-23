@@ -88,22 +88,23 @@ alias _reconn.svkey (ref, void) {
 };
 
 alias _reconn.hook.disconn {
-  if (*1 != 'CLOSING' && getset(auto_reconnect) == 'ON') {
+  if (getset(auto_reconnect) == 'ON') {
     if (serverctl(GET $0 ADDRSLEFT)) {
       return;
     };
     @ :egr = encode($_reconn.svkey($0));
     if ( !@reconn[$egr][lastserver]) {
-      xeval -s $0 {
-        fe ($tolower($mychannels($0))) i {
-          if ((:win = winchan($i)) != -1) {
-            push arr[$win] $i $key($i);
+      # EPIC6 still has the window channels during teardown, even after EOF.
+      fe ($winrefs()) win {
+        if (winserv($win) == *0) {
+          xeval -s $0 {
+            ^local channels;
+            fe ($windowctl(GET $win CHANNELS)) ch {
+              push channels $ch $key($ch);
+            };
+            @ windowctl(SET $win TOPLINE 9 $channels);
           };
         };
-      };
-      foreach arr i {
-        @ windowctl(SET $i TOPLINE 9 $arr[$i]);
-        ^assign -arr[$i];
       };
       @ reconn[$egr][retries] = getset(auto_reconnect_retries) - 1;
     } else {
@@ -124,22 +125,37 @@ alias _reconn.hook.disconn {
 
 fe (ERROR EOF) i {
   on #-SERVER_STATUS 27 "% % $i" {
-    _reconn.hook.disconn $*;
+    if (*1 != 'CLOSING') {
+      _reconn.hook.disconn $0;
+    };
   };
+};
+
+on #-ERROR 27 "% Closing Link:*" {
+  @ reconn_closing_link[$servernum()] = 1;
 };
 
 on #-SERVER_STATUS 27 "% % CLOSING" {
-  if (*1 != 'EOF' && *1 != 'ERROR') {
+  # A closing-link notice can precede CLOSING without an intervening EOF.
+  if (reconn_closing_link[$0] && (*1 == 'ACTIVE' || *1 == 'SYNCING' || *1 == 'REGISTERING')) {
+    _reconn.hook.disconn $0;
+  } else if (*1 != 'EOF' && *1 != 'ERROR') {
     _reconn.purge $0;
   };
+  ^assign -reconn_closing_link[$0];
 };
 
 on #-SERVER_STATUS 27 "% % ACTIVE" {
+  ^assign -reconn_closing_link[$0];
   if (getset(auto_rejoin_connect) == 'on') {
     fe ($winrefs()) i {
       if (winserv($i) == *0) {
 	fe ($windowctl(GET $i TOPLINE 9)) ch k {
-	  window $i channel "$ch $k";
+	  if (k == '*') {
+	    window $i channel $ch;
+	  } else {
+	    window $i channel "$ch $k";
+	  };
 	};
       };
     };
@@ -147,7 +163,8 @@ on #-SERVER_STATUS 27 "% % ACTIVE" {
   _reconn.purge $0;
 };
 
-on #-SERVER_STATUS 27 "% % DELETE" {
+on #-SERVER_STATUS 27 "% % DELETED" {
+  ^assign -reconn_closing_link[$0];
   _reconn.sweep $0;
 };
 
@@ -240,8 +257,14 @@ alias _reconn.server (sg,void) {
       @ next = lastsv;
     };
     if (next != -1 && !isconnected($next)) {
+      # /SERVER puts a closed entry in RECONNECT before windows attach to it.
+      if (serverctl(GET $next STATUS) == 'CLOSED') {
+        xeval -s $next { //server $next; };
+      };
       fe ($found) j {
-        window $j SERVER $next;
+        if (winserv($j) != next) {
+          window $j SERVER $next;
+        };
       };
     } else {
       _reconn.clearentry $sg;

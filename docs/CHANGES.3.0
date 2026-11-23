@@ -1,8 +1,5 @@
 ChangeLog amnesiac 3.0.x releases
 
-2026.11.23 [snapshot 3.0.0] [git 54]
-- Report file operation failures in saves, logs, and readers. Stage replacement saves before updating their destination or backup. //skullY
-
 2026.11.22 [version 3.0.0] [git 53]
 - whaaaaaaaaat? new amn release? no way! //skullY
 - dict and remote have been removed for now because epic6 doesn't have dcc currently. when it's back in epic6 they'll be back in amn. //skullY
@@ -11,3 +8,5 @@ ChangeLog amnesiac 3.0.x releases
 - Keep the saved notify list available offline, subscribe to it on servers that support MONITOR, and log MONITOR replies with nlog. //skullY
 - Skip Python initialization when EPIC6 lacks Python support. //skullY
 - Preserve userlist mask shorthand and wildcards, and remove obsolete settings, hooks, and the unused sedcrypt helper. //skullY
+- Report file operation failures in saves, logs, and readers. Stage replacement saves before updating their destination or backup. //skullY
+- Restore automatic reconnect after a server closes the connection, and rejoin saved channels with their keys. //skullY
