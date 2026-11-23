@@ -1,4 +1,4 @@
-# Copyright (c) 2003-2010 Amnesiac Software Project.
+# Copyright (c) 2003-2026 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 # last modified by crapple 05.12.10 - pf conversion/cleaning house
 
