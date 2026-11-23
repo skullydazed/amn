@@ -40,15 +40,29 @@ alias _igrefs {
 	return $numsort($function_return);
 };
 
+alias _igreason (ref, reason dwords 1, ...) {
+	@ _ignores[$ref][reason] = reason;
+	return $*;
+};
+
 alias _igchange (ref, ...) {
 	# Keep obsolete or unknown levels in the saved rule. Only current levels match a context.
-	@:ops = sar(g/,/ /$*);
-	while (#ops) {
+	@:ops = *;
+	while (@ops) {
 		@:op = shift(ops);
+		if (index(, $op) >= 0) {
+			@:ops = [$after(, $op) $ops];
+			@:op = before(, $op);
+		};
 		switch ($op) {
-			(REASON) { @ _ignores[$ref][reason] = shift(ops); }
+			() { continue; }
+			(REASON) { @ops = _igreason($ref $ops); }
 			(TIMEOUT) {
 				@:seconds = shift(ops);
+				if (index(, $seconds) >= 0) {
+					@:ops = [$after(, $seconds) $ops];
+					@:seconds = before(, $seconds);
+				};
 				@ _ignores[$ref][expires] = seconds > 0 ? time() + seconds : [];
 			}
 			(*) {
@@ -96,6 +110,18 @@ alias _igchange (ref, ...) {
 		return;
 	};
 	return $ref;
+};
+
+alias _igrestore (mask, expires, encoded_reason, ...) {
+	# The deadline is absolute so time spent offline counts toward the timeout.
+	if (expires && expires <= time()) {
+		return;
+	};
+	@:ref = ignorectl(ADD $mask $*);
+	if (@ref) {
+		@ _ignores[$ref][expires] = expires ? expires : [];
+		@ _ignores[$ref][reason] = rest(1 $xform(-ENC $encoded_reason));
+	};
 };
 
 alias ignorectl (op, key, ...) {

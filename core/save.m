@@ -178,7 +178,19 @@ alias igsave {
 	@:failed = 0;
 	fe ($ignorectl(REFNUMS)) ref {
 		@:mask = ignorectl(GET $ref NICK);
-		if (write($fd ^ignore $mask $igtype($mask)) < 0) {
+		if (!@mask) {
+			continue;
+		};
+		@:expires = _ignores[$ref][expires];
+		@:reason = _ignores[$ref][reason];
+		if (expires || @reason) {
+			# Encode the reason so saved script syntax cannot interpret its contents.
+			# The prefix keeps empty reasons and leading spaces intact.
+			@:line = [^_igrestore $mask ${expires ? expires : 0} $xform(+ENC :$reason) $_ignores[$ref][levels]];
+		} else {
+			@:line = [^ignore $mask $igtype($mask)];
+		};
+		if (write($fd $line) < 0) {
 			@failed = 1;
 		};
 	};
