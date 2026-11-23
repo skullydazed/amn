@@ -1,6 +1,6 @@
 This doc will kinda try to explain on how one can customize and or make
 a new sbar, and be able to hook it into the tree.
-as some may have noticed epic5 has a bunch of /set status_user*
+as some may have noticed epic6 has a bunch of /set status_user*
 to make use of it, for example if you want a shortend var for
 how many ops/nonops are in your channel on the statbar one may do something
 like this.

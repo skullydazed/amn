@@ -50,14 +50,14 @@ asking a documented question will surely get you ignored, repeatidly asking
 the same question over and over will guarantee you a ban.
 
 Q: How do i load amnesiac?
-A: presuming that you have epic5 installed and downloaded the script.
+A: presuming that you have epic6 installed and downloaded the script.
 tar zxvf amnesiac*.tgz;cat 'load ~/amn/amn.epic' >> ~/.epicrc;
-epic5 -H somevhost.com somenick irc.someserver.com
+epic6 -H somevhost.com somenick irc.someserver.com
 or if the client is already loaded and the script is untarred
 /load ~/amn/amn.epic.
 
 Q: what are the help commands?
-A: /ehelp /ahelp or if using epic5 sometimes /load help; /help will give
+A: /ehelp /ahelp or if using epic6 sometimes /load help; /help will give
 you epic's internal help info if the client is installed globally or 
 the source/scripts is in ~/.epic
 
