@@ -22,4 +22,4 @@ stat16
 ^timer -del 14
 
 
-^set input_prompt $T>
+^set input_prompt $T> 

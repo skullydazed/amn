@@ -6,7 +6,7 @@ alias stat18 {
 ^set status_format $(sc2)$(ld.hline)$(sc2)$(ld.hline)$(sc2)$(ld.hline)$(ld.e)$(hblk)$(ld.hline_e)%>$(ld.e)%B%Q$(ld.hline)$(sc2)$(ld.hline)$(ld.hline)$(sc2)$(ld.hline)
 
 
-^set input_prompt $(blu):$(cyn):$(hcyn):$(cl)
+^set input_prompt $(blu):$(cyn):$(hcyn):$(cl) 
 ^set status_notify $(sc1)[$(cl)Act: $(hwht)%F$(sc1)]$(cl)
 ^set status_umode \($(sc1)+$(cl)%#\)
 ^set status_oper $(sc2)*$(cl)

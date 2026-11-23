@@ -1,6 +1,6 @@
 subpackage stat17
 ## sbar done by david@sleepers.pro (and it's the best!)
-^set input_prompt $(sc2)$(ld.ll_corner)$(sc1)$(ld.hline)$(sc3)[$(cl)$T$(sc3)]$(sc1)$(ld.hline)$(sc2)>
+^set input_prompt $(sc2)$(ld.ll_corner)$(sc1)$(ld.hline)$(sc3)[$(cl)$T$(sc3)]$(sc1)$(ld.hline)$(sc2)> 
 alias stat17 {
 
 ^set status_format1 $(sc2)$(ld.ul_corner)$(sc1)$(ld.hline)$(sc3)[$(cl)%T$(sc3)] $(sc3)[%*%=%@$(cl)%N%#$(sc3)] %A %M %> %Q %F $(sc3)[$(sc1)W$(cl)in$(sc2):$(cl)%R$(sc3)]$(sc1)$(ld.hline)$(sc2)$(ld.ur_corner)

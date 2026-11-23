@@ -1,5 +1,5 @@
 subpackage stat15
-^set input_prompt $(red)\[$(cl)$(hblu)$winchan($serverwin())$(cl)$(red)\]
+^set input_prompt $(red)\[$(cl)$(hblu)$winchan($serverwin())$(cl)$(red)\] 
 alias stat15 {
 
 ^set status_format1 $(red)\[%T$(red)] $(red)[$(cl)%*%=%@$(c1)%N$(cl)$(red)\($(cl)%#$(red)\)$(cl)%A$(red)]$(cl) %M %C%+ %!$(red)\($(c1)o$(hblk)/$(c2)%2 $(c1)v$(hblk)/$(c2)%4 $(c1)n$(hblk)/$(c2)%3$(red)\)$(red)] $(cl) $(sc1) %> %F %{2}S
