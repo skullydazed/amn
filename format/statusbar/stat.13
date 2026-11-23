@@ -11,7 +11,6 @@ alias stat13 {
 ^set status_mode  (+%+)  
 ^set status_clock  %T
 ^set status_chanop @
-^set status_mail  (Mail: %M)
 ^set status_user5 $(sc1)s$(hblk)/$(sc2)$S
 ^set status_voice +
 ^set status_away  (Away)

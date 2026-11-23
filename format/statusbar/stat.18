@@ -14,7 +14,6 @@ alias stat18 {
 ^set status_mode \($(sc1)+$(cl)%+\)
 ^set status_clock $(sc1)[$(cl)%T$(sc1)]$(cl)
 ^set status_chanop $(sc1)@$(cl)
-^set status_mail $(hblk) mail %M
 ^set status_user5 $(sc1)s$(hblk)/$(sc2)$S
 ^set status_voice $(sc1)+$(cl)
 ^set status_away  \($(c2)zZzZ$(cl)\)

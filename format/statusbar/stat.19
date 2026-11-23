@@ -12,7 +12,6 @@ alias stat19 {
 ^set status_channel $(sc1)chan$(hblk)\($(cl)%C$(hblk)
 ^set status_mode \[$(hwht)+$(cl)%+$(hblk)\])
 ^set status_chanop $(hblk)@
-^set status_mail $(sc1)mail$(hblk)\($(sc1)%M$(hblk))
 ^set status_user5 $(sc1)$S
 ^set status_user6 $sar(g/ //$(sc1)up$(hblk)\($(cl)$before(m $tdiff2(${time() - F}))m)$(hblk))
 ^set status_voice +

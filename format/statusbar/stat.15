@@ -13,7 +13,6 @@ alias stat15 {
 ^set status_mode $(red)\($(c2)+%+$(cl)$(red)\)
 ^set status_clock $(c1)%T$(cl)
 ^set status_chanop $(yel)@$(cl)
-^set status_mail $(red)[$(c1)Mail$(cl): $(c2)%M$(red)]$(cl)
 ^set status_voice $(yel)+$(cl)
 ^set status_away  $(hblk)[$(sc1)away$(hblk)]
 ^set status_hold_lines $(hblk)\[$(hwht)%B$(hblk)]

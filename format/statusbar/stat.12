@@ -14,7 +14,6 @@ alias stat12 {
 ^set STATUS_FORMAT2 $(hblk)$(ld.ll_corner)$(cl)$(ld.hline)$(ld.hline)$(hwht)$(ld.hline)$(ld.hline)>$(sc1) %T $(mag)+$(sc2) $(sc2)s$(sc1)erv$(hblk):$(sc1)%{2}S %>  %Q $(hblk)\($(sc2)a$(sc1)ct$(mag): $(sc1)%F$(hblk)) $(mag)+$(sc2) %A $(sc2)l$(sc1)ag$(hblk):$(sc1)%1$(hblk) $(ld.ll_corner)$(cl)$(ld.hline)$(ld.hline)$(hwht)$(ld.hline)$(ld.hline)>$(cl)
 ^set STATUS_MODE $(hblk)\($(cl)+$(sc1)%+$(hblk)\)$(cl)
 ^set STATUS_NOTIFY %F
-^set STATUS_MAIL $(hblk)\($(cl)M:%M$(hblk)\)$(cl)
 ^set STATUS_OPER $(hblk)*
 ^set STATUS_SERVER %S
 ^set STATUS_UMODE $(hblk)\($(cl)+$(sc1)%#$(hblk)\)$(cl)
