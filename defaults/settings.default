@@ -5,7 +5,6 @@ set auto_reconnect_delay 60;
 set auto_reconnect_retries 5;
 set auto_rejoin_connect on;
 set history_circleq on;
-set high_bit_esc 0;
 set -continued_line;
 set clock_24hour on;
 set auto_rejoin off;

@@ -10,8 +10,8 @@ subpackage main;
 
 #amnesiac version info
 @a.ver='amnesiac';
-@a.rel_id='2';
-@a.rel="2.0.$a.rel_id";
+@a.rel_id='0';
+@a.rel="3.0.$a.rel_id";
 @a.date='20210524';
 @a.snap='20210524';
 @a.commitid='52';

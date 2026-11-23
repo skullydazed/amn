@@ -9,7 +9,6 @@ alias stat15 {
 ^set status_notify $(red)\[$(c1)Act$(cl): $(c2)%F$(cl)$(red)]$(cl)
 ^set status_server $(red)\[$(c1)%S$(red)]$(cl)
 ^set status_oper $(sc1)*
-^set status_lag %L
 ^set status_channel $(red)[$(c1)%C$(cl)
 ^set status_mode $(red)\($(c2)+%+$(cl)$(red)\)
 ^set status_clock $(c1)%T$(cl)

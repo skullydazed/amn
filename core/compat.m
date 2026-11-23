@@ -83,19 +83,6 @@ alias rigtype (...) {
 	return $ignorectl(with_type $*);
 };
 
-alias sedcrypt (encode, who, ...) {
-	if (!(:val = encryptparm(who))) {
-		return;
-	};
-	@ :key = word(1 $val);
-	if (encode == 1) {
-		return $xform(+SED $key $who $*);
-	} else if (encode == 0) {
-		return $xform(-SED $key $who $*);
-	};
-	return;
-};
-
 ## Server/win handling compatability.
 alias servergroup (refnum default "$serverctl(from_server)", void) {
 	if (:group = serverctl(get $refnum group)) {

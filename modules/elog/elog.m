@@ -102,11 +102,6 @@ on #-msg 888 "*" {
 	_log $0 [$0!$userhost()] $1-;
 };
 
-on #-encrypted_privmsg 888 "*" {
-	if (_dontlog(msg)) { return; };
-	_log $0 *e* [$0!$userhost()] $1-;
-};
-  
 on #-send_msg 888 "*" {
 	if (_dontlog(msg)) { return; };
 	_log $0 [msg\($0\)] $1-;
@@ -127,13 +122,6 @@ on #-notice 888 "*" {
 	_log $0 -$0!$userhost()- $1-;
 };
   
-on #-encrypted_notice 888 "*" {
-	^local ic;
-	@ ic = ischannel($1);
-	if (_dontlog(${ ic ? [public] : [msg] })) { return; };
-	_log ${ ic ? [$1] : [$0] } *e* -$0!$userhost()- $2-;
-};                                                    
-
 ## public log hooks
 on #-public 888 "*" {
 	if (_dontlog(public)) { return; };

@@ -4,5 +4,7 @@ ChangeLog amnesiac 2.x -> 3.0.0 release
 - whaaaaaaaaat? new amn release? no way! //skullY
 - dict and remote have been removed for now because epic6 doesn't have dcc currently. when it's back in epic6 they'll be back in amn. //skullY
 - Remove obsolete DCC settings, hooks, key bindings, formats, and tab completions. Old mod.save files skip unavailable modules, including dict and remote. Regular IRC completion, relay, and logging still work. //skullY
-- Load and save existing ignore rules with EPIC6 context filtering. Preserve legacy levels in the saved rules.
-- Keep the saved notify list available offline, subscribe to it on servers that support MONITOR, and log MONITOR replies with nlog.
+- Load and save existing ignore rules with EPIC6 context filtering. Preserve legacy levels in the saved rules. //skullY
+- Keep the saved notify list available offline, subscribe to it on servers that support MONITOR, and log MONITOR replies with nlog. //skullY
+- Skip Python initialization when EPIC6 lacks Python support. //skullY
+- Preserve userlist mask shorthand and wildcards, and remove obsolete settings, hooks, and the unused sedcrypt helper. //skullY

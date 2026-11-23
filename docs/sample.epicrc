@@ -1,6 +1,6 @@
 # File idea taken from darkstar out of sheer lazyness.
 
-# This is a sample rc file for EPIC. It just changes a few default settings
+# This is a sample rc file for EPIC6 revision 3117 or newer. It just changes a few default settings
 # to values that the average user will probably like better. It will also
 # cause Amnesiac to be loaded automatically on client startup.
 #
@@ -8,11 +8,10 @@
 # ~/.epicrc is preferred over ~/.ircrc
 
 # Not all /sets need to be be added here anymore as most common modified sets
-# get saved on /save /setsave see amn/settings.default for commonly saved
+# get saved on /save /setsave see amn/defaults/settings.default for commonly saved
 # /sets.
 
-#set DCC_STORE_PATH ~/porn <-- isn't that all ppl transfer on irc anyways?
-#set LOAD_PATH ~/.epic:~/.irc:/usr/local/share/epic5/script:.
+#set LOAD_PATH ~/.epic:~/.irc:/usr/local/share/epic6/script:.
 set DEFAULT_REALNAME seymour butts
 set NO_FAIL_DISCONNECT ON
 ## Load amn on startup.

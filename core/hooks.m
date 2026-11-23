@@ -129,9 +129,6 @@ on #-connect 50 * {
 #/End of MOTD
 ^on ^376 * #;
 
-## disable you've got mail!.
-^on ^mail * #;
-
 ## disable annoying ctcp's.
 ^on ^ctcp_request "% % FINGER*";
 ^on ^ctcp_request "% % CLIENTINFO*";

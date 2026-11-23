@@ -11,14 +11,12 @@ alias stat11 {
 ^set status_mode  (+%+)  
 ^set status_clock  %T
 ^set status_chanop @
-^set status_format5  %> %5
 ^set status_mail  (Mail: %M)
 ^set status_user5 $(sc1)s$(hblk)/$(sc2)$S
 ^set status_voice +
 ^set status_away  (Away)
 ^set status_hold_lines  %B
 ^set status_query  (Query: %Q)
-^set STATUS_CPU_SAVER  (%L)
 ^set STATUS_HOLD Held:
 ^set STATUS_NICKNAME %N
 ^set STATUS_NOTIFY  (W: %F)

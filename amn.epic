@@ -12,14 +12,14 @@ if (word(2 $loadinfo()) != [pf]) {
 	return;
 };
 
-package amnesiac;
-
-if (word(0 $info(v)) != 'epic5' || V < 20100430 || info(i) < 1626) {
+if (word(0 $info(v)) != [epic6] || info(i) < 3117) {
 	xecho -b Amnesiac has detected an old version of epic;
-	xecho -b Recommended version is epic5-1.1.1+;
+	xecho -b Required version is EPIC6 revision 3117 or newer;
 	xecho -b override check: comment check in amn.epic at own risk!;
-#	return;
+	return;
 };
+
+package amnesiac;
 
 ## dump all
 dump all;
@@ -76,7 +76,7 @@ on ^yell "% *Mode parser or server*" #;
 ## make sure its unset on coreload so it doesnt get reloaded
 ## around line 120 as of this writing.
 
-## epic5 compat func/addset funcs
+## Compatibility and addset functions
 load -pf $(loadpath)core/compat.m;
 load -pf $(loadpath)core/addsets.m;
 
@@ -141,15 +141,11 @@ if (fexist($(savepath)$setsavefile)==1) {
    load $(savepath)$setsavefile;
 };
 
-# i do not see the setting in epic5 cvs for quite some time,
-# is it still in release? else we should remove this //zak
-^set reverse_status_line off; ## We dont use this set any more
-
 ## XXX hack to make Xavier happy. If the environment variable IRCNAME is set
 ## honour it and clear it. //kreca
 @rname = getenv(IRCNAME);
 if (@rname) {
-	set realname $rname;
+	set default_realname $rname;
 	setenv -IRCNAME;
 };
 
@@ -159,8 +155,10 @@ getusers;
 
 format.init;
 
-# Load python support
-load python;
+# Load Python support when EPIC6 was built with it.
+if (getfunctions(PYTHON) != []) {
+	load python;
+};
 
 # We're finished, display ans.
 load $(loadpath)ans/startup.ans;

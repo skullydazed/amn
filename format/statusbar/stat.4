@@ -11,7 +11,6 @@ alias stat4 {
 ^set status_server %S
 ^set status_oper $(sc1)*
 ^set status_clock %T
-^set status_lag %L
 ^set status_channel %C
 ^set status_mode $(sc1)\($(cl)+%+$(sc1)\)
 ^set status_chanop $(sc4)@$(sc3)
@@ -20,7 +19,6 @@ alias stat4 {
 ^set status_away $(sc3)[$(sc1)A$(cl)way$(sc3)] 
 ^set status_query $(sc3)\[$(sc1)Q$(sc3):$(cl)%Q$(sc3)]
 ^set status_user5 $(cl)$S
-^set status_format5 %> %5
 }
 stat4
 @windowdoubles=[on]

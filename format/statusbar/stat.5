@@ -6,12 +6,10 @@ alias stat5 {
 ^set status_umode +%#
 ^set status_oper $(hblk)*
 ^set status_notify $(sc1)act$(hblk)\($(sc1)%F$(hblk))
-^set status_lag %L
 ^set status_clock %T
 ^set status_channel $(sc1)%C
 ^set status_mode +%+  
 ^set status_chanop $(hblk)@
-^set status_format5 %> %5
 ^set status_mail $(sc1)mail$(hblk)\($(sc1)%M$(hblk))
 ^set status_user5 $(sc1)$S
 ^set status_user6 $sar(g/ //$(sc1)up$(hblk)\($(sc3)$before(m $tdiff2(${time() - F}))m)$(hblk))

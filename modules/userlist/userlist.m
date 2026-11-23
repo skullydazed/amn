@@ -97,6 +97,30 @@ alias deluser (users) {
   };
 };
 
+# Preserve the shorthand and wildcard defaults of EPIC5's userhost canonicalizer.
+alias _userlist_mask (mask, void) {
+  ^local nick,user,host,bang,at;
+  if (mask == [] || index(#& $mask) == 0) {
+    return $mask;
+  };
+  @ bang = index(! $mask);
+  if (bang >= 0) {
+    @ nick = left($bang $mask);
+    @ mask = rest(${bang + 1} $mask);
+  };
+  @ at = index(@ $mask);
+  if (at >= 0) {
+    @ user = left($at $mask);
+    @ host = rest(${at + 1} $mask);
+  } else if (bang < 0) {
+    if (index(. $mask) >= 0) {
+      return $mask;
+    };
+    @ nick = mask;
+  };
+  return ${nick == [] ? [*] : nick}!${user == [] ? [*] : user}@${host == [] ? [*] : host};
+};
+
 alias adduser (user, hosts) {
   ^local key,i,hosts2;
   if (user == []) {
@@ -109,7 +133,7 @@ alias adduser (user, hosts) {
     return;
   };
   fe ($tolower($hosts)) i {
-    push hosts2 $uhc($i);
+    push hosts2 $_userlist_mask($i);
   };
   @ userlist[$key][name] = user;
   @ userlist[$key][hosts] = tolower($hosts2);
@@ -132,7 +156,7 @@ alias addhost (user, hosts) {
   @ oldhosts = userlist[$key][hosts];
   @ newhosts = oldhosts;
   fe ($tolower($hosts)) i {
-    @ h = uhc($i);
+    @ h = _userlist_mask($i);
     if (findw($h $newhosts) == -1) {
       push newhosts $h;
     };
@@ -374,7 +398,7 @@ alias uload {
           break;
         };
         fe ($restw(2 $line)) i {
-          push foo $uhc($tolower($i));
+          push foo $_userlist_mask($tolower($i));
         };
         @ userlist[$key][hosts] = foo;
       };
