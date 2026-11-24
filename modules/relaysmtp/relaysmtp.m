@@ -14,7 +14,7 @@ if (word(2 $loadinfo()) != [pf]) {
 	return;
 };
 
-subpackage relaysmtp;
+package amnesiac::relaysmtp;
 
 # /config stuff
 osetitem relaysmtp rsmtpstatus SMTP relay on/off:;

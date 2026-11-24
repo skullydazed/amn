@@ -5,7 +5,7 @@ if (word(2 $loadinfo()) != [pf]) {
 	return;
 };
 
-subpackage ncomp;
+package amnesiac::ncomp;
 
 ^on ^input "%: *" {
 	@:txt = before(: $0);

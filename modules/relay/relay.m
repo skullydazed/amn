@@ -7,13 +7,19 @@ if (word(2 $loadinfo()) != [pf]) {
 	return;
 };
 
-subpackage relay;
+package amnesiac::relay;
 
 osetitem relay rsendbuf Outbound Buffer:;
 osetitem relay rfrombuf Inbound Buffer:;
 
 # output_rewrite for relay(paste)
+@_existing_output_rewrite=output_rewrite;
 ^set output_rewrite $_paste($1-)$1-;
+
+alias relayunload {
+	^set -output_rewrite;
+	^set output_rewrite $_existing_output_rewrite;
+};
 
 # common relay funcs relw relm relsm reln relsn
 alias lpaste msg $T $line(${[$0]?[$0]:1});

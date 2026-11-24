@@ -7,7 +7,7 @@ if (word(2 $loadinfo()) != [pf]) {
         return;
 };
 
-subpackage utf8;
+package amnesiac::utf8;
 
 ## sets
 addset encode_utf8_to_latin bool;

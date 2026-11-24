@@ -6,7 +6,7 @@ if (word(2 $loadinfo()) != [pf]) {
 	return;
 };
 
-subpackage urlgrab;
+package amnesiac::urlgrab;
 
 @httpsavefile=word(0 $_modsinfo.urlgrab.savefiles);
 

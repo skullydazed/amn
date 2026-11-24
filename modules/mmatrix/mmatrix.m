@@ -3,7 +3,7 @@
 
 if (word(2 $loadinfo()) != [pf]) { load -pf $word(1 $loadinfo()); return; };
 
-subpackage mmatrix;
+package amnesiac::mmatrix;
 
 @wordsfile=word(0 $_modsinfo.mmatrix.savefiles);
 

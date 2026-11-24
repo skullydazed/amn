@@ -23,7 +23,7 @@ if (word(2 $loadinfo()) != [pf]) { load -pf $word(1 $loadinfo()); return; };
 # you may find this script has a different set of idiosyncrasies then
 # the original tabscript.
 #
-subpackage tc;
+package amnesiac::tc;
 
 bind ^I parse_command ^tc.get_nick;
 bind ^R parse_command ^tc.get_nick_backward;

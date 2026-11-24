@@ -6,7 +6,7 @@ if (word(2 $loadinfo()) != [pf]) {
         return;
 };
 
-subpackage eoper;
+package amnesiac::eoper;
 load -pf ${loadpath}modules/oper/easykline.m;
 
 osetitem oper ovmode Operview modes:;

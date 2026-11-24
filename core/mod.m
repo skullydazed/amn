@@ -89,37 +89,37 @@ alias listmod {
 	};
 };
 
+alias _rmmod {
+	@:li=finditem(_mods $0);
+	if (li>=0) {
+		if (@_modsinfo[$0][unloadcmd]) {
+			$_modsinfo[$0][unloadcmd];
+		};
+
+		^unload amnesiac::$0;
+		@delitem(_mods $finditem(_mods $0));
+		return 1;
+	};
+	return 0;
+};
+
 alias delmod {
 	if (!@){
 		xecho $acban usage: /delmod num1,num2,etc.. or name1,name2,etc..;
 	}{
 		if ("$0"=='*') {
 			fe ($listarray(_mods)) n1 {
-#if the script has an unloadcmd, run it
-				if (@_modsinfo[$n1][unloadcmd]) {
-					$_modsinfo[$n1][unloadcmd];
-				};
-				^unload $n1;
+				@_rmmod($n1);
 			};
-			@delarray(_mods);
 			xecho $acban deleted all modules from list;
 		}{
 			fe ($split(, $0)) n1 {
-				@:li=finditem(_mods $n1);
-				if (li>=0) {
-#if the script has an unloadcmd, run it
-					if (@_modsinfo[$n1][unloadcmd]) {
-						$_modsinfo[$n1][unloadcmd];
-					};
-					^unload $n1;
-					@delitem(_mods $li);
+				if (_rmmod($n1)) {
 					xecho $acban $n1 module unloaded;
 				}{
 					xecho $acban $n1 module not loaded;
 				};
-
 			};
-
 		};
 	};
 };

@@ -1,2 +1,3 @@
 @_modsinfo.relay.helpcmd =  'rhelp';
 @_modsinfo.relay.description="paste/relm/reln etc.. buffer";
+@_modsinfo.relay.unloadcmd = 'relayunload';

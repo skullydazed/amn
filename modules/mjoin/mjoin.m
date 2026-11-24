@@ -6,7 +6,7 @@ if (word(2 $loadinfo()) != [pf]) {
 	return;
 };
 
-subpackage mjoin;
+package amnesiac::mjoin;
 
 @chansfile=word(0 $_modsinfo.mjoin.savefiles);
 

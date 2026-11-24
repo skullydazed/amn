@@ -5,7 +5,7 @@ if (word(2 $loadinfo()) != [pf]) {
 	return;
 };
 
-subpackage autobot;
+package amnesiac::abot;
 
 @ bsavefile = word(0 $_modsinfo.abot.savefiles);
 @ botprompt = "$cparse($(c1)auto)$cparse($(c2)bot)$(hblk):$(cl)";

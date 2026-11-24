@@ -3,7 +3,7 @@
 # nickserv/chanserv/operserv etc.. module.
 # FIXME: convert to pf-loader
 
-subpackage services
+package amnesiac::services;
 
 #both way aliases chanserv/nickserv.
 

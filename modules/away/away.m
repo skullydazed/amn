@@ -5,7 +5,7 @@ if (word(2 $loadinfo()) != [pf]) {
 	return;
 };
 
-subpackage away;
+package amnesiac::away;
 osetitem away awaytime A-setaway time:;
 osetitem away awaytog A-setaway on/off:;
 osetitem away awaymsg A-msg:;

@@ -3,7 +3,7 @@
 # userlist written by nullie, fucked up by crapple/kreca
 if (word(2 $loadinfo()) != [pf]) { load -pf $word(1 $loadinfo()); return; };
 
-subpackage userlist;
+package amnesiac::userlist;
 @userlistdebug=0;
 alias _uecho {if (userlistdebug == 1) { xecho -b Userlist: $*;};};
 # whether to issue /usave after every successful operation

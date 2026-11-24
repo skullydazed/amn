@@ -6,7 +6,7 @@ if (word(2 $loadinfo()) != [pf]) {
 	return;
 };
 
-subpackage elog;
+package amnesiac::elog;
 
 ## create logging directory if nonexistent
 if (left(1 $word(2 $stat("~/.amn/logs"))) != [4] && mkdir("~/.amn/logs") != 0) {

@@ -8,7 +8,7 @@ if (word(2 $loadinfo()) != [pf]) {
 	return;
 };
 
-subpackage aol;
+package amnesiac::aol;
 
 @ setitem(aol 0 ALL OREAND THE GIFCHERRY BUSH DA BOON CHASED DA WHEASELGIFPASTECLITNUGGET SHIT);
 @ setitem(aol 1 WH0A WHUT W00D PEEPUHL THEEENK IF DAY GN00 EYE WUZ A JEEEZUS FREEEK?!);

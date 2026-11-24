@@ -16,7 +16,7 @@
 
 if (word(2 $loadinfo()) != [pf]) { load -pf $word(1 $loadinfo()); return; };
 
-subpackage tab;
+package amnesiac::tab;
 
 # /config stuff
 osetitem tab blankmsg /msg on blank line;

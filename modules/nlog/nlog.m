@@ -6,7 +6,7 @@ if (word(2 $loadinfo()) != [pf]) {
 	return;
 };
 
-subpackage nlog;
+package amnesiac::nlog;
 osetitem misc nlog Log notify signoffs:;
 
 @nfile=word(0 $_modsinfo.nlog.savefiles);

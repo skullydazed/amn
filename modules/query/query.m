@@ -11,7 +11,7 @@ if (word(2 $loadinfo()) != [pf]) {
         return;
 };
 
-subpackage query;
+package amnesiac::query;
 
 ## assign
 assign AUTO_QUERY 1;
