@@ -1,5 +1,8 @@
 ChangeLog amnesiac 3.0.x releases
 
+2026.11.24 [version 3.0.1.alpha] [git 54]
+- fix mdv so that it correctly honors the channel parameter. //skullY
+
 2026.11.22 [version 3.0.0] [git 53]
 - whaaaaaaaaat? new amn release? no way! //skullY
 - dict and remote have been removed for now because epic6 doesn't have dcc currently. when it's back in epic6 they'll be back in amn. //skullY
