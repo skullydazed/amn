@@ -22,7 +22,7 @@ package amnesiac::tab;
 osetitem tab blankmsg /msg on blank line;
 alias config.blankmsg {
 	if ([$0]==[-l]) {
-		@_modsinfo.tab.blankmsg = $0;
+		@_modsinfo.tab.blankmsg = $1;
 	} elif ([$0]==[-r]) {
 		if ([$_modsinfo.tab.blankmsg]==[0]) {
 			return off;
