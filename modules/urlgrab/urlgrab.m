@@ -36,22 +36,26 @@ alias rmgrab {
 	};
 };
 
-alias urlload {
-	^on #-public 33 "% % *http://*" {
-		@:path = twiddle(${savepath}$httpsavefile);
-		@:fd = open("$path" W);
-		if (fd < 0) {
-			xecho $acban Could not open $path for writing;
-			return;
-		};
-		@:failed = write($fd $strftime(%x at %I:%M:%S %p) $*) < 0;
-		if (close($fd) != 0 || failed) {
-			xecho $acban Error writing $path;
-		};
+alias _url_callback {
+	@:path = twiddle(${savepath}$httpsavefile);
+	@:fd = open("$path" W);
+	if (fd < 0) {
+		xecho $acban Could not open $path for writing;
+		return;
 	};
+	@:failed = write($fd $strftime(%x at %I:%M:%S %p) $*) < 0;
+	if (close($fd) != 0 || failed) {
+		xecho $acban Error writing $path;
+	};
+};
+
+alias urlload {
+	^on #-public 33 "% % *http://*" {_url_callback $*;};
+	^on #-public 33 "% % *https://*" {_url_callback $*;};
 };
 alias urlunload {
 	^on #-public 33 "% % *http://*" -;
+	^on #-public 33 "% % *https://*" -;
 };
 
 alias urlhelp {
