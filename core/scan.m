@@ -164,16 +164,17 @@ alias nops {
 alias vocs {
 	@:chan = "$1" ? "$1" : "$serverchan()";
 	fe ($nochops($chan)) _foi {
-	if (!@) {
-		if (ischanvoice($_foi $serverchan())) {
-		xecho -v$fparse(format_user_vocs $_foi $chan);
+		if (!@) {
+			if (ischanvoice($_foi $serverchan())) {
+			xecho -v$fparse(format_user_vocs $_foi $chan);
+			};
+		};
+		if ('$0'=~'*!*@*' && match($0 $_foi!$userhost($_foi))) {
+			if (ischanvoice($_foi $chan) && !ischanop($_foi $chan)) {
+			xecho -v$fparse(format_user_vocs $_foi $chan);
+			};
 		};
 	};
-	if ('$0'=~'*!*@*' && match($0 $_foi!$userhost($_foi))) {
-		if (ischanvoice($_foi $chan) && !ischanop($_foi $chan)) {
-		xecho -v$fparse(format_user_vocs $_foi $chan);
-		};
-	};};
 };
 
 ## common alias done by adam. some slience by crapple
