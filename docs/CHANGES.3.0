@@ -6,6 +6,7 @@ ChangeLog amnesiac 3.0.x releases
 - Replace the ignore engine with a completed version of hop's EPIC6 script while keeping AMN's user facing behavior. //skullY
 - Move relay to modules.broken. It may come back, it may not. //skullY
 - Fix loading the tab script's blankmsg setting. //skullY
+- Prevent chanload from bringing old channels back when the size of the saved channel list shrinks. //skullY
 
 2026.11.22 [version 3.0.0] [git 53]
 - whaaaaaaaaat? new amn release? no way! //skullY

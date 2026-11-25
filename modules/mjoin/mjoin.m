@@ -23,19 +23,19 @@ alias addchan {
 	if (# < 2 || ! isnumber($1)) {
 		xecho $acban Usage: /addchan #chan <window#> [key];
 	}{
-		@setitem(chans 0 !);
-		@setitem(chans $numitems(chans) $0 $1 $2);
+		@setitem(channel_array 0 !);
+		@setitem(channel_array $numitems(channel_array) $0 $1 $2);
 		xecho $acban.. added $0 to channel list \(window: $1\);
 	};
 };
 
 alias listchan {
-	if (numitems(chans) == 1) {
+	if (numitems(channel_array) == 1) {
 			xecho $acban no channels current on list;
 	}{
 xecho -v -- ------------------------------------------------------------------;
-		for (@xx=1, xx<numitems(chans), @xx++) {
-			xecho -v  | $cparse(%K[%n$xx%K]%n) $getitem(chans $xx);
+		for (@xx=1, xx<numitems(channel_array), @xx++) {
+			xecho -v  | $cparse(%K[%n$xx%K]%n) $getitem(channel_array $xx);
 		};
 xecho -v -- ------------------------------------------------------------------;
 	};
@@ -48,21 +48,21 @@ alias delchan {
 		if (isnumber($0)) {
 			@:thenum = [$0];
 		}{
-			@:thenum = matchitem(chans $0);
+			@:thenum = matchitem(channel_array $0);
 			if (thenum < 0) {
 				xecho $acban channel $0 not found in the channel list;
 				return;
 			};
 		};
-		xecho $acban deleted $getitem(chans $thenum) from the list;
-		@delitem(chans $thenum);
+		xecho $acban deleted $getitem(channel_array $thenum) from the list;
+		@delitem(channel_array $thenum);
 	};
 };
 
 
 alias mjoin {
-	for (@xx=1, xx<numitems(chans), @xx++) {
-		@:cur=getitem(chans $xx);
+	for (@xx=1, xx<numitems(channel_array), @xx++) {
+		@:cur=getitem(channel_array $xx);
 		@:chan = word(0 $cur);
 		@:winno = word(1 $cur);
 		@:key = word(2 $cur);
@@ -78,8 +78,8 @@ alias chansave {
 		return;
 	};
 	@:failed = 0;
-	for (@xx=1, xx<numitems(chans), @xx++) {
-		if (write($fd @chans.$xx=[$getitem(chans $xx)]) < 0) {
+	for (@xx=1, xx<numitems(channel_array), @xx++) {
+		if (write($fd @chans.$xx=[$getitem(channel_array $xx)]) < 0) {
 			@failed = 1;
 		};
 	};
@@ -93,12 +93,15 @@ alias chansave {
 };
 
 alias chanload {
+	foreach chans entry {
+		^assign -chans.$entry;
+	};
 	^load $(savepath)$chansfile;
-	@delarray(chans);
+	@delarray(channel_array);
 	@ii = 1;
-	@setitem(chans 0 !);
+	@setitem(channel_array 0 !);
 	while (chans[$ii]) {
-		@setitem(chans $ii $chans[$ii]);
+		@setitem(channel_array $ii $chans[$ii]);
 		@ii++;
 	};
 };
