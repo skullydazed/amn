@@ -62,25 +62,46 @@ alias urlencode (...) {
 };
 
 alias igmask (pattern, void) {
-	return $ignorectl(pattern $pattern);
-};
-
-alias igtype (pattern, void) {
-	fe ($ignorectl(GET $ignorectl(REFNUM $pattern) LEVELS)) entry {
-		switch ($left(1 $entry)) {
-			(^) { push function_return DONT-$rest(1 $entry); }
-			(+) { push function_return +$rest(1 $entry); }
-			(/) { push function_return $rest(1 $entry); }
+	fe ($_ignore.refs()) refnum {
+		@:mask = _ignores[$refnum][target];
+		if (rmatch($mask $pattern)) {
+			push function_return $mask;
 		};
 	};
 };
 
+alias igtype (pattern, void) {
+	@:refnum = _ignore.find_target($pattern);
+	return $_ignore.display_levels($refnum);
+};
+
 alias rigmask (pattern, void) {
-	return $ignorectl(rpattern $pattern);
+	fe ($_ignore.refs()) refnum {
+		@:mask = _ignores[$refnum][target];
+		if (rmatch($pattern $mask)) {
+			push function_return $mask;
+		};
+	};
 };
 
 alias rigtype (...) {
-	return $ignorectl(with_type $*);
+	@:levels = toupper($*);
+	fe ($_ignore.refs()) refnum {
+		@:all_match = 1;
+		fe ($levels) level {
+			@:number = levelctl(LOOKUP $level);
+			if (number >= 0) {
+				@level = levelctl(LOOKUP $number);
+			};
+			if (findw(/$level $_ignores[$refnum][levels]) < 0) {
+				@all_match = 0;
+				break;
+			};
+		};
+		if (all_match) {
+			push function_return $_ignores[$refnum][target];
+		};
+	};
 };
 
 ## Server/win handling compatability.

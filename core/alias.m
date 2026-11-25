@@ -159,21 +159,18 @@ alias rmignore tig;
 ## end short aliases.
 
 alias tig {
-	@igns=numsort($ignorectl(REFNUMS));
-
-	if ( strlen($igns) ) {
-		fe ($igns) ignores {
-			xecho -b [$ignores] $ignorectl(GET $ignores NICK) $igtype($ignorectl(GET $ignores NICK));
-		};
-		input "enter # of which ignore to takeoff: " {
-			if ( findw($0 $ignorectl(REFNUMS)) >= 0) {
-				@ignorectl(DELETE $0);
-			}{
-				xecho -b number out of range \($word(0 $igns) - $word(${numwords($igns)-1} $igns)\);
-				};
-			};
-		}{
+	@:refs = _ignore.refs();
+	if (!@refs) {
 		xecho -b no ignores currently;
+		return;
+	};
+	ignore.show_all;
+	input "enter # of which ignore to takeoff: " {
+		if (isnumber($0) && findw($0 $_ignore.refs()) >= 0) {
+			_ignore.delete $0;
+		} else {
+			xecho -b no ignore with that number;
+		};
 	};
 };
 
