@@ -153,7 +153,7 @@ alias ehelp {
 	//echo mjhelp    <mjoin help>      mjoin/ajoin help menu.          [module];
 	//echo abhelp    <abot help>       autobot help menu.              [module];
 	//echo ohelp     <oper help>       operview/oper help menu         [module];
-	//echo rhelp     <relay help>      relay/paste help menu.          [module];
+#	//echo rhelp     <relay help>      relay/paste help menu.          [module];
         //echo rsmtphelp <relaysmtp help>  relay msgs via email help.      [module];
 	//echo svhelp    <services help>   nserv/cserv/etc.. help menu.    [module];
 	//echo loghelp   <elog help >      enhanced irc logger             [module];
