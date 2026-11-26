@@ -2,11 +2,6 @@
 # See the 'COPYRIGHT' file for more information.
 # last modified by crapple 05.12.10 - pf conversion/cleaning house
 
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 package amnesiac::relay;
 
 osetitem relay rsendbuf Outbound Buffer:;

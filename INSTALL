@@ -19,7 +19,7 @@ How to install this package:
   o  Run 'tar zxvf amnesiac*.tgz -C ~/'
   o  If from a snapshot 'tar zxvf ac-snap.tgz -C ~/'
   o  Then proceed to put this line in your ~/.ircrc or ~/.epicrc
-     load ~/amn/amn.epic
+     load -pf ~/amn/amn.epic
      ^^ see sample.epicrc in amn/docs directory for more options/info.
   o  start epic6, some commands/helpdocs, /config /format /theme /ahelp /ehelp
      /winhelp /mhelp

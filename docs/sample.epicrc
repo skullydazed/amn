@@ -15,7 +15,7 @@
 set DEFAULT_REALNAME seymour butts
 set NO_FAIL_DISCONNECT ON
 ## Load amn on startup.
-load ~/amn/amn.epic
+load -pf ~/amn/amn.epic
 ## make epic dump core on crash
 xdebug +crash
 #xdebug unknown

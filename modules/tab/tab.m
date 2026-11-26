@@ -14,8 +14,6 @@
 #   tab ALWAYS replace the current input line with "/msg <last nick>". This
 #   is vastly different from what tab is doing. -skullY
 
-if (word(2 $loadinfo()) != [pf]) { load -pf $word(1 $loadinfo()); return; };
-
 package amnesiac::tab;
 
 # /config stuff
@@ -59,7 +57,7 @@ alias btab {
 };
 
 alias tabload {
-	^load $(savepath)tab.save;
+	save.read "$(savepath)tab.save";
 };
 
 alias tabsave {
@@ -69,8 +67,8 @@ alias tabsave {
 		xecho $acban Could not open temporary save for $path;
 		return;
 	};
-	@:failed = 0;
-	if (write($fd config.blankmsg -l $_modsinfo.tab.blankmsg) < 0) {
+	@:failed = write($fd # amnesiac tab file v1 - saved $strftime($time() %D %T)) < 0;
+	if (write($fd $save.statement(config.blankmsg -l $_modsinfo.tab.blankmsg)) < 0) {
 		@failed = 1;
 	};
 
@@ -194,6 +192,7 @@ alias get.msg {
 		($(K)cd %)
 		($(K)ls %)
 		($(K)load %)
+		($(K)load -pf %)
 		($(K)exec *)
 		{
 			@lw=twiddle($rightw(1 $L));

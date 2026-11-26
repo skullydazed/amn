@@ -1,8 +1,6 @@
 # Copyright (c) 2003-2026 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 
-if (word(2 $loadinfo()) != [pf]) { load -pf $word(1 $loadinfo()); return; };
-
 package amnesiac::mmatrix;
 
 @wordsfile=word(0 $_modsinfo.mmatrix.savefiles);
@@ -92,18 +90,18 @@ alias wordssave {
 		xecho $acban Could not open temporary save for $path;
 		return;
 	};
-	@:failed = 0;
-	if (write($fd @pubtrap = [$pubtrap]) < 0) {
+	@:failed = write($fd # amnesiac mmatrix file v1 - saved $strftime($time() %D %T)) < 0;
+	if (write($fd $save.assignment(pubtrap $pubtrap)) < 0) {
 		@failed = 1;
 	};
 	for (@xx=1, xx<numitems(_words), @xx++) {
-		if (write($fd @_words.$xx=[$getitem(_words $xx)]) < 0) {
+		if (write($fd $save.assignment(_words.$xx $getitem(_words $xx))) < 0) {
 			@failed = 1;
 		};
-		if (write($fd @_wordschan.$xx=[$getitem(_wordschan $xx)]) < 0) {
+		if (write($fd $save.assignment(_wordschan.$xx $getitem(_wordschan $xx))) < 0) {
 			@failed = 1;
 		};
-		if (write($fd @_wordstype.$xx=[$getitem(_wordstype $xx)]) < 0) {
+		if (write($fd $save.assignment(_wordstype.$xx $getitem(_wordstype $xx))) < 0) {
 			@failed = 1;
 		};
 	};
@@ -117,7 +115,7 @@ alias wordssave {
 };
 
 alias wordsload {
-	^load $(savepath)$wordsfile;
+	save.read "$(savepath)$wordsfile";
 	@ delarray(_words);
 	@ delarray(_wordschan);
 	@ delarray(_wordstype);

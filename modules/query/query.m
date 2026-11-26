@@ -6,11 +6,6 @@
  *
  */
 
-if (word(2 $loadinfo()) != [pf]) {
-        load -pf $word(1 $loadinfo());
-        return;
-};
-
 package amnesiac::query;
 
 ## assign

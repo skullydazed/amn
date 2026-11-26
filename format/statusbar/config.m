@@ -1,11 +1,6 @@
 # Copyright (c) 2003-2026 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 subpackage sbar;
 alias format.loadstatusbar (number,void) {
 	if (fexist($(loadpath)format/statusbar/stat.$number) != -1 ) {
@@ -28,7 +23,7 @@ alias sbar (statnum,void) {
 };
 
 alias _updatesbar (void) {
-	load $(loadpath)format/statusbar/stat.$theme.format.statusbar;
+	load -pf $(loadpath)format/statusbar/stat.$theme.format.statusbar;
 	fe ($windowctl(refnums)) tt {
 		^window $tt double $windowdoubles;
 	};

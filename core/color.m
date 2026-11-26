@@ -1,10 +1,5 @@
 # Copyright (c) 2003-2026 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 subpackage color;
 
 @translatetbl="clear.cl!blue.blu!green.grn!cyan.cyn!red.red!magenta.mag!yellow.yel!white.wht!hblack.hblk!hblue.hblu!hgreen.hgrn!hcyan.hcyn!hred.hred!hmagenta.hmag!hyello.hyel!hwhite.hwht!bwhite.bwht!bmagenta.bmag!bblue.bblu!bred.bred!bblack.bblk!bgreen.bgrn!byellow.byel!bcyan.bcyn";

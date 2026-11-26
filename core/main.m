@@ -1,11 +1,6 @@
 # Copyright (c) 2003-2026 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 subpackage main;
 
 #amnesiac version info
@@ -88,7 +83,7 @@ subpackage main;
 @clonecheck='off';
 
 # load default theme
-load $(loadpath)/themes/main.th;
+save.read "$(loadpath)themes/main.th" main;
 
 # Seed the RNG for cases where it's necessary
 @srand();

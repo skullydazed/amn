@@ -1,9 +1,4 @@
 # See the 'COPYRIGHT' file for more information.
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 subpackage notify;
 
 # The configured list is global, including while disconnected. MONITOR state belongs to each connection.

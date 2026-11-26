@@ -9,10 +9,6 @@
 # <hop> and if you write all of the $serverctl(GET <refnum> FULLDESC) to that
 #       file, it'll Just Work(tm).
 
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
 alias servload {
 };
 alias servsave {

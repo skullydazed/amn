@@ -1,8 +1,6 @@
 # Copyright (c) 2003-2026 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 # userlist written by nullie, fucked up by crapple/kreca
-if (word(2 $loadinfo()) != [pf]) { load -pf $word(1 $loadinfo()); return; };
-
 package amnesiac::userlist;
 @userlistdebug=0;
 alias _uecho {if (userlistdebug == 1) { xecho -b Userlist: $*;};};

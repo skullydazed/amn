@@ -1,10 +1,6 @@
 # Copyright (c) 2003-2026 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 # Thanks to hop for providing this script
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
 subpackage linedrawing;
 
 alias set_line_drawing (mode, void) {

@@ -1,10 +1,5 @@
 # Copyright (c) 2003-2026 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 package amnesiac::abot;
 
 @ bsavefile = word(0 $_modsinfo.abot.savefiles);
@@ -74,12 +69,9 @@ alias botsave {
 		xecho $acban Could not open temporary save for $path;
 		return;
 	};
-	@:failed = 0;
-	if (write($fd ** autobot config file - saved $strftime($time() %D %T)) < 0) {
-		@failed = 1;
-	};
+	@:failed = write($fd # amnesiac autobot config file v1 - saved $strftime($time() %D %T)) < 0;
 	for (@xx=0, xx<numitems(bots), @xx++) {
-		if (write($fd @bot.$xx=[$getitem(bots $xx)]) < 0) {
+		if (write($fd $save.assignment(bot.$xx $getitem(bots $xx))) < 0) {
 			@failed = 1;
 		};
 	};
@@ -106,7 +98,7 @@ alias botdel {
 };
 
 alias botload {
-	^load $(savepath)$bsavefile;
+	save.read "$(savepath)$bsavefile";
 	@ delarray(bots);
 	@ setitem(bots 0 !);
 	@ ii = 1;

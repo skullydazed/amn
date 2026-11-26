@@ -1,10 +1,5 @@
 # Copyright (c) 2003-2026 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 subpackage mod;
 
 alias emod {
@@ -131,9 +126,9 @@ alias modsave {
 		xecho $acban Could not open temporary save for $path;
 		return;
 	};
-	@:failed = 0;
+	@:failed = write($fd # amnesiac module file v1 - saved $strftime($time() %D %T)) < 0;
 	for (@xx=0, xx<numitems(_mods), @xx++) {
-		if (write($fd @mods.$xx=[$getitem(_mods $xx)]) < 0) {
+		if (write($fd $save.assignment(mods.$xx $getitem(_mods $xx))) < 0) {
 			@failed = 1;
 		};
 	};
@@ -160,7 +155,7 @@ alias _loadmod {
 			@:bhelp=1;
 		};
 	};
-	load $(loadpath)modules/$(cmod)/$(cmod).m;
+	load -pf $(loadpath)modules/$(cmod)/$(cmod).m;
 	if ( _modsinfo[$cmod][savefiles]) {
 #if the script has a loadcmd, use it
 		if (_modsinfo[$cmod][loadcmd]) {
@@ -178,7 +173,7 @@ alias _modload {
 	};
 	if (@word(2 $stat("$(savepath)$modfile"))) {
 		@ delarray(_mods);
-		load $(savepath)$modfile;
+		save.read "$(savepath)$modfile";
 		foreach mods aa {
 			@_loadmod($mods[$aa]);
 			^assign -mods.$aa;

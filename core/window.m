@@ -2,11 +2,6 @@
 # See the 'COPYRIGHT' file for more information.
 # last modified by crapple 9.2.05
 # windowing stuff
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 subpackage window;
 
 ## more complex windowing stuff here.

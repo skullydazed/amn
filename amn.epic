@@ -82,9 +82,10 @@ load -pf $(loadpath)core/addsets.m;
 
 ## load default settings. Overriden in ~/.amn/
 load -pf $(loadpath)defaults/settings.default;
-load $(loadpath)defaults/fset.default;
+load -pf $(loadpath)defaults/fset.default;
 
 _progress;
+load -pf $(loadpath)core/save.m;
 load -pf $(loadpath)core/main.m;
 load -pf $(loadpath)core/config.m;
 
@@ -100,10 +101,12 @@ if (left(1 $word(2 $stat("$(savepath)"))) != [4] && mkdir("$(savepath)") != 0) {
 };
 
 ## Load saved settings and state. The module loader reads mod.save.
+@_amn_starting = 1;
+@_amn_legacy_saves = 0;
 @_amn_loading_saved_state = 1;
 fe ($remw($modfile $savefiles)) ff {
 	if (@word(2 $stat("$(savepath)$ff"))) {
-		load $(savepath)$ff;
+		save.read "$(savepath)$ff";
 	};
 };
 
@@ -128,7 +131,8 @@ fe ($glob($(loadpath)core/*.m)) mod {
 	     mod != "$(loadpath)core/main.m" &&
 	     mod != "$(loadpath)core/config.m" &&
 	     mod != "$(loadpath)core/ignore.m" &&
-	     mod != "$(loadpath)core/notify.m" ) {
+	     mod != "$(loadpath)core/notify.m" &&
+	     mod != "$(loadpath)core/save.m" ) {
         	load -pf $mod;
 		_progress;
 	};
@@ -141,7 +145,12 @@ _progress;
 
 # Load settings file here. Modules might add their own sets
 if (@word(2 $stat("$(savepath)$setsavefile"))) {
-   load $(savepath)$setsavefile;
+   save.read "$(savepath)$setsavefile";
+};
+
+@_amn_starting = 0;
+if (_amn_legacy_saves) {
+	xecho -v $acban Run /save to upgrade legacy save files to PF format.;
 };
 
 ## XXX hack to make Xavier happy. If the environment variable IRCNAME is set
@@ -160,11 +169,11 @@ format.init;
 
 # Load Python support when EPIC6 was built with it.
 if (getfunctions(PYTHON) != []) {
-	load python;
+	load -pf python;
 };
 
 # We're finished, display ans.
-load $(loadpath)ans/startup.ans;
+load -pf $(loadpath)ans/startup.ans;
 
 # Im not sure why we need wait here, but we do :) //kreca
 wait;

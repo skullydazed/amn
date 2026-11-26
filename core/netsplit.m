@@ -7,11 +7,6 @@
 # crapple/kreca 05 rylan 06
 # fixed by skullY 09
 
-if (word(2 $loadinfo()) != [pf]) {
-        load -pf $word(1 $loadinfo());
-        return;
-};
-
 subpackage netsplit;
 
 ## some aliases //zak

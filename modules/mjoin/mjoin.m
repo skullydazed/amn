@@ -1,11 +1,6 @@
 # Copyright (c) 2003-2026 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 package amnesiac::mjoin;
 
 @chansfile=word(0 $_modsinfo.mjoin.savefiles);
@@ -77,9 +72,9 @@ alias chansave {
 		xecho $acban Could not open temporary save for $path;
 		return;
 	};
-	@:failed = 0;
+	@:failed = write($fd # amnesiac channel list file v1 - saved $strftime($time() %D %T)) < 0;
 	for (@xx=1, xx<numitems(channel_array), @xx++) {
-		if (write($fd @chans.$xx=[$getitem(channel_array $xx)]) < 0) {
+		if (write($fd $save.assignment(chans.$xx $getitem(channel_array $xx))) < 0) {
 			@failed = 1;
 		};
 	};
@@ -96,7 +91,7 @@ alias chanload {
 	foreach chans entry {
 		^assign -chans.$entry;
 	};
-	^load $(savepath)$chansfile;
+	save.read "$(savepath)$chansfile";
 	@delarray(channel_array);
 	@ii = 1;
 	@setitem(channel_array 0 !);

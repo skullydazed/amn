@@ -9,11 +9,6 @@
 # a way to get email to your irc client. Many carriers support sending email
 # via sms, allowing you to use this script to relay via sms.
 
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 package amnesiac::relaysmtp;
 
 # /config stuff
@@ -130,7 +125,7 @@ alias rsmtphelp {
 };
 
 alias rsmtpload {
-	^load $(savepath)relaysmtp.save;
+	save.read "$(savepath)relaysmtp.save";
 };
 
 alias rsmtpsave {
@@ -140,26 +135,26 @@ alias rsmtpsave {
 		xecho $acban Could not open temporary save for $path;
 		return;
 	};
-	@:failed = 0;
-	if (write($fd config.rsmtpstatus -l $_modsinfo.relaysmtp.phoneStatus) < 0) {
+	@:failed = write($fd # amnesiac relaysmtp file v1 - saved $strftime($time() %D %T)) < 0;
+	if (write($fd $save.statement(config.rsmtpstatus -l $_modsinfo.relaysmtp.phoneStatus)) < 0) {
 		@failed = 1;
 	};
-	if (write($fd config.rsmtpemailuser -l $_modsinfo.relaysmtp.emailUser) < 0) {
+	if (write($fd $save.statement(config.rsmtpemailuser -l $_modsinfo.relaysmtp.emailUser)) < 0) {
 		@failed = 1;
 	};
-	if (write($fd config.rsmtpemailpass -l $_modsinfo.relaysmtp.emailPass) < 0) {
+	if (write($fd $save.statement(config.rsmtpemailpass -l $_modsinfo.relaysmtp.emailPass)) < 0) {
 		@failed = 1;
 	};
-	if (write($fd config.rsmtpemaildomain -l $_modsinfo.relaysmtp.emailDomain) < 0) {
+	if (write($fd $save.statement(config.rsmtpemaildomain -l $_modsinfo.relaysmtp.emailDomain)) < 0) {
 		@failed = 1;
 	};
-	if (write($fd config.rsmtpemailsep -l $_modsinfo.relaysmtp.emailSep) < 0) {
+	if (write($fd $save.statement(config.rsmtpemailsep -l $_modsinfo.relaysmtp.emailSep)) < 0) {
 		@failed = 1;
 	};
-	if (write($fd config.rsmtpemaildestaddress -l $_modsinfo.relaysmtp.destAddress) < 0) {
+	if (write($fd $save.statement(config.rsmtpemaildestaddress -l $_modsinfo.relaysmtp.destAddress)) < 0) {
 		@failed = 1;
 	};
-	if (write($fd config.rsmtpsendmail -l $_modsinfo.relaysmtp.sendmail) < 0) {
+	if (write($fd $save.statement(config.rsmtpsendmail -l $_modsinfo.relaysmtp.sendmail)) < 0) {
 		@failed = 1;
 	};
 	if (close($fd) != 0) {

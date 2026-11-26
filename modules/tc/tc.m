@@ -6,8 +6,6 @@
  * Please use and distribute this script like crazy!
  */
 
-if (word(2 $loadinfo()) != [pf]) { load -pf $word(1 $loadinfo()); return; };
-
 # (note from jfn)  The original allowed you to save up to 10 nicks to
 # by cycled through by pressing <tab> or <esc>.  I totaly rewrote the file
 # and added the ability to set the number of nicks to save, and also made

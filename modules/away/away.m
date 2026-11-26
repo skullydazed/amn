@@ -1,10 +1,5 @@
 # Copyright (c) 2003-2026 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 package amnesiac::away;
 osetitem away awaytime A-setaway time:;
 osetitem away awaytog A-setaway on/off:;

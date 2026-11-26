@@ -3,10 +3,6 @@
 
 ## functions/aliases/partial sets/from scripts/builtins
 
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
 subpackage compat;
 
 ## NOTE: alot of functions/aliases/etc. in compat.m are from scripts/builtins

@@ -1,11 +1,6 @@
 # Copyright (c) 2003-2026 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
 
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 package amnesiac::nlog;
 osetitem misc nlog Log notify signoffs:;
 
@@ -77,8 +72,8 @@ alias nsave {
 		xecho $acban Could not open temporary save for $path;
 		return;
 	};
-	@:failed = 0;
-	if (write($fd @nsolog=[$nsolog]) < 0) {
+	@:failed = write($fd # amnesiac notification log file v1 - saved $strftime($time() %D %T)) < 0;
+	if (write($fd $save.assignment(nsolog $nsolog)) < 0) {
 		@failed = 1;
 	};
 	if (close($fd) != 0) {
@@ -92,6 +87,6 @@ alias nsave {
 
 alias nload {
 	if (@word(2 $stat("$(savepath)$nfile"))) {
-		load $(savepath)$nfile;
+		save.read "$(savepath)$nfile";
 	};
 };

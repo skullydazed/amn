@@ -3,11 +3,6 @@
 ## codelogic's theme module, thanx to robohak for help w/ padding
 ## modified crapple/kreca 05&06
 
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 subpackage theme;
 
 alias tsave (name,...) {
@@ -26,25 +21,28 @@ alias tsave (name,...) {
 	@:failed = 0;
 	@desc = *;
 	@:auth=N;
-	if (write($fd :$auth) < 0) {
+	if (write($fd #:$auth) < 0) {
 		@failed = 1;
 	};
-	if (write($fd :$desc) < 0) {
+	if (write($fd #:$desc) < 0) {
 		@failed = 1;
 	};
-	if (write($fd :$name) < 0) {
+	if (write($fd #:$name) < 0) {
 		@failed = 1;
 	};
-	if (write($fd assign scdesc \\\($desc\\\)) < 0) {
+	if (write($fd # amnesiac theme file v1 - saved $strftime($time() %D %T)) < 0) {
+		@failed = 1;
+	};
+	if (write($fd $save.statement(assign scdesc \\\($desc\\\))) < 0) {
 		@failed = 1;
 	};
 	fe ($oldvars ) cvar {
-		if (write($fd assign $cvar $($cvar)) < 0) {
+		if (write($fd $save.statement(assign $cvar $($cvar))) < 0) {
 			@failed = 1;
 		};
 	};
 	fe ($format_strings ) cvar {
-		if (write($fd assign theme.format.$cvar $(theme.format.$cvar)) < 0) {
+		if (write($fd $save.statement(assign theme.format.$cvar $(theme.format.$cvar))) < 0) {
 			@failed = 1;
 		};
 	};
@@ -93,7 +91,9 @@ alias theme (name,void) {
 		if (!@word(2 $stat("$(loadpath)themes/${name}.th"))) {
 			xecho $acban theme ${name} does not exist;
 		}{
-			load $(loadpath)themes/${name}.th;
+			if (!save.read("$(loadpath)themes/${name}.th" $name)) {
+				return;
+			};
 			@format.init();
 			^getusers;
 			xecho $acban loaded theme file [${name}.th] by $auth $desc;

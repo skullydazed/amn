@@ -2,11 +2,6 @@
 # Copyright (c) 2007 hokkaido <jzzskijj gmail com>
 # See the 'COPYRIGHT' file for more information.
 # Modifications by kreca
-if (word(2 $loadinfo()) != [pf]) {
-        load -pf $word(1 $loadinfo());
-        return;
-};
-
 package amnesiac::utf8;
 
 ## sets

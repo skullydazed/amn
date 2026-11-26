@@ -2,7 +2,6 @@
 # See the 'COPYRIGHT' file for more information.
 # Make amnesiac behave a bit more like default epic with tc and netsplit
 # loaded, just the way skullY likes it.
-if (word(2 $loadinfo()) != [pf]) { load -pf $word(1 $loadinfo()); return; };
 package amnesiac::vanilla;
 
 @ bindctl(sequence ^D set parse_command listsplit);

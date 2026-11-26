@@ -3,11 +3,6 @@
 # taken from enigma. nutbar.
 # moved lsay here on 10.2.05 - crapple
 
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 package amnesiac::aol;
 
 @ setitem(aol 0 ALL OREAND THE GIFCHERRY BUSH DA BOON CHASED DA WHEASELGIFPASTECLITNUGGET SHIT);

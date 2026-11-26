@@ -1,9 +1,5 @@
 # Copyright (c) 2003-2026 Amnesiac Software Project.
 # See the 'COPYRIGHT' file for more information.
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
 subpackage fsets;
 
 @fwords="back chops ctcp_reply invite scan_footer scan_header scan_nicks scan_nicks_border scan_users scan_users_non scan_users_op scan_users_voc server_notice sort user_non wallop whois_actual whois_admin whois_away whois_channels whois_footer whois_header whois_ident whois_idle whois_name whois_nick whois_operator whois_server whois_signon whois_unknown whowas_footer whowas_header whowas_name whowas_nick whowas_unknown $format_strings";

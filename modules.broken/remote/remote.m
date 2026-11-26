@@ -8,12 +8,6 @@
 # another irc client.
 
 
-# Make sure we're using the pf loader
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 subpackage remote;
 
 :{
@@ -116,7 +110,7 @@ alias remotehelp (void) {
 };
 
 alias remoteload (void) {
-	^load $(savepath)remote.save;
+	save.read "$(savepath)remote.save";
 };
 
 alias remotesave (void) {
@@ -126,14 +120,14 @@ alias remotesave (void) {
 		xecho $acban Could not open temporary save for $path;
 		return;
 	};
-	@:failed = 0;
-	if (write($fd config.remotehostname -l $_modsinfo.remote.hostname) < 0) {
+	@:failed = write($fd # amnesiac remote file v1 - saved $strftime($time() %D %T)) < 0;
+	if (write($fd $save.statement(config.remotehostname -l $_modsinfo.remote.hostname)) < 0) {
 		@failed = 1;
 	};
-	if (write($fd config.remotelistenport -l $_modsinfo.remote.listenPort) < 0) {
+	if (write($fd $save.statement(config.remotelistenport -l $_modsinfo.remote.listenPort)) < 0) {
 		@failed = 1;
 	};
-	if (write($fd config.remotepassword -l $_modsinfo.remote.password) < 0) {
+	if (write($fd $save.statement(config.remotepassword -l $_modsinfo.remote.password)) < 0) {
 		@failed = 1;
 	};
 	if (close($fd) != 0) {

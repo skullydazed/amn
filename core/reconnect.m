@@ -11,11 +11,6 @@
 ## from oblivion and we still get more junk in which ive been trying to
 ## clean from the last oh i dunno 8 or so commits.
 
-if (word(2 $loadinfo()) != [pf]) {
-	load -pf $word(1 $loadinfo());
-	return;
-};
-
 package reconnect;
 
 ## /config connect wrappers/funcs

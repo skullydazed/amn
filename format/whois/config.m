@@ -4,7 +4,7 @@
 ## constructor
 alias format.loadwhois (number,void) {
 	if (fexist($(loadpath)format/whois/whois.$number) != -1) {
-		load ${loadpath}format/whois/whois.$number;
+		load -pf ${loadpath}format/whois/whois.$number;
 		@theme.format.whois = number;
 		return 1;
 	}{
@@ -14,7 +14,7 @@ alias format.loadwhois (number,void) {
 alias whoisform.show (void) {
 	fe ($numsort($glob($(loadpath)format/whois/whois.*))) ii {
 		@:i = after(-1 . $ii);
-		load ${loadpath}format/whois/whois.$i;
+		load -pf ${loadpath}format/whois/whois.$i;
 		xecho -v whois  [$(i)];
 		echo;
 		@format.loaditem(whois $i);
