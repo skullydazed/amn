@@ -1,5 +1,14 @@
-# Copyright (c) 2003-2026 Amnesiac Software Project.
-# See the 'COPYRIGHT' file for more information.
+# Amnesiac IRC script for EPIC6
+
+
+# Copyright
+
+Copyright (c) 2003-2026 Amnesiac Software Project.
+ See the 'COPYRIGHT' file for more information.
+
+# Old README contents
+
+Everything below this line is kept for historical purposes, and may or may not be accurate.
 
 * AMNESIAC HOME PAGE:	http://amnesiac.ircii.org
   IRC Support channel: #amnesiac on EFnet @ irc.efnet.org
@@ -45,14 +54,14 @@ in some way to this project.
 
         Jeremy Nelson  <jnelson at epicsol dot org>
         Brian Weiss    <brian at epicsol dot org>
-	Xavier	       <jak at epicsol dot org>
-	Jonas Trollvik <kreca at ircii dot org>
-	Zach White     <zwhite at ircii dot org>
-	Void	       <void at mindcryme dot com>
-	ryan	       <ryan at slipgate dot org>
-	violence       <prozac at scenewhore dot org>
-	adam	       <adam at d62 dot net>
-	Mike Garrison  <Alien88 at EFnet>
+        Xavier	       <jak at epicsol dot org>
+        Jonas Trollvik <kreca at ircii dot org>
+        Zach White     <zwhite at ircii dot org>
+        Void	       <void at mindcryme dot com>
+        ryan	       <ryan at slipgate dot org>
+        violence       <prozac at scenewhore dot org>
+        adam	       <adam at d62 dot net>
+        Mike Garrison  <Alien88 at EFnet>
         BlackJac       <BlackJac at EFnet>
         Trent Petrasek <trent at deathwish dot net>
 
