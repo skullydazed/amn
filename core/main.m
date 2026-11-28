@@ -5,7 +5,7 @@ subpackage main;
 
 #amnesiac version info
 @a.ver='amnesiac';
-@a.rel_id='1.alpha';
+@a.rel_id='1';
 @a.rel="3.0.$a.rel_id";
 @a.date='20261127';
 @a.snap='20261127';

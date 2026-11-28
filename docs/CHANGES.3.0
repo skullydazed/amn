@@ -1,6 +1,6 @@
 ChangeLog amnesiac 3.0.x releases
 
-2026.11.24-26 [version 3.0.1.alpha] [git 54]
+2026.11.24-26 [version 3.0.1] [git 54]
 - fix mdv so that it correctly honors the channel parameter. //skullY
 - fix package naming so /addmod and /delmod work correctly in all situations. //skullY
 - Replace the ignore engine with a completed version of hop's EPIC6 script while keeping AMN's user facing behavior. //skullY
