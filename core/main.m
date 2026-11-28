@@ -5,11 +5,11 @@ subpackage main;
 
 #amnesiac version info
 @a.ver='amnesiac';
-@a.rel_id='0';
+@a.rel_id='1.alpha';
 @a.rel="3.0.$a.rel_id";
-@a.date='20261123';
-@a.snap='20261123';
-@a.commitid='53';
+@a.date='20261127';
+@a.snap='20261127';
+@a.commitid='54';
 
 ## color vars.
 @ cl    = "[0m";
@@ -83,7 +83,7 @@ subpackage main;
 @clonecheck='off';
 
 # load default theme
-save.read "$(loadpath)themes/main.th" main;
+load -pf $(loadpath)themes/main.th;
 
 # Seed the RNG for cases where it's necessary
 @srand();

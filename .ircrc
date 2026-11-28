@@ -1,0 +1,1 @@
+eval load -pf $word(1 $loadinfo())/amn.epic

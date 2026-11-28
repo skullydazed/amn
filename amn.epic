@@ -119,23 +119,15 @@ if (fke6 == [dcc]) {
 	@fke6 = [];
 };
 
-## load format functions (no particular order required any more)
-fe ($glob($(loadpath)format/*)) ii {
-	load -pf $(ii)config.m;
+## List the bundled formats so startup also works from a ZIP.
+fe (action away banner channel ctcp kick messages misc mode nickname notice publics scan statusbar topic whois) category {
+	load -pf $(loadpath)format/$category/config.m;
 };
 
-## load core files
-fe ($glob($(loadpath)core/*.m)) mod {
-	if ( mod != "$(loadpath)core/compat.m" &&
-	     mod != "$(loadpath)core/addsets.m" &&
-	     mod != "$(loadpath)core/main.m" &&
-	     mod != "$(loadpath)core/config.m" &&
-	     mod != "$(loadpath)core/ignore.m" &&
-	     mod != "$(loadpath)core/notify.m" &&
-	     mod != "$(loadpath)core/save.m" ) {
-        	load -pf $mod;
-		_progress;
-	};
+## Load the remaining bundled core scripts in filename order.
+fe (action alias bind chanmodes color country exec format fsets help history hooks linedrawing mod modeshow netsplit paste reconnect scan server theme trickle wall window) mod {
+	load -pf $(loadpath)core/$(mod).m;
+	_progress;
 };
 
 ## load default modules

@@ -10,6 +10,7 @@ ChangeLog amnesiac 3.0.x releases
 - Add https links to the URL logger. //skullY
 - Convert everything to the pf loader. //skullY
   You'll be prompted to /save to update your config file, and /tsave if you have a custom theme.
+- Add support for loading the zip archive directly. Just put amn.zip in your load path and /load amn.zip. //skullY
 
 2026.11.22 [version 3.0.0] [git 53]
 - whaaaaaaaaat? new amn release? no way! //skullY

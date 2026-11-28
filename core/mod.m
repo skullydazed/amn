@@ -149,11 +149,9 @@ alias _loadmod {
 		return 0;
 	@ setitem(_mods $numitems(_mods) $cmod);
 	@:bhelp = 0;
-	if (@word(2 $stat("$(loadpath)modules/$(cmod)/config"))) {
-		load -pf $(loadpath)modules/$(cmod)/config;
-		if (@_modsinfo[$cmod][helpcmd]) {
-			@:bhelp=1;
-		};
+	load -pf $(loadpath)modules/$(cmod)/config;
+	if (@_modsinfo[$cmod][helpcmd]) {
+		@:bhelp=1;
 	};
 	load -pf $(loadpath)modules/$(cmod)/$(cmod).m;
 	if ( _modsinfo[$cmod][savefiles]) {
@@ -167,9 +165,7 @@ alias _loadmod {
 
 alias _modload {
 	fe ($_modules) cmod {
-		if (@word(2 $stat("$(loadpath)modules/$(cmod)/config"))) {
-			load -pf $(loadpath)modules/$(cmod)/config;
-		};
+		load -pf $(loadpath)modules/$(cmod)/config;
 	};
 	if (@word(2 $stat("$(savepath)$modfile"))) {
 		@ delarray(_mods);
